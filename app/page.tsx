@@ -58,7 +58,7 @@ export default function Home() {
 
       {/* Hero — two columns: headline + SEO copy + CTAs on the left, the
           animated ship logo at resting size on the right. */}
-      <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:py-16 lg:grid-cols-[1.05fr_.85fr] lg:py-20 2xl:max-w-7xl">
+      <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:py-16 md:grid-cols-[1.05fr_.85fr] md:py-20 2xl:max-w-7xl">
         <div className="relative animate-fadeUp">
           {/* Warm red glow sits behind the text, not the logo — behind the
               logo it haloed the art's square tile and looked cheap. */}
@@ -70,7 +70,7 @@ export default function Home() {
           <AnimatedLogo
             motion="rock"
             priority
-            className="mb-8 w-36 [mask-image:radial-gradient(ellipse_at_center,black_68%,transparent_98%)] lg:hidden"
+            className="mx-auto mb-8 w-36 [mask-image:radial-gradient(ellipse_at_center,black_68%,transparent_98%)] sm:mx-0 md:hidden"
           />
 
           <p className="inline-flex items-center gap-2 rounded-full bg-panel px-3.5 py-1.5 text-xs font-medium text-mute sm:text-sm">
@@ -109,7 +109,7 @@ export default function Home() {
           )}
         </div>
 
-        <div className="hidden animate-fadeUp lg:flex lg:justify-center">
+        <div className="hidden animate-fadeUp md:flex md:justify-center">
           <AnimatedLogo
             motion="rock"
             priority

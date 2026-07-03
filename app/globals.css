@@ -263,8 +263,10 @@ body > * {
 /* ------------------------------------------------------------------ */
 html.reader-mode header,
 html.reader-mode footer,
+html.reader-mode nav[aria-label="Mobile navigation"],
 html:has(.reader-shell) header,
-html:has(.reader-shell) footer {
+html:has(.reader-shell) footer,
+html:has(.reader-shell) nav[aria-label="Mobile navigation"] {
   display: none;
 }
 

@@ -57,6 +57,8 @@ const BLEACH_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/bleach-color-pages@main/pages";
 const NARUTO_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/naruto-color-pages@main/pages";
+const CHAINSAW_MAN_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/chainsaw-man-color-pages@main/pages";
 
 export const MANGAS: Manga[] = [
   {
@@ -332,14 +334,14 @@ export const MANGAS: Manga[] = [
     author: "Tatsuki Fujimoto",
     publisher: "Shueisha",
     genres: ["Action", "Horror", "Supernatural", "Dark Fantasy"],
-    status: "coming-soon",
+    status: "live",
     unit: "chapter",
     year: 2018,
-    imageBase: "",
+    imageBase: CHAINSAW_MAN_IMAGE_BASE,
     tagline:
-      "Tatsuki Fujimoto's devil-hunter horror, being digitally colorized in full HD.",
+      "Tatsuki Fujimoto's devil-hunter horror — Part 1 in official full color, HD.",
     synopsis:
-      "The colorized Chainsaw Man manga is coming soon. Every chapter of Tatsuki Fujimoto's blood-soaked series — Denji and his chainsaw devil Pochita, the Public Safety Devil Hunters, Makima and the war against the devils — is being digitally colored in high definition. Read Chainsaw Man in vivid full color online, free.",
+      "Read the colorized Chainsaw Man manga online for free — Part 1 in vivid official full color instead of black and white. Follow Denji and his chainsaw devil Pochita, the Public Safety Devil Hunters, Makima and the war against the devils, every chapter digitally colored in high definition. No signup, no paywall — a fast, mobile-friendly reader with pinch-to-zoom on every page.",
     keywords: [
       "colorized chainsaw man manga",
       "chainsaw man color manga",

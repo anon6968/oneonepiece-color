@@ -20,7 +20,7 @@ const CHROME_HIDE_MS = 3200;
 type Menu = "none" | "chapters" | "settings";
 
 function barBtn(disabled?: boolean) {
-  return `flex items-center justify-center rounded-lg bg-panel/80 text-mute transition hover:bg-panel-2 hover:text-fg disabled:pointer-events-none disabled:opacity-30 ${
+  return `flex items-center justify-center rounded-lg bg-panel/80 text-mute transition hover:bg-panel-2 hover:text-fg disabled:pointer-events-none disabled:opacity-30 min-h-[44px] min-w-[44px] ${
     disabled ? "" : "active:scale-95"
   }`;
 }

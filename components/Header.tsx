@@ -38,12 +38,7 @@ export default function Header() {
           </Link>
         </nav>
 
-        <Link
-          href="/#library"
-          className="ml-auto rounded-lg bg-panel px-3 py-1.5 text-xs font-semibold text-fg hover:bg-panel-2 sm:hidden"
-        >
-          All Manga
-        </Link>
+        {/* On mobile the bottom MobileNav handles navigation. */}
       </div>
     </header>
   );

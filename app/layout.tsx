@@ -6,6 +6,7 @@ import { SITE } from "@/lib/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HideOnHome from "@/components/HideOnHome";
+import MobileNav from "@/components/MobileNav";
 
 const geist = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
 
@@ -71,8 +72,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <HideOnHome>
           <Header />
         </HideOnHome>
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pb-14 sm:pb-0">{children}</main>
         <Footer />
+        <MobileNav />
         <Analytics />
       </body>
     </html>

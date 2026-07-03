@@ -27,11 +27,12 @@ export default function MangaInfoPanel({
         <div className="relative mx-auto max-w-[220px] overflow-hidden rounded-xl bg-ink-2 shadow-lg sm:max-w-none lg:max-w-[280px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={pageUrl(manga, firstChapter, 1)}
+            src={manga.poster ?? pageUrl(manga, firstChapter, 1)}
             alt={`Colorized ${manga.title} cover`}
             width={1080}
             height={1662}
-            className="aspect-[3/4] w-full object-cover object-top"
+            style={{ objectPosition: manga.posterPosition ?? "top" }}
+            className="aspect-[3/4] w-full object-cover"
           />
           <div
             className="pointer-events-none absolute inset-0"
@@ -67,7 +68,7 @@ export default function MangaInfoPanel({
           <div className="mt-4">
             <div className="mb-1.5 flex justify-between text-[11px] text-mute">
               <span>
-                {label} {s.last} of {totalExpected}
+                {label} {Math.min(s.last, totalExpected)} of {totalExpected}
               </span>
               <span>{progressPct}%</span>
             </div>
