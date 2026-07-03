@@ -2,13 +2,20 @@
 
 import { useMemo, useState } from "react";
 import ChapterCard from "./ChapterCard";
+import type { Manga } from "@/lib/manga";
 import type { IndexEntry } from "@/lib/data";
 
 function slug(s: string) {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
-export default function ChapterBrowser({ chapters }: { chapters: IndexEntry[] }) {
+export default function ChapterBrowser({
+  manga,
+  chapters,
+}: {
+  manga: Manga;
+  chapters: IndexEntry[];
+}) {
   const [q, setQ] = useState("");
 
   const query = q.trim().toLowerCase();
@@ -43,9 +50,9 @@ export default function ChapterBrowser({ chapters }: { chapters: IndexEntry[] })
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Search chapters — number, arc or saga (e.g. “Marineford”, “1015”)"
-          aria-label="Search chapters"
-          className="w-full rounded-xl bg-panel px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand/25"
+          placeholder={`Search ${manga.title} chapters — number, arc or saga`}
+          aria-label={`Search ${manga.title} chapters`}
+          className="w-full rounded-xl bg-panel px-4 py-2.5 text-sm outline-none ring-1 ring-line/50 focus:ring-2 focus:ring-brand/40"
         />
         <div className="mt-2 text-xs text-mute">
           {filtered.length} chapter{filtered.length === 1 ? "" : "s"}
@@ -68,7 +75,7 @@ export default function ChapterBrowser({ chapters }: { chapters: IndexEntry[] })
             </div>
             <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
               {g.chapters.map((c) => (
-                <ChapterCard key={c.chapter} c={c} />
+                <ChapterCard key={c.chapter} manga={manga} c={c} />
               ))}
             </div>
           </section>

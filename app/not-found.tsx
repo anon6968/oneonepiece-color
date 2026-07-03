@@ -6,9 +6,9 @@ export default function NotFound() {
       <div className="text-6xl">🧭</div>
       <h1 className="mt-4 text-2xl font-black">This page sailed off the map</h1>
       <p className="mt-2 text-sm text-mute">
-        We couldn&apos;t find that chapter. It may not be colorized yet, or the number is off.
+        We couldn&apos;t find that page. The chapter may not be colorized yet, or the address is off.
       </p>
-      <div className="mt-6 flex gap-3">
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
         <Link
           href="/"
           className="rounded-xl bg-gradient-to-r from-brand to-brand-2 px-5 py-2.5 text-sm font-bold text-white"
@@ -16,10 +16,10 @@ export default function NotFound() {
           Home
         </Link>
         <Link
-          href="/chapters"
-          className="rounded-xl bg-panel px-5 py-2.5 text-sm font-semibold"
+          href="/one-piece"
+          className="rounded-xl bg-panel px-5 py-2.5 text-sm font-semibold ring-1 ring-line/60"
         >
-          All chapters
+          Read One Piece in color
         </Link>
       </div>
     </div>

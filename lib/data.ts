@@ -28,38 +28,48 @@ export interface Chapter {
   pages: PageMeta[];
 }
 
-const DATA_DIR = path.join(process.cwd(), "data");
+const DATA_DIR = path.join(process.cwd(), "data", "manga");
 
-let _index: IndexEntry[] | null = null;
-
-export function getIndex(): IndexEntry[] {
-  if (_index) return _index;
-  try {
-    const raw = fs.readFileSync(path.join(DATA_DIR, "index.json"), "utf8");
-    const parsed = JSON.parse(raw);
-    _index = (parsed.chapters as IndexEntry[]).sort((a, b) => a.chapter - b.chapter);
-  } catch {
-    _index = [];
-  }
-  return _index;
+function mangaDir(slug: string) {
+  return path.join(DATA_DIR, slug);
 }
 
-export function getChapter(n: number): Chapter | null {
+const _indexCache = new Map<string, IndexEntry[]>();
+
+export function getIndex(slug: string): IndexEntry[] {
+  const cached = _indexCache.get(slug);
+  if (cached) return cached;
+  let index: IndexEntry[];
   try {
-    const raw = fs.readFileSync(path.join(DATA_DIR, "chapters", `${n}.json`), "utf8");
+    const raw = fs.readFileSync(path.join(mangaDir(slug), "index.json"), "utf8");
+    const parsed = JSON.parse(raw);
+    index = (parsed.chapters as IndexEntry[]).sort((a, b) => a.chapter - b.chapter);
+  } catch {
+    index = [];
+  }
+  _indexCache.set(slug, index);
+  return index;
+}
+
+export function getChapter(slug: string, n: number): Chapter | null {
+  try {
+    const raw = fs.readFileSync(
+      path.join(mangaDir(slug), "chapters", `${n}.json`),
+      "utf8",
+    );
     return JSON.parse(raw) as Chapter;
   } catch {
     return null;
   }
 }
 
-export function getChapterNumbers(): number[] {
-  return getIndex().map((c) => c.chapter);
+export function getChapterNumbers(slug: string): number[] {
+  return getIndex(slug).map((c) => c.chapter);
 }
 
-/** Neighbouring available chapters (they may not be strictly +/-1 due to B&W gaps). */
-export function neighbours(n: number): { prev: number | null; next: number | null } {
-  const nums = getChapterNumbers();
+/** Neighbouring available chapters (may not be strictly +/-1 due to gaps). */
+export function neighbours(slug: string, n: number): { prev: number | null; next: number | null } {
+  const nums = getChapterNumbers(slug);
   const i = nums.indexOf(n);
   if (i === -1) {
     const prev = [...nums].reverse().find((x) => x < n) ?? null;
@@ -75,8 +85,8 @@ export interface SagaGroup {
   chapters: IndexEntry[];
 }
 
-export function groupBySaga(): SagaGroup[] {
-  const index = getIndex();
+export function groupBySaga(slug: string): SagaGroup[] {
+  const index = getIndex(slug);
   const order: string[] = [];
   const map = new Map<string, IndexEntry[]>();
   for (const c of index) {
@@ -105,11 +115,23 @@ export function groupBySaga(): SagaGroup[] {
   });
 }
 
-export function stats() {
-  const index = getIndex();
+export interface MangaStats {
+  total: number;
+  colored: number;
+  partial: number;
+  last: number;
+  totalPages: number;
+}
+
+export function stats(slug: string): MangaStats {
+  const index = getIndex(slug);
   const colored = index.filter((c) => c.type === "color").length;
   const partial = index.filter((c) => c.type === "partial").length;
   const last = index.length ? index[index.length - 1].chapter : 0;
   const totalPages = index.reduce((s, c) => s + c.pageCount, 0);
   return { total: index.length, colored, partial, last, totalPages };
+}
+
+export function sagaSlug(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }

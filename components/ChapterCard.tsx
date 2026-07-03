@@ -1,18 +1,27 @@
 import Link from "next/link";
-import { pageUrl } from "@/lib/site";
+import { chapterPath, pageUrl } from "@/lib/site";
+import type { Manga } from "@/lib/manga";
 import type { IndexEntry } from "@/lib/data";
 
-export default function ChapterCard({ c, priority = false }: { c: IndexEntry; priority?: boolean }) {
+export default function ChapterCard({
+  manga,
+  c,
+  priority = false,
+}: {
+  manga: Manga;
+  c: IndexEntry;
+  priority?: boolean;
+}) {
   return (
     <Link
-      href={`/read/${c.chapter}`}
-      className="group relative overflow-hidden rounded-lg bg-panel transition hover:opacity-90"
+      href={chapterPath(manga.slug, c.chapter)}
+      className="group relative overflow-hidden rounded-lg bg-panel ring-1 ring-line/50 transition hover:ring-brand/50"
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-ink-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={pageUrl(c.chapter, 1)}
-          alt={`One Piece color manga Chapter ${c.chapter} — ${c.arc}`}
+          src={pageUrl(manga, c.chapter, 1)}
+          alt={`${manga.title} color manga Chapter ${c.chapter} — ${c.arc}`}
           width={c.coverW}
           height={c.coverH}
           loading={priority ? "eager" : "lazy"}

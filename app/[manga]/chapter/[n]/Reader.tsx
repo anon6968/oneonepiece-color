@@ -4,10 +4,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { pageUrl } from "@/lib/site";
+import { chapterPath, chaptersPath, pageUrl } from "@/lib/site";
+import type { Manga } from "@/lib/manga";
 import type { PageMeta } from "@/lib/data";
 
 interface Props {
+  manga: Manga;
   chapter: number;
   arc: string;
   saga: string;
@@ -20,7 +22,7 @@ interface Props {
 
 const WIDTHS = [480, 560, 640, 720, 820, 940, 1080, 1240];
 
-export default function Reader({ chapter, arc, saga, type, pages, prev, next, total }: Props) {
+export default function Reader({ manga, chapter, arc, saga, type, pages, prev, next, total }: Props) {
   const router = useRouter();
   const [wIdx, setWIdx] = useState(4);
   const [lightbox, setLightbox] = useState<number | null>(null);
@@ -28,14 +30,16 @@ export default function Reader({ chapter, arc, saga, type, pages, prev, next, to
   const [cur, setCur] = useState(1);
   const pageRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  const storeKey = `cm_width_${manga.slug}`;
+
   // restore preferred width
   useEffect(() => {
-    const s = Number(localStorage.getItem("op_width"));
+    const s = Number(localStorage.getItem(storeKey));
     if (Number.isInteger(s) && s >= 0 && s < WIDTHS.length) setWIdx(s);
-  }, []);
+  }, [storeKey]);
   useEffect(() => {
-    localStorage.setItem("op_width", String(wIdx));
-  }, [wIdx]);
+    localStorage.setItem(storeKey, String(wIdx));
+  }, [storeKey, wIdx]);
 
   // scroll progress + current page tracking
   useEffect(() => {
@@ -56,8 +60,14 @@ export default function Reader({ chapter, arc, saga, type, pages, prev, next, to
     return () => window.removeEventListener("scroll", onScroll);
   }, [pages.length]);
 
-  const goPrev = useCallback(() => prev && router.push(`/read/${prev}`), [prev, router]);
-  const goNext = useCallback(() => next && router.push(`/read/${next}`), [next, router]);
+  const goPrev = useCallback(
+    () => prev && router.push(chapterPath(manga.slug, prev)),
+    [prev, router, manga.slug],
+  );
+  const goNext = useCallback(
+    () => next && router.push(chapterPath(manga.slug, next)),
+    [next, router, manga.slug],
+  );
 
   // keyboard
   useEffect(() => {
@@ -89,18 +99,18 @@ export default function Reader({ chapter, arc, saga, type, pages, prev, next, to
       </div>
 
       {/* toolbar */}
-      <div className="sticky top-14 z-30 bg-ink/90 backdrop-blur">
+      <div className="sticky top-14 z-30 border-b border-line/50 bg-ink/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center gap-2 px-3 py-2">
           <Link
-            href="/chapters"
+            href={chaptersPath(manga.slug)}
             className="rounded-lg bg-panel px-2.5 py-1.5 text-xs text-mute hover:text-fg"
-            aria-label="All chapters"
+            aria-label={`All ${manga.title} chapters`}
           >
             ☰
           </Link>
           <div className="min-w-0">
             <div className="truncate text-sm font-bold">
-              Chapter {chapter}
+              {manga.title} · Ch. {chapter}
               {type === "partial" && (
                 <span className="ml-2 rounded bg-gold/90 px-1 py-0.5 text-[10px] font-bold text-ink">
                   PARTIAL
@@ -172,8 +182,8 @@ export default function Reader({ chapter, arc, saga, type, pages, prev, next, to
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={pageUrl(chapter, p.n)}
-                alt={`One Piece color Chapter ${chapter} page ${p.n}`}
+                src={pageUrl(manga, chapter, p.n)}
+                alt={`${manga.title} color Chapter ${chapter} page ${p.n}`}
                 width={p.w}
                 height={p.h}
                 loading={i < 2 ? "eager" : "lazy"}
@@ -211,7 +221,7 @@ export default function Reader({ chapter, arc, saga, type, pages, prev, next, to
         </button>
       </div>
       <p className="mt-6 text-center text-xs text-mute">
-        Chapter {chapter} of {total} · One Piece colored manga
+        Chapter {chapter} of {total} · {manga.title} colored manga
       </p>
 
       {/* lightbox with pinch/wheel zoom + pan */}
@@ -246,8 +256,8 @@ export default function Reader({ chapter, arc, saga, type, pages, prev, next, to
                   <div className="flex h-full w-full items-center justify-center">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={pageUrl(chapter, pages[lightbox].n)}
-                      alt={`One Piece color Chapter ${chapter} page ${pages[lightbox].n} (zoom)`}
+                      src={pageUrl(manga, chapter, pages[lightbox].n)}
+                      alt={`${manga.title} color Chapter ${chapter} page ${pages[lightbox].n} (zoom)`}
                       className="max-h-screen w-auto max-w-full select-none object-contain"
                       draggable={false}
                     />

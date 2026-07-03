@@ -10,8 +10,8 @@ const geist = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "One Piece Color Manga — Read One Piece in Full Color Online Free",
-    template: "%s | One Piece Color Manga",
+    default: "Colorized Manga — Read Manga in Full Color Online Free",
+    template: "%s | Colorized Manga",
   },
   description: SITE.description,
   keywords: [...SITE.keywords],
@@ -21,12 +21,12 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE.url,
     siteName: SITE.name,
-    title: "One Piece Color Manga — Read One Piece in Full Color",
+    title: "Colorized Manga — Read Manga in Full Color",
     description: SITE.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "One Piece Color Manga — Read One Piece in Full Color",
+    title: "Colorized Manga — Read Manga in Full Color",
     description: SITE.description,
   },
   robots: {
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#07070b",
+  themeColor: "#050506",
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
