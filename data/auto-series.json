@@ -154,6 +154,43 @@
     "totalChapters": 29
   },
   {
+    "slug": "medaka-box",
+    "color": "full",
+    "title": "Medaka Box",
+    "altTitles": [
+      "Medaka Box Color",
+      "Colorized Medaka Box",
+      "めだかボックス （ジャンプコミックスDIGITAL）",
+      "Medaka Box - Digital Colored Comics"
+    ],
+    "author": "NISIOISIN",
+    "publisher": "",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Martial Arts",
+      "Adventure",
+      "Drama"
+    ],
+    "status": "live",
+    "unit": "chapter",
+    "year": 2012,
+    "imageBase": "https://cdn.jsdelivr.net/gh/anon6968/medaka-box-color-pages@main/pages",
+    "tagline": "Medaka Box — full color, HD.",
+    "synopsis": "Kurokami Medaka, a first year, is elected as Student Council President, and the first thing she does is establish a suggestion box. Since she was just elected as Student Council President, she's holding all the Student Council's responsibilities, and wearing their armbands. So, she asks her childhood friend Hitoyoshi Zenkichi, for help. This release has 21 volumes compared to the 22 for the monochrome version and is split into 7 parts. Each part being a different arc with 1-5 volumes. Part 1: Student Council Executive Arc Vol. 1-2, (1-2) Part 2: Thirteen Party Arc Vol. 1-4, (3-6) Part 3: Kumag",
+    "keywords": [
+      "colorized medaka box manga",
+      "medaka box color manga",
+      "read medaka box in color",
+      "medaka box full color",
+      "medaka box manga online free"
+    ],
+    "accent": "#2fbf71",
+    "mark": "📖",
+    "totalChapters": 44,
+    "nativeTitle": "めだかボックス （ジャンプコミックスDIGITAL）"
+  },
+  {
     "slug": "shin-elf-san-wa-yaserarenai",
     "color": "full",
     "title": "Shin Elf-san wa Yaserarenai.",
