@@ -208,15 +208,14 @@ export default function ChapterBrowser({
 
   return (
     <div>
-      {/* Toolbar */}
-      <div className="sticky top-14 z-30 -mx-1 mb-5 rounded-2xl border border-line/50 bg-ink/85 p-2.5 backdrop-blur-xl sm:-mx-2 sm:p-3 lg:top-0">
-        {/* One compact row: view (left) · search (middle) · filters (right) */}
-        <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-3">
-          {/* View options — left */}
-          <Segmented options={viewOptions} value={view} onChange={setView} label="View mode" />
-
-          {/* Search — grows to fill */}
-          <div className="relative min-w-0 flex-1">
+      {/* Toolbar — sticks under the site header. Fully opaque and full-bleed
+          so cards never show through it, and kept slim on phones: search on
+          top, then one swipeable row of view tabs + filters. The meta line
+          below is NOT sticky, so scrolling costs the least screen possible. */}
+      <div className="sticky top-14 z-30 -mx-4 mb-2 border-b border-line/60 bg-ink px-4 py-2.5 sm:py-3">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+          {/* Search — first (row of its own) on phones, middle on desktop */}
+          <div className="relative min-w-0 flex-1 sm:order-2">
             <svg
               viewBox="0 0 20 20"
               width="16"
@@ -253,56 +252,66 @@ export default function ChapterBrowser({
             )}
           </div>
 
-          {/* Filters — right */}
-          <div className="flex shrink-0 flex-wrap gap-1.5">
-            {filterTabs.map((tab) => {
-              const active = filter === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => setFilter(tab.id)}
-                  className={
-                    "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition " +
-                    (active
-                      ? "bg-brand/15 text-brand ring-1 ring-brand/40"
-                      : "text-mute hover:bg-panel-2 hover:text-fg")
-                  }
-                >
-                  {tab.label}
-                  <span className={active ? "opacity-80" : "opacity-60"}>{tab.count}</span>
-                </button>
-              );
-            })}
+          {/* View tabs + filters — one horizontally swipeable row on phones;
+              on sm+ this wrapper dissolves (display:contents) and the two
+              groups flank the search bar via order. */}
+          <div className="no-scrollbar -mx-4 flex items-center gap-2 overflow-x-auto px-4 sm:contents">
+            <div className="shrink-0 sm:order-1">
+              <Segmented options={viewOptions} value={view} onChange={setView} label="View mode" />
+            </div>
+
+            <span className="h-5 w-px shrink-0 bg-line/70 sm:hidden" aria-hidden />
+
+            <div className="flex shrink-0 gap-1.5 sm:order-3">
+              {filterTabs.map((tab) => {
+                const active = filter === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setFilter(tab.id)}
+                    className={
+                      "inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition " +
+                      (active
+                        ? "bg-brand/15 text-brand ring-1 ring-brand/40"
+                        : "text-mute hover:bg-panel-2 hover:text-fg")
+                    }
+                  >
+                    {tab.label}
+                    <span className={active ? "opacity-80" : "opacity-60"}>{tab.count}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Meta line */}
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-mute">
-          <span>
-            <span className="font-semibold text-fg">{filtered.length}</span>{" "}
-            {filtered.length === 1 ? label.toLowerCase() : plural}
-            {query ? ` matching “${q}”` : filter === "full" ? " in the roadmap" : " ready to read"}
+      {/* Meta line — scrolls away with the page */}
+      <div className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-mute">
+        <span>
+          <span className="font-semibold text-fg">{filtered.length}</span>{" "}
+          {filtered.length === 1 ? label.toLowerCase() : plural}
+          {query ? ` matching “${q}”` : filter === "full" ? " in the roadmap" : " ready to read"}
+        </span>
+        {filter === "full" && totalExpected && chapters.length < totalExpected && (
+          <span className="text-gold">
+            {chapters.length} live · {totalExpected - chapters.length} upcoming
           </span>
-          {filter === "full" && totalExpected && chapters.length < totalExpected && (
-            <span className="text-gold">
-              {chapters.length} live · {totalExpected - chapters.length} upcoming
-            </span>
-          )}
-          {grouped && groups.length > 1 && (
-            <button
-              type="button"
-              onClick={() =>
-                setCollapsed((prev) =>
-                  prev.size >= groups.length ? new Set() : new Set(groups.map((g) => g.name)),
-                )
-              }
-              className="ml-auto rounded-md px-1.5 py-0.5 font-medium text-mute transition hover:text-fg"
-            >
-              {collapsed.size >= groups.length ? "Expand all" : "Collapse all"}
-            </button>
-          )}
-        </div>
+        )}
+        {grouped && groups.length > 1 && (
+          <button
+            type="button"
+            onClick={() =>
+              setCollapsed((prev) =>
+                prev.size >= groups.length ? new Set() : new Set(groups.map((g) => g.name)),
+              )
+            }
+            className="ml-auto rounded-md px-1.5 py-0.5 font-medium text-mute transition hover:text-fg"
+          >
+            {collapsed.size >= groups.length ? "Expand all" : "Collapse all"}
+          </button>
+        )}
       </div>
 
       {/* Empty state */}

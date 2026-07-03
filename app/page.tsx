@@ -76,7 +76,7 @@ export default function Home() {
           <p className="inline-flex items-center gap-2 rounded-full bg-panel px-3.5 py-1.5 text-xs font-medium text-mute sm:text-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulseGlow" aria-hidden />
             {totalPages.toLocaleString("en-US")} pages colorized · {live.length} series live ·{" "}
-            {soon.length} more coming
+            {soon.length} more in the library
           </p>
 
           <h1 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-6xl">
@@ -134,17 +134,20 @@ export default function Home() {
         </div>
 
         {soon.length > 0 && (
-          <p className="mt-10 text-center text-sm text-mute/80">
-            <span className="font-semibold text-mute">Coming soon:</span>{" "}
-            {soon.map((m, i) => (
-              <span key={m.slug}>
-                {i > 0 && " · "}
-                <Link href={mangaPath(m.slug)} className="transition hover:text-fg">
-                  {m.title}
-                </Link>
-              </span>
-            ))}
-          </p>
+          <div className="mt-14">
+            <h3 className="text-xl font-bold tracking-tight sm:text-2xl">More in the library</h3>
+            <p className="mt-1.5 mb-6 text-sm text-mute sm:text-base">
+              Every badge is honest: <span className="font-semibold text-fg">Partial color</span> means
+              only some chapters are colored, and{" "}
+              <span className="font-semibold text-fg">B&amp;W — not colorized</span> means we don&apos;t
+              have a color version of that series.
+            </p>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              {soon.map((m) => (
+                <MangaCard key={m.slug} manga={m} />
+              ))}
+            </div>
+          </div>
         )}
       </section>
 

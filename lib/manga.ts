@@ -5,6 +5,13 @@
 
 export type MangaStatus = "live" | "coming-soon";
 
+/** How much of the series we actually serve in color — drives the honesty
+ *  badge so nothing black-and-white is ever passed off as colorized.
+ *   full    = the whole (or nearly whole) series is in color
+ *   partial = only some chapters are colored (see colorNote)
+ *   none    = no genuine color source exists; black & white only */
+export type MangaColor = "full" | "partial" | "none";
+
 /** Reading unit the series is stored/served in. One Piece & Bleach are
  *  per-chapter; Naruto's colored edition ships as full volumes. */
 export type MangaUnit = "chapter" | "volume";
@@ -22,6 +29,10 @@ export interface Manga {
   publisher: string;
   genres: string[];
   status: MangaStatus;
+  /** How much of the series is actually in color (honesty badge). */
+  color: MangaColor;
+  /** Clarifier shown for partial/none, e.g. "Final arc only (ch 140–205)". */
+  colorNote?: string;
   /** Reading unit — "chapter" (default) or "volume". Drives routes + copy. */
   unit: MangaUnit;
   /** First year of serialization (schema.org datePublished / copy) */
@@ -59,10 +70,19 @@ const NARUTO_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/naruto-color-pages@main/pages";
 const CHAINSAW_MAN_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/chainsaw-man-color-pages@main/pages";
+const HUNTER_X_HUNTER_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/hunter-x-hunter-color-pages@main/pages";
+const DEMON_SLAYER_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/demon-slayer-color-pages@main/pages";
+const DEATH_NOTE_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/death-note-color-pages@main/pages";
+const RUROUNI_KENSHIN_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/rurouni-kenshin-color-pages@main/pages";
 
 export const MANGAS: Manga[] = [
   {
     slug: "one-piece",
+    color: "full",
     title: "One Piece",
     nativeTitle: "ワンピース",
     altTitles: ["One Piece Color", "One Piece Colored", "Colorized One Piece"],
@@ -97,6 +117,7 @@ export const MANGAS: Manga[] = [
   },
   {
     slug: "naruto",
+    color: "full",
     title: "Naruto",
     nativeTitle: "ナルト",
     altTitles: ["Naruto Color", "Colorized Naruto", "Naruto Colored"],
@@ -131,6 +152,7 @@ export const MANGAS: Manga[] = [
   },
   {
     slug: "bleach",
+    color: "full",
     title: "Bleach",
     nativeTitle: "ブリーチ",
     altTitles: ["Bleach Color", "Colorized Bleach", "Bleach Colored"],
@@ -163,6 +185,8 @@ export const MANGAS: Manga[] = [
   },
   {
     slug: "demon-slayer",
+    color: "partial",
+    colorNote: "Final arc only — chapters 140–205 (the only part colored in English)",
     title: "Demon Slayer",
     nativeTitle: "鬼滅の刃",
     altTitles: [
@@ -174,14 +198,14 @@ export const MANGAS: Manga[] = [
     author: "Koyoharu Gotouge",
     publisher: "Shueisha",
     genres: ["Action", "Adventure", "Supernatural", "Historical"],
-    status: "coming-soon",
+    status: "live",
     unit: "chapter",
     year: 2016,
-    imageBase: "",
+    imageBase: DEMON_SLAYER_IMAGE_BASE,
     tagline:
-      "Koyoharu Gotouge's Kimetsu no Yaiba, being digitally colorized in full HD.",
+      "Koyoharu Gotouge's Kimetsu no Yaiba — the final arc in official full color.",
     synopsis:
-      "The colorized Demon Slayer (Kimetsu no Yaiba) manga is coming soon. Every chapter of Koyoharu Gotouge's smash-hit series — Tanjiro Kamado's quest to cure his sister Nezuko, the Hashira, and the war against Muzan and his Twelve Kizuki — is being digitally colored in high definition. Read Demon Slayer in vivid full color online, free.",
+      "Read the colorized Demon Slayer (Kimetsu no Yaiba) manga in official full color. The climactic final arc — chapters 140–205, the Infinity Castle battles and Sunrise Countdown against Muzan — is available now in vivid color; the earlier chapters aren't colored in English yet. No signup, a fast mobile-friendly reader with zoom on every page.",
     keywords: [
       "colorized demon slayer manga",
       "demon slayer color manga",
@@ -197,20 +221,22 @@ export const MANGAS: Manga[] = [
   },
   {
     slug: "death-note",
+    color: "partial",
+    colorNote: "Chapters 1–10 only — the rest isn't colored yet",
     title: "Death Note",
     nativeTitle: "デスノート",
     altTitles: ["Death Note Color", "Colorized Death Note", "Death Note Colored"],
     author: "Tsugumi Ohba, Takeshi Obata",
     publisher: "Shueisha",
     genres: ["Mystery", "Psychological", "Thriller", "Supernatural"],
-    status: "coming-soon",
+    status: "live",
     unit: "chapter",
     year: 2003,
-    imageBase: "",
+    imageBase: DEATH_NOTE_IMAGE_BASE,
     tagline:
-      "Ohba & Obata's psychological thriller, being digitally colorized in full HD.",
+      "Ohba & Obata's psychological thriller — the opening arc in official color.",
     synopsis:
-      "The colorized Death Note manga is on its way. Every chapter of Tsugumi Ohba and Takeshi Obata's psychological thriller — Light Yagami's deadly game against the detective L after finding a notebook that kills — is being digitally colored in high definition. Read Death Note in vivid full color online, free, on any device.",
+      "Read the colorized Death Note manga in official full color. The opening chapters (1–10) are available now in vivid color, with more added as they're colorized — Light Yagami's deadly game against the detective L after finding a notebook that kills. No signup, a fast mobile-friendly reader with zoom on every page.",
     keywords: [
       "colorized death note manga",
       "death note color manga",
@@ -226,6 +252,8 @@ export const MANGAS: Manga[] = [
   },
   {
     slug: "fullmetal-alchemist",
+    color: "none",
+    colorNote: "No colorized source available — black & white only",
     title: "Fullmetal Alchemist",
     nativeTitle: "鋼の錬金術師",
     altTitles: [
@@ -260,6 +288,8 @@ export const MANGAS: Manga[] = [
   },
   {
     slug: "attack-on-titan",
+    color: "none",
+    colorNote: "No colorized source available — black & white only",
     title: "Attack on Titan",
     nativeTitle: "進撃の巨人",
     altTitles: [
@@ -294,6 +324,7 @@ export const MANGAS: Manga[] = [
   },
   {
     slug: "hunter-x-hunter",
+    color: "full",
     title: "Hunter × Hunter",
     nativeTitle: "ハンター×ハンター",
     altTitles: [
@@ -305,14 +336,14 @@ export const MANGAS: Manga[] = [
     author: "Yoshihiro Togashi",
     publisher: "Shueisha",
     genres: ["Action", "Adventure", "Fantasy"],
-    status: "coming-soon",
+    status: "live",
     unit: "chapter",
     year: 1998,
-    imageBase: "",
+    imageBase: HUNTER_X_HUNTER_IMAGE_BASE,
     tagline:
-      "Yoshihiro Togashi's adventure classic, being digitally colorized in full HD.",
+      "Yoshihiro Togashi's adventure epic — in official full color, HD.",
     synopsis:
-      "The colorized Hunter × Hunter manga is on its way. Every chapter of Yoshihiro Togashi's adventure epic — Gon Freecss's search for his father Ging, the Hunter Exam, Yorknew City, Greed Island and the Chimera Ant war — is being digitally colored in high definition. Read Hunter x Hunter in vivid full color online, free, on any device.",
+      "Read the colorized Hunter × Hunter manga online for free — Yoshihiro Togashi's adventure epic in official full color instead of black and white. Follow Gon Freecss's search for his father Ging through the Hunter Exam, Yorknew City, Greed Island and the Chimera Ant war, digitally colored in high definition. No signup, a fast mobile-friendly reader with zoom on every page.",
     keywords: [
       "colorized hunter x hunter manga",
       "hunter x hunter color manga",
@@ -328,6 +359,7 @@ export const MANGAS: Manga[] = [
   },
   {
     slug: "chainsaw-man",
+    color: "full",
     title: "Chainsaw Man",
     nativeTitle: "チェンソーマン",
     altTitles: ["Chainsawman", "Chainsaw Man Color", "Colorized Chainsaw Man"],
@@ -357,6 +389,8 @@ export const MANGAS: Manga[] = [
   },
   {
     slug: "black-clover",
+    color: "none",
+    colorNote: "No complete color source — black & white only",
     title: "Black Clover",
     nativeTitle: "ブラッククローバー",
     altTitles: ["Black Clover Color", "Colorized Black Clover", "Black Clover Colored"],
@@ -383,6 +417,123 @@ export const MANGAS: Manga[] = [
     accent: "#3dbb6b",
     mark: "🍀",
     totalChapters: 370,
+  },
+  {
+    slug: "rurouni-kenshin",
+    color: "partial",
+    colorNote: "Chapters 1–81 in official color (the rest isn't colored yet)",
+    title: "Rurouni Kenshin",
+    nativeTitle: "るろうに剣心",
+    altTitles: ["Samurai X", "Rurouni Kenshin Color", "Colorized Rurouni Kenshin"],
+    author: "Nobuhiro Watsuki",
+    publisher: "Shueisha",
+    genres: ["Action", "Historical", "Samurai", "Drama"],
+    status: "live",
+    unit: "chapter",
+    year: 1994,
+    imageBase: RUROUNI_KENSHIN_IMAGE_BASE,
+    tagline:
+      "Watsuki's Meiji-era samurai epic — the early chapters in official full color.",
+    synopsis:
+      "Read the colorized Rurouni Kenshin manga — the official color edition of Nobuhiro Watsuki's Meiji-era samurai classic, following the wandering swordsman Himura Kenshin and his vow never to kill again. The opening chapters are available in vivid full color; more are added as they're colorized.",
+    keywords: [
+      "colorized rurouni kenshin manga",
+      "rurouni kenshin color manga",
+      "samurai x colored manga",
+      "read rurouni kenshin in color",
+      "rurouni kenshin full color",
+    ],
+    accent: "#c0392b",
+    mark: "🗡️",
+    totalChapters: 255,
+  },
+  {
+    slug: "my-hero-academia",
+    color: "none",
+    colorNote: "No colorized source available — black & white only",
+    title: "My Hero Academia",
+    nativeTitle: "僕のヒーローアカデミア",
+    altTitles: ["Boku no Hero Academia", "MHA", "BNHA"],
+    author: "Kōhei Horikoshi",
+    publisher: "Shueisha",
+    genres: ["Action", "Superhero", "Adventure"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 2014,
+    imageBase: "",
+    tagline: "Kōhei Horikoshi's superhero epic — black & white only, no color edition.",
+    synopsis:
+      "My Hero Academia — Izuku Midoriya's journey from Quirkless boy to hero at U.A. High. No genuine colorized edition of this series exists yet, so it is listed here in black & white only; we do not have a color version.",
+    keywords: ["my hero academia manga", "boku no hero academia", "mha manga online"],
+    accent: "#2ecc71",
+    mark: "💥",
+    totalChapters: 430,
+  },
+  {
+    slug: "jujutsu-kaisen",
+    color: "none",
+    colorNote: "No colorized source available — black & white only",
+    title: "Jujutsu Kaisen",
+    nativeTitle: "呪術廻戦",
+    altTitles: ["JJK", "Sorcery Fight"],
+    author: "Gege Akutami",
+    publisher: "Shueisha",
+    genres: ["Action", "Supernatural", "Dark Fantasy"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 2018,
+    imageBase: "",
+    tagline: "Gege Akutami's curse-hunter hit — black & white only, no color edition.",
+    synopsis:
+      "Jujutsu Kaisen — Yuji Itadori and the Tokyo Jujutsu High sorcerers against cursed spirits and Sukuna. No genuine colorized edition of this series exists yet, so it is listed here in black & white only; we do not have a color version.",
+    keywords: ["jujutsu kaisen manga", "jjk manga online", "jujutsu kaisen black and white"],
+    accent: "#8e44ad",
+    mark: "👊",
+    totalChapters: 271,
+  },
+  {
+    slug: "tokyo-ghoul",
+    color: "none",
+    colorNote: "No colorized source available — black & white only",
+    title: "Tokyo Ghoul",
+    nativeTitle: "東京喰種",
+    altTitles: ["Tokyo Ghoul:re", "Toukyou Kushu"],
+    author: "Sui Ishida",
+    publisher: "Shueisha",
+    genres: ["Dark Fantasy", "Horror", "Supernatural"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 2011,
+    imageBase: "",
+    tagline: "Sui Ishida's dark ghoul saga — black & white only, no color edition.",
+    synopsis:
+      "Tokyo Ghoul — Ken Kaneki caught between humans and flesh-eating ghouls. No genuine colorized edition of this series exists (only an art book), so it is listed here in black & white only; we do not have a color version.",
+    keywords: ["tokyo ghoul manga", "tokyo ghoul re manga", "tokyo ghoul black and white"],
+    accent: "#c0392b",
+    mark: "🎭",
+    totalChapters: 179,
+  },
+  {
+    slug: "spy-x-family",
+    color: "none",
+    colorNote: "No complete colorized source — black & white only",
+    title: "Spy × Family",
+    nativeTitle: "スパイファミリー",
+    altTitles: ["Spy Family", "SxF"],
+    author: "Tatsuya Endo",
+    publisher: "Shueisha",
+    genres: ["Action", "Comedy", "Slice of Life"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 2019,
+    imageBase: "",
+    tagline: "Tatsuya Endo's spy-family comedy — black & white only, no complete color edition.",
+    synopsis:
+      "Spy × Family — spy Twilight, assassin Yor and telepath Anya as an undercover family. No complete colorized English edition exists, so it is listed here in black & white only; we do not have a full color version.",
+    keywords: ["spy x family manga", "spy family manga online", "spy x family black and white"],
+    accent: "#e67e22",
+    mark: "🕶️",
+    totalChapters: 100,
   },
 ];
 
