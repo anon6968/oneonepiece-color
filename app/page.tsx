@@ -1,10 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
 import { MANGAS, liveMangas, comingSoonMangas } from "@/lib/manga";
 import { stats } from "@/lib/data";
 import { SITE, mangaPath, readPath, unitLabelPlural } from "@/lib/site";
 import MangaCard from "@/components/MangaCard";
+import AnimatedLogo from "@/components/AnimatedLogo";
 
 export const metadata: Metadata = {
   title: "Colorized Manga — Read Manga in Full Color Online Free",
@@ -96,18 +96,9 @@ export default function Home() {
             )}
           </div>
 
-          <div className="relative hidden animate-fadeUp justify-self-center lg:block">
+          <div className="relative hidden animate-fadeUp lg:flex lg:justify-center">
             <div className="pointer-events-none absolute inset-6 -z-10 rounded-full bg-brand/20 blur-3xl" />
-            <Image
-              src="/logo-hero.png"
-              alt="Colorized Manga — pirate ship logo"
-              width={1000}
-              height={1000}
-              priority
-              unoptimized
-              sizes="(min-width: 1024px) 480px, 0px"
-              className="h-auto w-full max-w-[480px]"
-            />
+            <AnimatedLogo motion="rock" priority className="w-full max-w-[480px]" />
           </div>
         </div>
       </section>

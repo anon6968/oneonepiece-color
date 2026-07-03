@@ -193,22 +193,32 @@ export default function Reader({
                 +
               </button>
             </div>
-            <button
-              onClick={goPrev}
-              disabled={!prev}
-              className="rounded-lg bg-panel px-2.5 py-1.5 text-xs hover:bg-panel-2 disabled:opacity-30"
-              aria-label={`Previous ${unitLabel(manga).toLowerCase()}`}
-            >
-              ‹<span className="hidden sm:inline"> Prev</span>
-            </button>
-            <button
-              onClick={goNext}
-              disabled={!next}
-              className="rounded-lg bg-panel px-2.5 py-1.5 text-xs hover:bg-panel-2 disabled:opacity-30"
-              aria-label={`Next ${unitLabel(manga).toLowerCase()}`}
-            >
-              <span className="hidden sm:inline">Next </span>›
-            </button>
+            {prev ? (
+              <Link
+                href={readPath(manga, prev)}
+                className="rounded-lg bg-panel px-2.5 py-1.5 text-xs hover:bg-panel-2"
+                aria-label={`Previous ${unitLabel(manga).toLowerCase()} (${prev})`}
+              >
+                ‹<span className="hidden sm:inline"> Prev</span>
+              </Link>
+            ) : (
+              <span className="rounded-lg bg-panel px-2.5 py-1.5 text-xs opacity-30">
+                ‹<span className="hidden sm:inline"> Prev</span>
+              </span>
+            )}
+            {next ? (
+              <Link
+                href={readPath(manga, next)}
+                className="rounded-lg bg-panel px-2.5 py-1.5 text-xs hover:bg-panel-2"
+                aria-label={`Next ${unitLabel(manga).toLowerCase()} (${next})`}
+              >
+                <span className="hidden sm:inline">Next </span>›
+              </Link>
+            ) : (
+              <span className="rounded-lg bg-panel px-2.5 py-1.5 text-xs opacity-30">
+                <span className="hidden sm:inline">Next </span>›
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -246,13 +256,18 @@ export default function Reader({
 
       {/* end nav */}
       <div className="mx-auto mt-8 flex max-w-md items-center justify-between gap-3 px-4">
-        <button
-          onClick={goPrev}
-          disabled={!prev}
-          className="flex-1 rounded-xl bg-panel px-4 py-3 text-sm font-semibold hover:bg-panel-2 disabled:opacity-30"
-        >
-          ‹ Previous
-        </button>
+        {prev ? (
+          <Link
+            href={readPath(manga, prev)}
+            className="flex-1 rounded-xl bg-panel px-4 py-3 text-center text-sm font-semibold hover:bg-panel-2"
+          >
+            ‹ Previous
+          </Link>
+        ) : (
+          <span className="flex-1 rounded-xl bg-panel px-4 py-3 text-center text-sm font-semibold opacity-30">
+            ‹ Previous
+          </span>
+        )}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="rounded-xl bg-panel px-4 py-3 text-sm text-mute hover:text-fg"
@@ -260,13 +275,18 @@ export default function Reader({
         >
           ↑
         </button>
-        <button
-          onClick={goNext}
-          disabled={!next}
-          className="flex-1 rounded-xl bg-gradient-to-r from-brand to-brand-2 px-4 py-3 text-sm font-bold text-white disabled:opacity-40"
-        >
-          Next ›
-        </button>
+        {next ? (
+          <Link
+            href={readPath(manga, next)}
+            className="flex-1 rounded-xl bg-gradient-to-r from-brand to-brand-2 px-4 py-3 text-center text-sm font-bold text-white"
+          >
+            Next ›
+          </Link>
+        ) : (
+          <span className="flex-1 rounded-xl bg-gradient-to-r from-brand to-brand-2 px-4 py-3 text-center text-sm font-bold text-white opacity-40">
+            Next ›
+          </span>
+        )}
       </div>
       <p className="mt-6 text-center text-xs text-mute">
         {unitLabel(manga)} {chapter} of {total} · {totalUnits} in full color ·{" "}
