@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { SITE } from "@/lib/site";
 import Header from "@/components/Header";
@@ -23,18 +24,32 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     title: "Colorized Manga — Read Manga in Full Color",
     description: SITE.description,
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Colorized Manga — read manga in full color" }],
   },
   twitter: {
     card: "summary_large_image",
+    site: SITE.twitter,
+    creator: SITE.twitter,
     title: "Colorized Manga — Read Manga in Full Color",
     description: SITE.description,
+    images: ["/og.png"],
   },
   robots: {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
-  icons: { icon: "/favicon.svg", apple: "/favicon.svg" },
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.svg",
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
   category: "entertainment",
 };
 
@@ -56,6 +71,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
