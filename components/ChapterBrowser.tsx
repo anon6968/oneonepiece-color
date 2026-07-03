@@ -208,11 +208,13 @@ export default function ChapterBrowser({
 
   return (
     <div>
-      {/* Toolbar — sticks under the site header. Fully opaque and full-bleed
-          so cards never show through it, and kept slim on phones: search on
-          top, then one swipeable row of view tabs + filters. The meta line
-          below is NOT sticky, so scrolling costs the least screen possible. */}
-      <div className="sticky top-14 z-30 -mx-4 mb-2 border-b border-line/60 bg-ink px-4 py-2.5 sm:py-3">
+      {/* Toolbar — pins to the very top of the viewport (the site header
+          scrolls away, giving the list the room). Fully opaque and
+          full-bleed so cards never show through it, and kept slim on
+          phones: search on top, then one swipeable row of view tabs +
+          filters. The meta line below is NOT sticky, so scrolling costs
+          the least screen possible. */}
+      <div className="sticky top-0 z-30 -mx-4 mb-2 border-b border-line/60 bg-ink px-4 py-2.5 sm:py-3">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
           {/* Search — first (row of its own) on phones, middle on desktop */}
           <div className="relative min-w-0 flex-1 sm:order-2">

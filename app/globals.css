@@ -117,8 +117,10 @@ body::before {
   scrollbar-width: none;
 }
 
-/* Keep real content above the grain layer. */
-body > * {
+/* Keep real content above the grain layer. Being unlayered, this rule beats
+   Tailwind's layered position utilities, so it must skip <nav> — the mobile
+   bottom nav positions itself (fixed) and already stacks above the grain. */
+body > :not(nav) {
   position: relative;
   z-index: 1;
 }

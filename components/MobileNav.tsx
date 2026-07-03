@@ -25,9 +25,17 @@ export default function MobileNav() {
   const pathname = usePathname();
   const live = liveMangas();
 
+  // Five tabs max — Home, the three headline series, Browse. More than that
+  // stops fitting a phone; the full library is one tap away via Browse. If
+  // you're on a series that didn't make the cut, it replaces the third slot
+  // so the active tab is always visible.
+  const featured = live.slice(0, 3);
+  const current = live.find((m) => pathname.startsWith(mangaPath(m.slug)));
+  if (current && !featured.includes(current)) featured[2] = current;
+
   const items: { href: string; label: string; icon?: React.ReactNode; mark?: string }[] = [
     { href: "/", label: "Home", icon: HOME_ICON },
-    ...live.map((m) => ({
+    ...featured.map((m) => ({
       href: mangaPath(m.slug),
       label: m.title,
       mark: m.mark,
@@ -50,7 +58,7 @@ export default function MobileNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-1 flex-col items-center gap-0.5 py-2 text-[10px] font-medium transition ${
+              className={`flex min-w-0 flex-1 flex-col items-center gap-0.5 py-2 text-[10px] font-medium transition ${
                 active ? "text-brand" : "text-mute"
               }`}
             >
@@ -59,7 +67,7 @@ export default function MobileNav() {
               ) : (
                 <span className="text-base leading-none">{item.mark}</span>
               )}
-              <span className="truncate">{item.label}</span>
+              <span className="w-full truncate px-1 text-center">{item.label}</span>
             </Link>
           );
         })}

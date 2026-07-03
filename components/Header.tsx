@@ -3,9 +3,13 @@ import { liveMangas } from "@/lib/manga";
 import { mangaPath } from "@/lib/site";
 
 export default function Header() {
-  const live = liveMangas();
+  // Headline series only — 8+ live titles no longer fit a nav row;
+  // "All Manga" covers the rest.
+  const live = liveMangas().slice(0, 3);
   return (
-    <header className="sticky top-0 z-40 bg-ink/70 backdrop-blur-xl">
+    // Deliberately not sticky — it scrolls away so content (and the chapter
+    // browser's own top-0 toolbar) gets the full viewport.
+    <header className="relative z-40 bg-ink/70 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-6xl 2xl:max-w-7xl items-center gap-3 px-4">
         <Link href="/" aria-label="Colorized Manga home" className="group flex items-center gap-2 font-extrabold tracking-tight">
           <img

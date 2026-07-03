@@ -3,6 +3,8 @@
 // from here. Adding a new colorized manga = drop its data into
 // data/manga/<slug>/ and add an entry below with status "live".
 
+import autoSeriesRaw from "../data/auto-series.json";
+
 export type MangaStatus = "live" | "coming-soon";
 
 /** How much of the series we actually serve in color — drives the honesty
@@ -79,7 +81,7 @@ const DEATH_NOTE_IMAGE_BASE =
 const RUROUNI_KENSHIN_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/rurouni-kenshin-color-pages@main/pages";
 
-export const MANGAS: Manga[] = [
+const HAND_MANGAS: Manga[] = [
   {
     slug: "one-piece",
     color: "full",
@@ -541,6 +543,15 @@ export const MANGAS: Manga[] = [
     mark: "🕶️",
     totalChapters: 100,
   },
+];
+
+// Auto-registered series (added by tools/register_series.py). Hand-authored
+// entries above always win on slug conflicts; auto entries only add new slugs.
+const AUTO_MANGAS = autoSeriesRaw as Manga[];
+const _handSlugs = new Set(HAND_MANGAS.map((m) => m.slug));
+export const MANGAS: Manga[] = [
+  ...HAND_MANGAS,
+  ...AUTO_MANGAS.filter((m) => !_handSlugs.has(m.slug)),
 ];
 
 const BY_SLUG = new Map(MANGAS.map((m) => [m.slug, m]));
