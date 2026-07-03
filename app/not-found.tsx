@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { liveMangas } from "@/lib/manga";
+import { mangaPath } from "@/lib/site";
 
 export default function NotFound() {
+  const live = liveMangas().slice(0, 3);
   return (
     <div className="mx-auto flex max-w-lg flex-col items-center px-4 py-28 text-center">
       <Image
@@ -23,12 +26,15 @@ export default function NotFound() {
         >
           Home
         </Link>
-        <Link
-          href="/one-piece"
-          className="rounded-xl bg-panel px-5 py-2.5 text-sm font-semibold transition hover:bg-panel-2"
-        >
-          Read One Piece in color
-        </Link>
+        {live.map((m) => (
+          <Link
+            key={m.slug}
+            href={mangaPath(m.slug)}
+            className="rounded-xl bg-panel px-5 py-2.5 text-sm font-semibold transition hover:bg-panel-2"
+          >
+            Read {m.title} in color
+          </Link>
+        ))}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { chapterPath, pageUrl } from "@/lib/site";
+import { pageUrl, readPath, unitLabel } from "@/lib/site";
 import type { Manga } from "@/lib/manga";
 import type { IndexEntry } from "@/lib/data";
 
@@ -12,16 +12,17 @@ export default function ChapterCard({
   c: IndexEntry;
   priority?: boolean;
 }) {
+  const label = unitLabel(manga);
   return (
     <Link
-      href={chapterPath(manga.slug, c.chapter)}
+      href={readPath(manga, c.chapter)}
       className="group relative overflow-hidden rounded-lg bg-panel transition duration-300 hover:-translate-y-0.5"
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-ink-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={pageUrl(manga, c.chapter, 1)}
-          alt={`${manga.title} color manga Chapter ${c.chapter} — ${c.arc}`}
+          alt={`${manga.title} color manga ${label} ${c.chapter}${c.title ? ` — ${c.title}` : ` — ${c.arc}`}`}
           width={c.coverW}
           height={c.coverH}
           loading={priority ? "eager" : "lazy"}
@@ -35,8 +36,10 @@ export default function ChapterCard({
           </span>
         )}
         <div className="absolute inset-x-0 bottom-0 p-2.5">
-          <div className="text-[13px] font-bold leading-tight">Chapter {c.chapter}</div>
-          <div className="truncate text-[11px] text-mute">{c.arc}</div>
+          <div className="text-[13px] font-bold leading-tight">
+            {label} {c.chapter}
+          </div>
+          <div className="truncate text-[11px] text-mute">{c.title ?? c.arc}</div>
         </div>
       </div>
     </Link>

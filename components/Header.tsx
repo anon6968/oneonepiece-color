@@ -6,14 +6,14 @@ export default function Header() {
   const live = liveMangas();
   return (
     <header className="sticky top-0 z-40 bg-ink/70 backdrop-blur-xl">
-      <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4">
+      <div className="mx-auto flex h-14 max-w-6xl 2xl:max-w-7xl items-center gap-3 px-4">
         <Link href="/" aria-label="Colorized Manga home" className="group flex items-center gap-2 font-extrabold tracking-tight">
           <img
-            src="/logo-mark.svg"
+            src="/logo-mark.png"
             alt=""
-            width={28}
-            height={28}
-            className="h-7 w-7 rounded-lg shadow-lg shadow-brand/20 transition group-hover:brightness-110"
+            width={32}
+            height={32}
+            className="h-8 w-8 transition group-hover:brightness-110"
           />
           <span className="text-[15px] sm:text-base">
             Colorized <span className="text-brand">Manga</span>

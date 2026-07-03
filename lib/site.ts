@@ -8,7 +8,7 @@ export const SITE = {
   short: "Colorized Manga",
   tagline: "Read manga in full color, online and free.",
   description:
-    "Read colorized manga online for free. One Piece, Naruto, Bleach, Demon Slayer and more — every chapter digitally colorized in full HD. Fast, mobile-friendly reader with zoom, no signup.",
+    "Read colorized manga online for free. One Piece, Naruto, Bleach and more — every chapter digitally colorized in full HD. Fast, mobile-friendly reader with zoom, no signup.",
   keywords: [
     "colorized manga",
     "colored manga online",
@@ -20,7 +20,29 @@ export const SITE = {
     "colorized manga reader",
   ],
   twitter: "@colorizedmanga",
+  // Address for content-removal / takedown requests. Point this at a real inbox.
+  contact: "removals@colorizedmangas.com",
 } as const;
+
+/* ------------------------------ Unit labels ----------------------------- */
+
+/** "Chapter" or "Volume" — the reading unit this manga is served in. */
+export function unitLabel(m: Manga): "Chapter" | "Volume" {
+  return m.unit === "volume" ? "Volume" : "Chapter";
+}
+
+export function unitLabelLower(m: Manga): "chapter" | "volume" {
+  return m.unit === "volume" ? "volume" : "chapter";
+}
+
+export function unitLabelPlural(m: Manga): "chapters" | "volumes" {
+  return m.unit === "volume" ? "volumes" : "chapters";
+}
+
+/** Short label used in tight UI spots: "Ch." / "Vol." */
+export function unitAbbrev(m: Manga): "Ch." | "Vol." {
+  return m.unit === "volume" ? "Vol." : "Ch.";
+}
 
 /* ----------------------------- URL helpers ------------------------------ */
 
@@ -28,19 +50,21 @@ export function mangaPath(slug: string) {
   return `/${slug}`;
 }
 
-export function chaptersPath(slug: string) {
-  return `/${slug}/chapters`;
+/** Listing page for a manga's reading units (/x/chapters or /x/volumes). */
+export function listPath(m: Manga) {
+  return `/${m.slug}/${unitLabelPlural(m)}`;
 }
 
 export function latestPath(slug: string) {
   return `/${slug}/latest`;
 }
 
-export function chapterPath(slug: string, chapter: number) {
-  return `/${slug}/chapter/${chapter}`;
+/** Reader page for one unit (/x/chapter/12 or /x/volume/12). */
+export function readPath(m: Manga, n: number) {
+  return `/${m.slug}/${unitLabelLower(m)}/${n}`;
 }
 
-/** Absolute page-image URL for a manga's chapter page. */
+/** Absolute page-image URL for a manga's unit page. */
 export function pageUrl(m: Manga, chapter: number, page: number) {
   const p = String(page).padStart(3, "0");
   return `${m.imageBase.replace(/\/$/, "")}/${chapter}/${p}.webp`;
@@ -48,11 +72,12 @@ export function pageUrl(m: Manga, chapter: number, page: number) {
 
 /* ------------------------------ SEO titles ------------------------------ */
 
-export function chapterTitle(m: Manga, chapter: number, arc?: string) {
-  const base = `${m.title} Chapter ${chapter} Colored`;
+export function unitTitle(m: Manga, n: number, arc?: string, title?: string) {
+  const base = `${m.title} ${unitLabel(m)} ${n} Colored`;
+  if (title) return `${base}: ${title}`;
   return arc && arc !== m.title ? `${base}: ${arc}` : base;
 }
 
-export function chapterMetaTitle(m: Manga, chapter: number, arc?: string) {
-  return `${chapterTitle(m, chapter, arc)} — Read in Full Color Online Free`;
+export function unitMetaTitle(m: Manga, n: number, arc?: string, title?: string) {
+  return `${unitTitle(m, n, arc, title)} — Read in Full Color Online Free`;
 }

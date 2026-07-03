@@ -1,22 +1,22 @@
 import Link from "next/link";
 import { MANGAS, liveMangas } from "@/lib/manga";
 import { groupBySaga, sagaSlug, stats } from "@/lib/data";
-import { chaptersPath, mangaPath, SITE } from "@/lib/site";
+import { listPath, mangaPath, unitLabelPlural, SITE } from "@/lib/site";
 
 export default function Footer() {
   const live = liveMangas();
   return (
     <footer className="mt-16 bg-ink-2/50">
-      <div className="mx-auto max-w-6xl px-4 py-12">
+      <div className="mx-auto max-w-6xl px-4 py-12 2xl:max-w-7xl">
         <div className="grid gap-10 md:grid-cols-[1.1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-2 font-extrabold">
               <img
-                src="/logo-mark.svg"
+                src="/logo-mark.png"
                 alt=""
-                width={28}
-                height={28}
-                className="h-7 w-7 rounded-lg"
+                width={32}
+                height={32}
+                className="h-8 w-8"
               />
               Colorized <span className="text-brand">Manga</span>
             </div>
@@ -45,42 +45,55 @@ export default function Footer() {
             </ul>
           </nav>
 
-          {live.map((m) => {
-            const sagas = groupBySaga(m.slug);
-            if (!sagas.length) return null;
-            return (
-              <nav key={m.slug} aria-label={`Browse ${m.title} by saga`}>
-                <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-mute">
-                  {m.title} by saga
-                </h2>
-                <ul className="grid grid-cols-2 gap-x-5 gap-y-1.5 text-sm">
-                  {sagas.map((sg) => (
+          <nav aria-label="Browse live series">
+            <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-mute">
+              Read now
+            </h2>
+            <ul className="grid gap-1.5 text-sm">
+              {live.map((m) => {
+                const s = stats(m.slug);
+                return (
+                  <li key={m.slug}>
+                    <Link href={listPath(m)} className="text-mute hover:text-brand">
+                      All {m.title} {unitLabelPlural(m)}{" "}
+                      <span className="text-mute/60">({s.colored})</span>
+                    </Link>
+                  </li>
+                );
+              })}
+              {live[0] &&
+                groupBySaga(live[0].slug)
+                  .slice(0, 4)
+                  .map((sg) => (
                     <li key={sg.saga}>
                       <Link
-                        href={`${chaptersPath(m.slug)}#${sagaSlug(sg.saga)}`}
+                        href={`${listPath(live[0])}#${sagaSlug(sg.saga)}`}
                         className="text-mute hover:text-brand"
                       >
-                        {sg.saga}
+                        {live[0].title}: {sg.saga}
                       </Link>
                     </li>
                   ))}
-                </ul>
-              </nav>
-            );
-          })}
+            </ul>
+          </nav>
         </div>
 
         <div className="mt-10 pt-6 text-xs leading-relaxed text-mute/60">
           <p>
-            All series are the property of their respective authors and publishers
+            Colorized Manga is an independent, non-commercial fan project showcasing
+            fan-made color edits of works
             {live.length ? (
               <>
                 {" "}
-                — {live.map((m) => `${m.title} by ${m.author}`).join("; ")}
+                such as {live.map((m) => `${m.title} by ${m.author}`).join("; ")}
               </>
             ) : null}
-            . This is a fan-made colorized reading archive; all rights to the original works
-            belong to their owners. Please support the official releases.
+            . It is not affiliated with, authorized, endorsed, or sponsored by any creator,
+            publisher, or rights holder. Rights holders may{" "}
+            <Link href="/dmca" className="underline hover:text-brand">
+              request content removal here
+            </Link>
+            .
           </p>
           <p className="mt-2">
             © {new Date().getFullYear()} {SITE.name}. Read colorized manga online free.
@@ -91,6 +104,17 @@ export default function Footer() {
               </>
             )}
           </p>
+          <nav aria-label="Legal" className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+            <Link href="/dmca" className="hover:text-brand">
+              Content removal / DMCA
+            </Link>
+            <Link href="/terms" className="hover:text-brand">
+              Terms
+            </Link>
+            <Link href="/privacy" className="hover:text-brand">
+              Privacy
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>

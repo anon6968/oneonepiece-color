@@ -3,7 +3,16 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getManga, getMangaSlugs, isLive } from "@/lib/manga";
 import { getIndex, stats } from "@/lib/data";
-import { SITE, chapterPath, chaptersPath, latestPath, mangaPath, pageUrl } from "@/lib/site";
+import {
+  SITE,
+  latestPath,
+  listPath,
+  mangaPath,
+  pageUrl,
+  readPath,
+  unitLabel,
+  unitLabelPlural,
+} from "@/lib/site";
 
 export const dynamicParams = false;
 
@@ -19,15 +28,16 @@ export async function generateMetadata({
   const { manga: slug } = await params;
   const m = getManga(slug);
   if (!m) return { title: "Not found" };
-  const title = `Latest ${m.title} Colored Chapters — Newest ${m.title} in Color`;
-  const description = `The latest colorized ${m.title} manga chapters, newest first. Read the most recent ${m.title} chapters in full color online free.`;
+  const plural = unitLabelPlural(m);
+  const title = `Latest ${m.title} Colored ${unitLabel(m)}s — Newest ${m.title} in Color`;
+  const description = `The latest colorized ${m.title} manga ${plural}, newest first. Read the most recent ${m.title} ${plural} in full color online free.`;
   return {
     title,
     description,
     keywords: [
-      `latest ${m.title.toLowerCase()} colored chapter`,
-      `newest ${m.title.toLowerCase()} color chapter`,
-      `${m.title.toLowerCase()} latest chapter color`,
+      `latest ${m.title.toLowerCase()} colored ${unitLabel(m).toLowerCase()}`,
+      `newest ${m.title.toLowerCase()} color ${unitLabel(m).toLowerCase()}`,
+      `${m.title.toLowerCase()} latest ${unitLabel(m).toLowerCase()} color`,
       `new ${m.title.toLowerCase()} colored manga`,
     ],
     alternates: { canonical: latestPath(slug) },
@@ -47,6 +57,8 @@ export default async function LatestPage({
   const index = getIndex(slug);
   const s = stats(slug);
   const latest = [...index].reverse();
+  const label = unitLabel(m);
+  const plural = unitLabelPlural(m);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -68,36 +80,37 @@ export default async function LatestPage({
         <span className="px-1">/</span> Latest
       </nav>
       <h1 className="text-2xl font-black tracking-tight sm:text-3xl">
-        Latest {m.title} colored chapters
+        Latest {m.title} colored {plural}
       </h1>
 
       {isLive(m) && latest.length > 0 ? (
         <>
           <p className="mt-2 text-sm text-mute">
-            The newest colorized {m.title} chapters, most recent first — updated through chapter{" "}
-            {s.last}.{" "}
-            <Link href={chaptersPath(slug)} className="text-brand hover:underline">
-              Browse the full list by saga →
+            The newest colorized {m.title} {plural}, most recent first — updated through{" "}
+            {label.toLowerCase()} {s.last}.{" "}
+            <Link href={listPath(m)} className="text-brand hover:underline">
+              Browse the full list by arc →
             </Link>
           </p>
           <ol className="mt-6 divide-y divide-line/40 overflow-hidden rounded-xl bg-panel/40">
             {latest.map((c) => (
               <li key={c.chapter}>
                 <Link
-                  href={chapterPath(slug, c.chapter)}
+                  href={readPath(m, c.chapter)}
                   className="flex items-center gap-3 px-3 py-2.5 transition hover:bg-panel"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={pageUrl(m, c.chapter, 1)}
-                    alt={`${m.title} colored chapter ${c.chapter} — ${c.arc}`}
+                    alt={`${m.title} colored ${label.toLowerCase()} ${c.chapter} — ${c.title ?? c.arc}`}
                     loading="lazy"
                     decoding="async"
                     className="h-14 w-10 flex-none rounded object-cover object-top bg-ink-2"
                   />
                   <div className="min-w-0 flex-1">
                     <div className="text-sm font-semibold">
-                      {m.title} Chapter {c.chapter}
+                      {m.title} {label} {c.chapter}
+                      {c.title && <span className="text-mute"> — {c.title}</span>}
                       {c.type === "partial" && (
                         <span className="ml-2 rounded bg-gold/90 px-1 py-0.5 text-[10px] font-bold text-ink">
                           PARTIAL
@@ -105,7 +118,7 @@ export default async function LatestPage({
                       )}
                     </div>
                     <div className="truncate text-xs text-mute">
-                      {c.arc === c.saga ? c.arc : `${c.arc} · ${c.saga}`}
+                      {c.arc === c.saga ? c.arc : `${c.arc} · ${c.saga}`} · {c.pageCount} pages
                     </div>
                   </div>
                   <span className="flex-none text-xs font-semibold text-brand">Read →</span>
@@ -116,7 +129,7 @@ export default async function LatestPage({
         </>
       ) : (
         <p className="mt-4 text-sm text-mute">
-          The colorized {m.title} manga is being prepared — the latest colored chapters will appear
+          The colorized {m.title} manga is being prepared — the latest colored {plural} will appear
           here first.{" "}
           <Link href={mangaPath(slug)} className="text-brand hover:underline">
             See the {m.title} preview →

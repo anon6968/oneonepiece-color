@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import ChapterCard from "./ChapterCard";
+import { unitLabelPlural } from "@/lib/site";
 import type { Manga } from "@/lib/manga";
 import type { IndexEntry } from "@/lib/data";
 
@@ -17,6 +18,7 @@ export default function ChapterBrowser({
   chapters: IndexEntry[];
 }) {
   const [q, setQ] = useState("");
+  const plural = unitLabelPlural(manga);
 
   const query = q.trim().toLowerCase();
   const filtered = useMemo(() => {
@@ -26,6 +28,7 @@ export default function ChapterBrowser({
       (c) =>
         c.arc.toLowerCase().includes(query) ||
         c.saga.toLowerCase().includes(query) ||
+        (c.title ?? "").toLowerCase().includes(query) ||
         String(c.chapter) === query ||
         (!Number.isNaN(asNum) && String(c.chapter).startsWith(query)),
     );
@@ -50,18 +53,18 @@ export default function ChapterBrowser({
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder={`Search ${manga.title} chapters — number, arc or saga`}
-          aria-label={`Search ${manga.title} chapters`}
+          placeholder={`Search ${manga.title} ${plural} — number, name or arc`}
+          aria-label={`Search ${manga.title} ${plural}`}
           className="w-full rounded-xl bg-panel px-4 py-2.5 text-sm outline-none transition focus:ring-2 focus:ring-brand/40"
         />
         <div className="mt-2 text-xs text-mute">
-          {filtered.length} chapter{filtered.length === 1 ? "" : "s"}
+          {filtered.length} {filtered.length === 1 ? plural.slice(0, -1) : plural}
           {query ? ` matching “${q}”` : " in full color"}
         </div>
       </div>
 
       {groups.length === 0 && (
-        <p className="py-16 text-center text-mute">No chapters match that search.</p>
+        <p className="py-16 text-center text-mute">No {plural} match that search.</p>
       )}
 
       <div className="space-y-10">
@@ -70,10 +73,10 @@ export default function ChapterBrowser({
             <div className="mb-4 flex items-baseline gap-3">
               <h2 className="text-lg font-bold sm:text-xl">{g.saga}</h2>
               <span className="text-xs text-mute">
-                Ch. {g.chapters[0].chapter}–{g.chapters[g.chapters.length - 1].chapter}
+                {g.chapters[0].chapter}–{g.chapters[g.chapters.length - 1].chapter}
               </span>
             </div>
-            <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+            <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 2xl:grid-cols-10">
               {g.chapters.map((c) => (
                 <ChapterCard key={c.chapter} manga={manga} c={c} />
               ))}

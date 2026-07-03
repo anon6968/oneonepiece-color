@@ -11,6 +11,8 @@ export interface IndexEntry {
   saga: string;
   coverW: number;
   coverH: number;
+  /** Optional unit title (e.g. Naruto volume names like "Uzumaki Naruto"). */
+  title?: string;
 }
 
 export interface PageMeta {
@@ -26,6 +28,8 @@ export interface Chapter {
   arc: string;
   saga: string;
   pages: PageMeta[];
+  /** Optional unit title (e.g. Naruto volume names like "Uzumaki Naruto"). */
+  title?: string;
 }
 
 const DATA_DIR = path.join(process.cwd(), "data", "manga");

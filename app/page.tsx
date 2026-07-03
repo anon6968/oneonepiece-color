@@ -3,7 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { MANGAS, liveMangas, comingSoonMangas } from "@/lib/manga";
 import { stats } from "@/lib/data";
-import { SITE, chapterPath, mangaPath } from "@/lib/site";
+import { SITE, mangaPath, readPath, unitLabelPlural } from "@/lib/site";
 import MangaCard from "@/components/MangaCard";
 
 export const metadata: Metadata = {
@@ -18,6 +18,7 @@ export default function Home() {
   const featured = live[0];
   const fStats = featured ? stats(featured.slug) : null;
   const totalColored = live.reduce((sum, m) => sum + stats(m.slug).colored, 0);
+  const totalPages = live.reduce((sum, m) => sum + stats(m.slug).totalPages, 0);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -57,11 +58,11 @@ export default function Home() {
 
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-16 sm:py-24 lg:grid-cols-[1.1fr_.9fr] lg:gap-10">
+        <div className="mx-auto grid max-w-6xl 2xl:max-w-7xl items-center gap-8 px-4 py-16 sm:py-24 lg:grid-cols-[1.1fr_.9fr] lg:gap-10">
           <div className="animate-fadeUp">
             <span className="inline-flex items-center gap-2 rounded-full bg-panel/70 px-3 py-1 text-xs text-mute">
               <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulseGlow" />
-              {totalColored.toLocaleString()} chapters colorized · {live.length} series live ·{" "}
+              {totalPages.toLocaleString()} pages colorized · {live.length} series live ·{" "}
               {soon.length} more coming
             </span>
             <h1 className="mt-5 max-w-4xl text-4xl font-black leading-[1.05] tracking-tight sm:text-6xl">
@@ -80,7 +81,7 @@ export default function Home() {
             {featured && fStats && (
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Link
-                  href={chapterPath(featured.slug, 1)}
+                  href={readPath(featured, 1)}
                   className="rounded-xl bg-gradient-to-r from-brand to-brand-2 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-brand/25 transition hover:brightness-110"
                 >
                   Read {featured.title} in color →
@@ -112,7 +113,7 @@ export default function Home() {
       </section>
 
       {/* Library — the "preview of all monitors" */}
-      <section id="library" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-10">
+      <section id="library" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-10 2xl:max-w-7xl">
         <div className="mb-6 flex items-end justify-between">
           <div>
             <h2 className="text-xl font-bold sm:text-2xl">The colorized manga library</h2>
@@ -122,7 +123,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-5">
           {MANGAS.map((m, i) => (
             <MangaCard key={m.slug} manga={m} priority={i < 6} />
           ))}
@@ -131,7 +132,7 @@ export default function Home() {
 
       {/* Available now spotlight */}
       {live.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-8">
+        <section className="mx-auto max-w-6xl px-4 py-8 2xl:max-w-7xl">
           <h2 className="mb-5 text-xl font-bold sm:text-2xl">Available now in full color</h2>
           <div className="space-y-4">
             {live.map((m) => {
@@ -151,7 +152,7 @@ export default function Home() {
                   </div>
                   <div className="flex-none text-right">
                     <div className="text-sm font-bold text-brand">{s.colored}</div>
-                    <div className="text-[11px] text-mute">in color</div>
+                    <div className="text-[11px] text-mute">{unitLabelPlural(m)} in color</div>
                   </div>
                 </Link>
               );
@@ -171,11 +172,15 @@ export default function Home() {
             same iconic stories, now brought to life in vivid full color instead of black and white.
           </p>
           <p>
-            The complete{" "}
-            <Link href={mangaPath("one-piece")} className="text-brand hover:underline">
-              colorized One Piece manga
-            </Link>{" "}
-            is live now, with{" "}
+            {live.map((m, i) => (
+              <span key={m.slug}>
+                {i > 0 && (i === live.length - 1 ? " and " : ", ")}
+                <Link href={mangaPath(m.slug)} className="text-brand hover:underline">
+                  colorized {m.title}
+                </Link>
+              </span>
+            ))}{" "}
+            {live.length === 1 ? "is" : "are"} live now, with{" "}
             {comingSoonMangas()
               .map((m) => m.title)
               .join(", ")}{" "}

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { chapterPath, chaptersPath, pageUrl } from "@/lib/site";
+import { listPath, pageUrl, readPath, unitAbbrev, unitLabel } from "@/lib/site";
 import type { Manga } from "@/lib/manga";
 import type { PageMeta } from "@/lib/data";
 
@@ -13,24 +13,40 @@ interface Props {
   chapter: number;
   arc: string;
   saga: string;
+  unitTitle?: string;
   type: "color" | "partial";
   pages: PageMeta[];
   prev: number | null;
   next: number | null;
   total: number;
+  totalUnits: number;
 }
 
-const WIDTHS = [480, 560, 640, 720, 820, 940, 1080, 1240];
+const WIDTHS = [480, 560, 640, 720, 820, 940, 1080, 1240, 1440];
 
-export default function Reader({ manga, chapter, arc, saga, type, pages, prev, next, total }: Props) {
+export default function Reader({
+  manga,
+  chapter,
+  arc,
+  saga,
+  unitTitle,
+  type,
+  pages,
+  prev,
+  next,
+  total,
+  totalUnits,
+}: Props) {
   const router = useRouter();
   const [wIdx, setWIdx] = useState(4);
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [progress, setProgress] = useState(0);
   const [cur, setCur] = useState(1);
+  const [shared, setShared] = useState(false);
   const pageRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const storeKey = `cm_width_${manga.slug}`;
+  const abbrev = unitAbbrev(manga);
 
   // restore preferred width
   useEffect(() => {
@@ -61,13 +77,33 @@ export default function Reader({ manga, chapter, arc, saga, type, pages, prev, n
   }, [pages.length]);
 
   const goPrev = useCallback(
-    () => prev && router.push(chapterPath(manga.slug, prev)),
-    [prev, router, manga.slug],
+    () => prev && router.push(readPath(manga, prev)),
+    [prev, router, manga],
   );
   const goNext = useCallback(
-    () => next && router.push(chapterPath(manga.slug, next)),
-    [next, router, manga.slug],
+    () => next && router.push(readPath(manga, next)),
+    [next, router, manga],
   );
+
+  const share = useCallback(async () => {
+    const url = window.location.href;
+    const title = `${manga.title} ${unitLabel(manga)} ${chapter} in full color`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title, url });
+        return;
+      }
+    } catch {
+      /* dismissed */
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setShared(true);
+      setTimeout(() => setShared(false), 1600);
+    } catch {
+      /* unsupported */
+    }
+  }, [manga, chapter]);
 
   // keyboard
   useEffect(() => {
@@ -100,17 +136,17 @@ export default function Reader({ manga, chapter, arc, saga, type, pages, prev, n
 
       {/* toolbar */}
       <div className="sticky top-14 z-30 bg-ink/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center gap-2 px-3 py-2">
+        <div className="mx-auto flex max-w-7xl items-center gap-2 px-3 py-2">
           <Link
-            href={chaptersPath(manga.slug)}
+            href={listPath(manga)}
             className="rounded-lg bg-panel px-2.5 py-1.5 text-xs text-mute hover:text-fg"
-            aria-label={`All ${manga.title} chapters`}
+            aria-label={`All ${manga.title} ${unitLabel(manga).toLowerCase()}s`}
           >
             ☰
           </Link>
           <div className="min-w-0">
             <div className="truncate text-sm font-bold">
-              {manga.title} · Ch. {chapter}
+              {manga.title} · {abbrev} {chapter}
               {type === "partial" && (
                 <span className="ml-2 rounded bg-gold/90 px-1 py-0.5 text-[10px] font-bold text-ink">
                   PARTIAL
@@ -118,15 +154,27 @@ export default function Reader({ manga, chapter, arc, saga, type, pages, prev, n
               )}
             </div>
             <div className="truncate text-[11px] text-mute">
-              {arc === saga ? arc : `${arc} · ${saga}`}
+              {unitTitle
+                ? unitTitle
+                : arc === saga
+                  ? arc
+                  : `${arc} · ${saga}`}
             </div>
           </div>
 
           <div className="ml-auto flex items-center gap-1">
-            <span className="mr-1 hidden text-xs text-mute sm:block">
+            <span className="mr-1 text-[11px] tabular-nums text-mute sm:text-xs">
               {cur}/{pages.length}
             </span>
-            <div className="flex items-center rounded-lg bg-panel">
+            <button
+              onClick={share}
+              className="rounded-lg bg-panel px-2.5 py-1.5 text-xs text-mute hover:text-fg"
+              aria-label={`Share this ${unitLabel(manga).toLowerCase()}`}
+              title="Share"
+            >
+              {shared ? "✓ Copied" : "Share"}
+            </button>
+            <div className="hidden items-center rounded-lg bg-panel sm:flex">
               <button
                 onClick={() => setWIdx((v) => Math.max(0, v - 1))}
                 className="px-2.5 py-1.5 text-sm text-mute hover:text-fg disabled:opacity-30"
@@ -149,17 +197,17 @@ export default function Reader({ manga, chapter, arc, saga, type, pages, prev, n
               onClick={goPrev}
               disabled={!prev}
               className="rounded-lg bg-panel px-2.5 py-1.5 text-xs hover:bg-panel-2 disabled:opacity-30"
-              aria-label="Previous chapter"
+              aria-label={`Previous ${unitLabel(manga).toLowerCase()}`}
             >
-              ‹ Prev
+              ‹<span className="hidden sm:inline"> Prev</span>
             </button>
             <button
               onClick={goNext}
               disabled={!next}
               className="rounded-lg bg-panel px-2.5 py-1.5 text-xs hover:bg-panel-2 disabled:opacity-30"
-              aria-label="Next chapter"
+              aria-label={`Next ${unitLabel(manga).toLowerCase()}`}
             >
-              Next ›
+              <span className="hidden sm:inline">Next </span>›
             </button>
           </div>
         </div>
@@ -183,7 +231,7 @@ export default function Reader({ manga, chapter, arc, saga, type, pages, prev, n
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={pageUrl(manga, chapter, p.n)}
-                alt={`${manga.title} color Chapter ${chapter} page ${p.n}`}
+                alt={`${manga.title} color ${unitLabel(manga)} ${chapter} page ${p.n}`}
                 width={p.w}
                 height={p.h}
                 loading={i < 2 ? "eager" : "lazy"}
@@ -221,7 +269,10 @@ export default function Reader({ manga, chapter, arc, saga, type, pages, prev, n
         </button>
       </div>
       <p className="mt-6 text-center text-xs text-mute">
-        Chapter {chapter} of {total} · {manga.title} colored manga
+        {unitLabel(manga)} {chapter} of {total} · {totalUnits} in full color ·{" "}
+        <Link href={listPath(manga)} className="text-brand hover:underline">
+          all {manga.title} {unitLabel(manga).toLowerCase()}s
+        </Link>
       </p>
 
       {/* lightbox with pinch/wheel zoom + pan */}
@@ -257,7 +308,7 @@ export default function Reader({ manga, chapter, arc, saga, type, pages, prev, n
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={pageUrl(manga, chapter, pages[lightbox].n)}
-                      alt={`${manga.title} color Chapter ${chapter} page ${pages[lightbox].n} (zoom)`}
+                      alt={`${manga.title} color ${unitLabel(manga)} ${chapter} page ${pages[lightbox].n} (zoom)`}
                       className="max-h-screen w-auto max-w-full select-none object-contain"
                       draggable={false}
                     />

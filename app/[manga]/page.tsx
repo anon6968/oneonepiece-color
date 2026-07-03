@@ -5,10 +5,13 @@ import { getManga, getMangaSlugs, isLive, liveMangas, type Manga } from "@/lib/m
 import { getIndex, groupBySaga, sagaSlug, stats } from "@/lib/data";
 import {
   SITE,
-  chapterPath,
-  chaptersPath,
   latestPath,
+  listPath,
   mangaPath,
+  pageUrl,
+  readPath,
+  unitLabel,
+  unitLabelPlural,
 } from "@/lib/site";
 import ChapterCard from "@/components/ChapterCard";
 import ChapterJump from "@/components/ChapterJump";
@@ -30,25 +33,37 @@ export async function generateMetadata({
   if (!m) return { title: "Not found" };
 
   const live = isLive(m);
+  const plural = unitLabelPlural(m);
   const title = live
     ? `${m.title} Colored Manga — Read ${m.title} in Full Color Online Free`
     : `${m.title} Colored Manga — Colorized ${m.title} (Coming Soon)`;
   const description = live
-    ? `Read the colorized ${m.title} manga online for free. Every chapter of ${m.author}'s ${m.title} digitally colored in full HD, with a fast mobile reader and zoom. ${m.tagline}`
-    : `The colorized ${m.title} manga is coming soon — every chapter of ${m.author}'s ${m.title} digitally colored in full HD. ${m.tagline} Read One Piece in color now while ${m.title} is colorized.`;
+    ? `Read the colorized ${m.title} manga online for free. Every ${unitLabel(m).toLowerCase()} of ${m.author}'s ${m.title} digitally colored in full HD, with a fast mobile reader and zoom. ${m.tagline}`
+    : `The colorized ${m.title} manga is coming soon — every chapter of ${m.author}'s ${m.title} digitally colored in full HD. ${m.tagline} Read our live colorized series while ${m.title} is colorized.`;
+
+  const ogImages = live
+    ? [{ url: pageUrl(m, getIndex(slug)[0]?.chapter ?? 1, 1), alt: `${m.title} colored manga cover` }]
+    : undefined;
 
   return {
     title,
     description,
-    keywords: m.keywords,
+    keywords: [...m.keywords, `${m.title.toLowerCase()} colored ${plural}`],
     alternates: { canonical: mangaPath(slug) },
     openGraph: {
       type: "website",
       url: `${SITE.url}${mangaPath(slug)}`,
+      siteName: SITE.name,
       title,
       description,
+      images: ogImages,
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ogImages?.map((i) => i.url),
+    },
   };
 }
 
@@ -73,6 +88,8 @@ function LiveManga({ m }: { m: Manga }) {
   const latest = [...index].reverse().slice(0, 12);
   const first = index.slice(0, 6);
   const firstCh = index[0]?.chapter ?? 1;
+  const label = unitLabel(m);
+  const plural = unitLabelPlural(m);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -105,7 +122,7 @@ function LiveManga({ m }: { m: Manga }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <section className="relative overflow-hidden">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:py-20 2xl:max-w-7xl">
           <nav className="mb-4 text-xs text-mute" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-brand">Home</Link>
             <span className="px-1.5">/</span>
@@ -114,7 +131,7 @@ function LiveManga({ m }: { m: Manga }) {
           <div className="animate-fadeUp">
             <span className="inline-flex items-center gap-2 rounded-full bg-panel/70 px-3 py-1 text-xs text-mute">
               <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulseGlow" />
-              {s.colored} chapters in color · updated to Ch. {s.last}
+              {s.colored} {plural} in color · updated to {label} {s.last}
             </span>
             <h1 className="mt-5 max-w-3xl text-4xl font-black leading-[1.05] tracking-tight sm:text-6xl">
               Read <span className="text-brand">{m.title}</span> in{" "}
@@ -127,27 +144,27 @@ function LiveManga({ m }: { m: Manga }) {
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
-                href={chapterPath(m.slug, firstCh)}
+                href={readPath(m, firstCh)}
                 className="rounded-xl bg-gradient-to-r from-brand to-brand-2 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-brand/25 transition hover:brightness-110"
               >
-                Start from Chapter {firstCh} →
+                Start from {label} {firstCh} →
               </Link>
               {s.last > 0 && (
                 <Link
-                  href={chapterPath(m.slug, s.last)}
+                  href={readPath(m, s.last)}
                   className="rounded-xl bg-panel px-5 py-3 text-sm font-semibold text-fg transition hover:bg-panel-2"
                 >
-                  Latest · Chapter {s.last}
+                  Latest · {label} {s.last}
                 </Link>
               )}
               <Link
-                href={chaptersPath(m.slug)}
+                href={listPath(m)}
                 className="rounded-xl px-5 py-3 text-sm font-semibold text-mute transition hover:text-fg"
               >
-                Browse all chapters
+                Browse all {plural}
               </Link>
               <div className="ml-auto hidden sm:block">
-                <ChapterJump slug={m.slug} max={s.last} />
+                <ChapterJump manga={m} max={s.last} />
               </div>
             </div>
           </div>
@@ -155,14 +172,14 @@ function LiveManga({ m }: { m: Manga }) {
       </section>
 
       {latest.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-10">
+        <section className="mx-auto max-w-6xl px-4 py-10 2xl:max-w-7xl">
           <div className="mb-5 flex items-end justify-between">
-            <h2 className="text-xl font-bold sm:text-2xl">Latest {m.title} color chapters</h2>
+            <h2 className="text-xl font-bold sm:text-2xl">Latest {m.title} color {plural}</h2>
             <Link href={latestPath(m.slug)} className="text-sm text-brand hover:underline">
               See all latest →
             </Link>
           </div>
-          <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
+          <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 2xl:grid-cols-8">
             {latest.map((c, i) => (
               <ChapterCard key={c.chapter} manga={m} c={c} priority={i < 6} />
             ))}
@@ -171,11 +188,11 @@ function LiveManga({ m }: { m: Manga }) {
       )}
 
       {first.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 pb-2">
+        <section className="mx-auto max-w-6xl px-4 pb-2 2xl:max-w-7xl">
           <h2 className="mb-5 text-xl font-bold sm:text-2xl">
-            Start from the beginning · {index[0].saga}
+            Start from the beginning · {index[0].arc}
           </h2>
-          <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
+          <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 2xl:grid-cols-8">
             {first.map((c) => (
               <ChapterCard key={c.chapter} manga={m} c={c} />
             ))}
@@ -183,9 +200,9 @@ function LiveManga({ m }: { m: Manga }) {
         </section>
       )}
 
-      {sagas.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-12">
-          <h2 className="mb-5 text-xl font-bold sm:text-2xl">Jump to a saga</h2>
+      {sagas.length > 1 && (
+        <section className="mx-auto max-w-6xl px-4 py-12 2xl:max-w-7xl">
+          <h2 className="mb-5 text-xl font-bold sm:text-2xl">Jump to an arc</h2>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {sagas.map((sg) => {
               const from = sg.chapters[0].chapter;
@@ -193,12 +210,12 @@ function LiveManga({ m }: { m: Manga }) {
               return (
                 <Link
                   key={sg.saga}
-                  href={`${chaptersPath(m.slug)}#${sagaSlug(sg.saga)}`}
+                  href={`${listPath(m)}#${sagaSlug(sg.saga)}`}
                   className="rounded-xl bg-panel p-4 transition hover:bg-panel-2"
                 >
                   <div className="font-semibold">{sg.saga}</div>
                   <div className="mt-1 text-xs text-mute">
-                    Ch. {from}–{to} · {sg.chapters.length} in color
+                    {label.slice(0, 3)}. {from}–{to} · {sg.chapters.length} in color
                   </div>
                 </Link>
               );
@@ -212,22 +229,22 @@ function LiveManga({ m }: { m: Manga }) {
           <h2 className="text-lg font-bold text-fg">About the {m.title} colored manga</h2>
           <p>{m.synopsis}</p>
           <p>
-            We currently host {s.colored} fully colored chapters
-            {sagas.length > 0 && (
+            We currently host {s.colored} fully colored {plural}
+            {sagas.length > 1 && (
               <> spanning {sagas.map((x) => x.saga).slice(0, 6).join(", ")} and beyond</>
             )}
-            , up to chapter {s.last}. The reader is optimized for mobile and desktop: pages load
-            fast from a global CDN, keep their aspect ratio to avoid layout shift, and every page
-            supports pinch-to-zoom so you never miss a detail of the colored artwork.
+            , up to {label.toLowerCase()} {s.last}. The reader is optimized for mobile and desktop:
+            pages load fast from a global CDN, keep their aspect ratio to avoid layout shift, and
+            every page supports pinch-to-zoom so you never miss a detail of the colored artwork.
           </p>
           <p>
             Whether you&apos;re starting from{" "}
-            <Link href={chapterPath(m.slug, firstCh)} className="text-brand hover:underline">
-              Chapter {firstCh}
+            <Link href={readPath(m, firstCh)} className="text-brand hover:underline">
+              {label} {firstCh}
             </Link>{" "}
             or catching up on the{" "}
             <Link href={latestPath(m.slug)} className="text-brand hover:underline">
-              latest colored chapter
+              latest colored {label.toLowerCase()}
             </Link>
             , this is the fastest way to read {m.title} in color.
           </p>
@@ -304,7 +321,7 @@ function ComingSoonManga({ m }: { m: Manga }) {
         <div className="mt-8 rounded-2xl bg-panel/50 p-5">
           <p className="text-sm text-mute">
             Every chapter of {m.title} is being digitally colored in full HD and will appear here
-            as pages are finished. In the meantime, the complete colorized One Piece manga is
+            as pages are finished. In the meantime, {others.length} complete colorized series are
             ready to read.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Manga } from "@/lib/manga";
-import { mangaPath, pageUrl } from "@/lib/site";
+import { mangaPath, pageUrl, unitLabelPlural } from "@/lib/site";
 import { stats } from "@/lib/data";
 
 export default function MangaCard({ manga, priority = false }: { manga: Manga; priority?: boolean }) {
@@ -56,7 +56,7 @@ export default function MangaCard({ manga, priority = false }: { manga: Manga; p
           <div className="text-base font-black leading-tight drop-shadow">{manga.title}</div>
           <div className="mt-0.5 text-[11px] text-mute">
             {live && s
-              ? `${s.colored} chapters in full color`
+              ? `${s.colored} ${unitLabelPlural(manga)} in full color`
               : "Colorization in progress"}
           </div>
         </div>

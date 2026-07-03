@@ -1,12 +1,15 @@
 import type { MetadataRoute } from "next";
 import { MANGAS, isLive } from "@/lib/manga";
 import { getChapterNumbers } from "@/lib/data";
-import { SITE, chapterPath, chaptersPath, latestPath, mangaPath } from "@/lib/site";
+import { SITE, latestPath, listPath, mangaPath, readPath } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [
     { url: SITE.url, lastModified: now, changeFrequency: "daily", priority: 1 },
+    { url: `${SITE.url}/dmca`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${SITE.url}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${SITE.url}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
   ];
 
   for (const m of MANGAS) {
@@ -22,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     entries.push(
       {
-        url: `${SITE.url}${chaptersPath(m.slug)}`,
+        url: `${SITE.url}${listPath(m)}`,
         lastModified: now,
         changeFrequency: "daily",
         priority: 0.8,
@@ -37,7 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     for (const n of getChapterNumbers(m.slug)) {
       entries.push({
-        url: `${SITE.url}${chapterPath(m.slug, n)}`,
+        url: `${SITE.url}${readPath(m, n)}`,
         lastModified: now,
         changeFrequency: "monthly",
         priority: 0.7,

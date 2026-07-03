@@ -5,6 +5,10 @@
 
 export type MangaStatus = "live" | "coming-soon";
 
+/** Reading unit the series is stored/served in. One Piece & Bleach are
+ *  per-chapter; Naruto's colored edition ships as full volumes. */
+export type MangaUnit = "chapter" | "volume";
+
 export interface Manga {
   /** URL slug, e.g. "one-piece" → /one-piece */
   slug: string;
@@ -18,6 +22,8 @@ export interface Manga {
   publisher: string;
   genres: string[];
   status: MangaStatus;
+  /** Reading unit — "chapter" (default) or "volume". Drives routes + copy. */
+  unit: MangaUnit;
   /** First year of serialization (schema.org datePublished / copy) */
   year: number;
   /** CDN base that serves this manga's colored page images.
@@ -42,6 +48,11 @@ const OP_IMAGE_BASE = (
   "https://cdn.jsdelivr.net/gh/anon6968/op-color-pages@main/pages"
 ).replace(/\/$/, "");
 
+const BLEACH_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/bleach-color-pages@main/pages";
+const NARUTO_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/naruto-color-pages@main/pages";
+
 export const MANGAS: Manga[] = [
   {
     slug: "one-piece",
@@ -52,6 +63,7 @@ export const MANGAS: Manga[] = [
     publisher: "Shueisha",
     genres: ["Action", "Adventure", "Fantasy", "Comedy"],
     status: "live",
+    unit: "chapter",
     year: 1997,
     imageBase: OP_IMAGE_BASE,
     tagline:
@@ -82,13 +94,14 @@ export const MANGAS: Manga[] = [
     author: "Masashi Kishimoto",
     publisher: "Shueisha",
     genres: ["Action", "Adventure", "Martial Arts", "Fantasy"],
-    status: "coming-soon",
+    status: "live",
+    unit: "volume",
     year: 1999,
-    imageBase: "",
+    imageBase: NARUTO_IMAGE_BASE,
     tagline:
-      "Masashi Kishimoto's ninja saga, being digitally colorized chapter by chapter.",
+      "Masashi Kishimoto's complete ninja saga — all 72 volumes digitally colorized in full HD.",
     synopsis:
-      "The colorized Naruto manga is coming to Colorized Manga. Every chapter of Masashi Kishimoto's ninja epic — from Naruto Uzumaki's academy days and the Chūnin Exams through the Search for Tsunade, the Sasuke Retrieval, Shippūden and the Fourth Great Ninja War — is being digitally colored in full HD. Follow Naruto, Sasuke and Sakura in vivid full color instead of black and white, free to read on any device.",
+      "Read the colorized Naruto manga online for free — the complete series, all 72 volumes of Masashi Kishimoto's ninja epic digitally colored in high definition. Follow Naruto Uzumaki from his academy days and the Chūnin Exams through the Search for Tsunade, the Sasuke Retrieval, Shippūden and the Fourth Great Ninja War, all the way to the final battle — in vivid full color instead of black and white. No signup, no paywall — a fast reader with zoom on every page, on phone or desktop.",
     keywords: [
       "colorized naruto manga",
       "naruto color manga",
@@ -96,12 +109,14 @@ export const MANGAS: Manga[] = [
       "read naruto in color",
       "naruto full color",
       "naruto manga online free",
-      "naruto colored chapters",
+      "naruto colored volumes",
+      "naruto full color edition",
       "naruto shippuden colored manga",
+      "read naruto color free",
     ],
     accent: "#f7a600",
     mark: "🍥",
-    totalChapters: 700,
+    totalChapters: 72,
   },
   {
     slug: "bleach",
@@ -111,13 +126,14 @@ export const MANGAS: Manga[] = [
     author: "Tite Kubo",
     publisher: "Shueisha",
     genres: ["Action", "Adventure", "Supernatural"],
-    status: "coming-soon",
+    status: "live",
+    unit: "chapter",
     year: 2001,
-    imageBase: "",
+    imageBase: BLEACH_IMAGE_BASE,
     tagline:
-      "Tite Kubo's Soul Reaper classic, being digitally colorized in full HD.",
+      "Tite Kubo's Soul Reaper classic — the complete series digitally colorized in full HD.",
     synopsis:
-      "The colorized Bleach manga is on its way. Every chapter of Tite Kubo's supernatural action series — Ichigo Kurosaki's rise as a Soul Reaper, the Soul Society arc, the Arrancar war and the Thousand-Year Blood War — is being digitally colored in high definition. Read Bleach in vivid full color online, free, on phone or desktop.",
+      "Read the colorized Bleach manga online for free — the complete series, every chapter of Tite Kubo's supernatural action epic digitally colored in high definition. Follow Ichigo Kurosaki's rise as a Substitute Soul Reaper through the Soul Society rescue, the Arrancar war, the Lost Agent arc and the Thousand-Year Blood War, all in vivid full color instead of black and white. No signup, no paywall — a fast mobile-friendly reader with zoom on every page.",
     keywords: [
       "colorized bleach manga",
       "bleach color manga",
@@ -146,6 +162,7 @@ export const MANGAS: Manga[] = [
     publisher: "Shueisha",
     genres: ["Action", "Adventure", "Supernatural", "Historical"],
     status: "coming-soon",
+    unit: "chapter",
     year: 2016,
     imageBase: "",
     tagline:
@@ -174,6 +191,7 @@ export const MANGAS: Manga[] = [
     publisher: "Shueisha",
     genres: ["Mystery", "Psychological", "Thriller", "Supernatural"],
     status: "coming-soon",
+    unit: "chapter",
     year: 2003,
     imageBase: "",
     tagline:
@@ -207,6 +225,7 @@ export const MANGAS: Manga[] = [
     publisher: "Square Enix",
     genres: ["Action", "Adventure", "Fantasy", "Steampunk"],
     status: "coming-soon",
+    unit: "chapter",
     year: 2001,
     imageBase: "",
     tagline:
@@ -240,6 +259,7 @@ export const MANGAS: Manga[] = [
     publisher: "Kodansha",
     genres: ["Action", "Dark Fantasy", "Post-Apocalyptic", "Drama"],
     status: "coming-soon",
+    unit: "chapter",
     year: 2009,
     imageBase: "",
     tagline:
@@ -273,6 +293,7 @@ export const MANGAS: Manga[] = [
     publisher: "Shueisha",
     genres: ["Action", "Adventure", "Fantasy"],
     status: "coming-soon",
+    unit: "chapter",
     year: 1998,
     imageBase: "",
     tagline:
@@ -301,6 +322,7 @@ export const MANGAS: Manga[] = [
     publisher: "Shueisha",
     genres: ["Action", "Horror", "Supernatural", "Dark Fantasy"],
     status: "coming-soon",
+    unit: "chapter",
     year: 2018,
     imageBase: "",
     tagline:
@@ -329,6 +351,7 @@ export const MANGAS: Manga[] = [
     publisher: "Shueisha",
     genres: ["Action", "Adventure", "Fantasy", "Magic"],
     status: "coming-soon",
+    unit: "chapter",
     year: 2015,
     imageBase: "",
     tagline:
