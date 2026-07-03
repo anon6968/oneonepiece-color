@@ -108,7 +108,7 @@ export default function Reader({ chapter, arc, saga, type, pages, prev, next, to
               )}
             </div>
             <div className="truncate text-[11px] text-mute">
-              {arc} · {saga}
+              {arc === saga ? arc : `${arc} · ${saga}`}
             </div>
           </div>
 
