@@ -81,6 +81,46 @@
     "nativeTitle": "キャンバス２"
   },
   {
+    "slug": "hoshin-engi",
+    "color": "full",
+    "title": "Hoshin Engi",
+    "altTitles": [
+      "Hoshin Engi Color",
+      "Colorized Hoshin Engi",
+      "Hoshin Engi - Digital Colored Comics",
+      "Houshin Engi (Official Colored)",
+      "Soul Hunter (Official Colored)",
+      "封神演義 カラー版",
+      "Senkai-den Houshin Engi (Official Colored)"
+    ],
+    "author": "Fujisaki Ryu",
+    "publisher": "",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Adventure",
+      "Drama",
+      "Fantasy"
+    ],
+    "status": "live",
+    "unit": "chapter",
+    "year": 2019,
+    "imageBase": "https://cdn.jsdelivr.net/gh/anon6968/hoshin-engi-color-pages@main/pages",
+    "tagline": "Hoshin Engi — full color, HD.",
+    "synopsis": "Armed with his new weapon, the Dashinben, Taikobo seeks revenge on the demon Dakki and her sinister sisters. He finds out much more about the godlike Sennins--and what may have really happened to his clan. But looking for survivors only means falling further into Dakki's darkness.",
+    "keywords": [
+      "colorized hoshin engi manga",
+      "hoshin engi color manga",
+      "read hoshin engi in color",
+      "hoshin engi full color",
+      "hoshin engi manga online free"
+    ],
+    "accent": "#2fbf71",
+    "mark": "📖",
+    "totalChapters": 46,
+    "nativeTitle": "封神演義 カラー版"
+  },
+  {
     "slug": "jojo-no-kimyou-na-bouken-dai-9-bu-the-jo",
     "color": "full",
     "title": "JoJo no Kimyou na Bouken Dai-9-bu: The JOJOLands Color-ban",
