@@ -137,10 +137,7 @@ export default function Home() {
           <div className="mt-14">
             <h3 className="text-xl font-bold tracking-tight sm:text-2xl">More in the library</h3>
             <p className="mt-1.5 mb-6 text-sm text-mute sm:text-base">
-              Every badge is honest: <span className="font-semibold text-fg">Partial color</span> means
-              only some chapters are colored, and{" "}
-              <span className="font-semibold text-fg">B&amp;W — not colorized</span> means we don&apos;t
-              have a color version of that series.
+              Being colorized now — each card shows how much color is ready so far.
             </p>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {soon.map((m) => (

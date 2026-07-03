@@ -1,11 +1,19 @@
 import Link from "next/link";
 import { liveMangas } from "@/lib/manga";
-import { mangaPath } from "@/lib/site";
+import { pageUrl } from "@/lib/site";
+import HeaderResume from "./HeaderResume";
 
 export default function Header() {
-  // Headline series only — 8+ live titles no longer fit a nav row;
-  // "All Manga" covers the rest.
-  const live = liveMangas().slice(0, 3);
+  // The nav stays a fixed size no matter how many series we add: individual
+  // titles live in "All Manga", and the only per-title control is the single
+  // "Continue reading" pill (the reader's most recent series).
+  const resumeSeries = liveMangas().map((m) => ({
+    slug: m.slug,
+    title: m.title,
+    unit: m.unit,
+    poster: m.poster ?? pageUrl(m, 1, 1),
+  }));
+
   return (
     // Deliberately not sticky — it scrolls away so content (and the chapter
     // browser's own top-0 toolbar) gets the full viewport.
@@ -28,19 +36,13 @@ export default function Header() {
           <Link href="/" className="rounded-md px-3 py-1.5 hover:bg-panel hover:text-fg">
             Home
           </Link>
-          {live.map((m) => (
-            <Link
-              key={m.slug}
-              href={mangaPath(m.slug)}
-              className="rounded-md px-3 py-1.5 hover:bg-panel hover:text-fg"
-            >
-              {m.title}
-            </Link>
-          ))}
           <Link href="/#library" className="rounded-md px-3 py-1.5 hover:bg-panel hover:text-fg">
             All Manga
           </Link>
         </nav>
+
+        {/* Fixed-size resume control; renders only when there's reading progress. */}
+        <HeaderResume series={resumeSeries} />
 
         {/* On mobile the bottom MobileNav handles navigation. */}
       </div>
