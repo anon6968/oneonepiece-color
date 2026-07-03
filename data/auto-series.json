@@ -81,6 +81,45 @@
     "nativeTitle": "キャンバス２"
   },
   {
+    "slug": "getsuyoubi-no-tawawa-twitter-webcomic",
+    "color": "full",
+    "title": "Getsuyoubi no Tawawa (Twitter Webcomic)",
+    "altTitles": [
+      "Getsuyoubi no Tawawa (Twitter Webcomic) Color",
+      "Colorized Getsuyoubi no Tawawa (Twitter Webcomic)",
+      "Getsuyobi No Tawawa (Doujinshi)",
+      "Getsuyoubi no Tawawa Sono",
+      "Tawawa on Monday (Twitter Webcomic) (Fan Colored)",
+      "月曜日のたわわ",
+      "月曜日のたわわ 同人版"
+    ],
+    "author": "Himura Kiseki",
+    "publisher": "",
+    "genres": [
+      "Romance",
+      "Office Workers",
+      "School Life",
+      "Slice of Life"
+    ],
+    "status": "live",
+    "unit": "chapter",
+    "year": 2015,
+    "imageBase": "https://cdn.jsdelivr.net/gh/anon6968/getsuyoubi-no-tawawa-twitter-webcomic-color-pages@main/pages",
+    "tagline": "Getsuyoubi no Tawawa (Twitter Webcomic) — full color, HD.",
+    "synopsis": "Fan-colored version of Getsuyoubi no Tawawa collected volumes Features fan-colored versions of illustrations posted on author's twitter every Monday and collected as Doujinshi Volumes along with extra stories",
+    "keywords": [
+      "colorized getsuyoubi no tawawa (twitter webcomic) manga",
+      "getsuyoubi no tawawa (twitter webcomic) color manga",
+      "read getsuyoubi no tawawa (twitter webcomic) in color",
+      "getsuyoubi no tawawa (twitter webcomic) full color",
+      "getsuyoubi no tawawa (twitter webcomic) manga online free"
+    ],
+    "accent": "#8e44ad",
+    "mark": "📖",
+    "totalChapters": 51,
+    "nativeTitle": "月曜日のたわわ"
+  },
+  {
     "slug": "hoshin-engi",
     "color": "full",
     "title": "Hoshin Engi",
