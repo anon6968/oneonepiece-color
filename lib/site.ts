@@ -1,5 +1,5 @@
 export const SITE = {
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://oneonepiece.colorizedmanga.com").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://onepiece.colorizedmangas.com").replace(/\/$/, ""),
   name: "One Piece Color Manga",
   short: "OP Color",
   tagline: "Read One Piece in full color, online and free.",
