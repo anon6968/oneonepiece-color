@@ -36,8 +36,8 @@ export default function ChaptersPage() {
         All One Piece color manga chapters
       </h1>
       <p className="mt-2 max-w-2xl text-sm text-mute">
-        Every colorized chapter we host — {s.colored} chapters in full color, up to chapter{" "}
-        {s.last}, grouped by saga. Tap any cover to start reading in color.
+        Every colorized chapter we host — {s.total} chapters in color, up to chapter {s.last},
+        grouped by saga. Tap any cover to start reading.
       </p>
       <div className="mt-6">
         <ChapterBrowser chapters={index} />

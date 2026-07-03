@@ -21,7 +21,7 @@ export default function ChapterJump({ max }: { max: number }) {
         onChange={(e) => setV(e.target.value.replace(/[^0-9]/g, ""))}
         placeholder={max ? `Go to ch… (1–${max})` : "Go to chapter…"}
         aria-label="Jump to chapter"
-        className="w-36 rounded-lg border border-line bg-panel px-3 py-1.5 text-sm text-fg placeholder:text-mute/70 outline-none focus:border-brand/60 focus:ring-2 focus:ring-brand/20 sm:w-44"
+        className="w-36 rounded-lg bg-panel px-3 py-1.5 text-sm text-fg placeholder:text-mute/70 outline-none focus:ring-2 focus:ring-brand/25 sm:w-44"
       />
     </form>
   );

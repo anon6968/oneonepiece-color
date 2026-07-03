@@ -89,11 +89,11 @@ export default function Reader({ chapter, arc, saga, type, pages, prev, next, to
       </div>
 
       {/* toolbar */}
-      <div className="sticky top-14 z-30 border-b border-line bg-ink/85 backdrop-blur">
+      <div className="sticky top-14 z-30 bg-ink/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center gap-2 px-3 py-2">
           <Link
             href="/chapters"
-            className="rounded-lg border border-line bg-panel px-2.5 py-1.5 text-xs text-mute hover:text-fg"
+            className="rounded-lg bg-panel px-2.5 py-1.5 text-xs text-mute hover:text-fg"
             aria-label="All chapters"
           >
             ☰
@@ -116,7 +116,7 @@ export default function Reader({ chapter, arc, saga, type, pages, prev, next, to
             <span className="mr-1 hidden text-xs text-mute sm:block">
               {cur}/{pages.length}
             </span>
-            <div className="flex items-center rounded-lg border border-line bg-panel">
+            <div className="flex items-center rounded-lg bg-panel">
               <button
                 onClick={() => setWIdx((v) => Math.max(0, v - 1))}
                 className="px-2.5 py-1.5 text-sm text-mute hover:text-fg disabled:opacity-30"
@@ -138,7 +138,7 @@ export default function Reader({ chapter, arc, saga, type, pages, prev, next, to
             <button
               onClick={goPrev}
               disabled={!prev}
-              className="rounded-lg border border-line bg-panel px-2.5 py-1.5 text-xs hover:border-brand/50 disabled:opacity-30"
+              className="rounded-lg bg-panel px-2.5 py-1.5 text-xs hover:bg-panel-2 disabled:opacity-30"
               aria-label="Previous chapter"
             >
               ‹ Prev
@@ -146,7 +146,7 @@ export default function Reader({ chapter, arc, saga, type, pages, prev, next, to
             <button
               onClick={goNext}
               disabled={!next}
-              className="rounded-lg border border-line bg-panel px-2.5 py-1.5 text-xs hover:border-brand/50 disabled:opacity-30"
+              className="rounded-lg bg-panel px-2.5 py-1.5 text-xs hover:bg-panel-2 disabled:opacity-30"
               aria-label="Next chapter"
             >
               Next ›
@@ -191,13 +191,13 @@ export default function Reader({ chapter, arc, saga, type, pages, prev, next, to
         <button
           onClick={goPrev}
           disabled={!prev}
-          className="flex-1 rounded-xl border border-line bg-panel px-4 py-3 text-sm font-semibold hover:border-brand/50 disabled:opacity-30"
+          className="flex-1 rounded-xl bg-panel px-4 py-3 text-sm font-semibold hover:bg-panel-2 disabled:opacity-30"
         >
           ‹ Previous
         </button>
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="rounded-xl border border-line bg-panel px-4 py-3 text-sm text-mute hover:text-fg"
+          className="rounded-xl bg-panel px-4 py-3 text-sm text-mute hover:text-fg"
           aria-label="Back to top"
         >
           ↑

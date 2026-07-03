@@ -17,7 +17,7 @@ export default function NotFound() {
         </Link>
         <Link
           href="/chapters"
-          className="rounded-xl border border-line bg-panel px-5 py-2.5 text-sm font-semibold"
+          className="rounded-xl bg-panel px-5 py-2.5 text-sm font-semibold"
         >
           All chapters
         </Link>

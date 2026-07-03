@@ -6,7 +6,7 @@ export default function Footer() {
   const sagas = groupBySaga();
   const s = stats();
   return (
-    <footer className="mt-16 border-t border-line bg-ink-2/60">
+    <footer className="mt-16 bg-ink-2/60">
       <div className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-10 md:grid-cols-[1.2fr_2fr]">
           <div>
@@ -17,8 +17,8 @@ export default function Footer() {
               One Piece <span className="text-brand">Color</span>
             </div>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-mute">
-              {SITE.tagline} {s.colored} chapters digitally colorized in HD, updated through
-              chapter {s.last}. Free, no signup, works on any device.
+              {SITE.tagline} {s.total} chapters in color, updated through chapter {s.last}.
+              Free, no signup, works on any device.
             </p>
           </div>
 
@@ -43,7 +43,7 @@ export default function Footer() {
           )}
         </div>
 
-        <div className="mt-10 border-t border-line pt-6 text-xs leading-relaxed text-mute/80">
+        <div className="mt-10 pt-6 text-xs leading-relaxed text-mute/70">
           <p>
             One Piece is created by Eiichiro Oda and published by Shueisha. This is a
             fan-made colorized reading archive; all rights to the original work belong to their

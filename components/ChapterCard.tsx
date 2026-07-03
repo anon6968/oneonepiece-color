@@ -6,7 +6,7 @@ export default function ChapterCard({ c, priority = false }: { c: IndexEntry; pr
   return (
     <Link
       href={`/read/${c.chapter}`}
-      className="group relative overflow-hidden rounded-xl border border-line bg-panel transition hover:border-brand/60 hover:shadow-lg hover:shadow-brand/10"
+      className="group relative overflow-hidden rounded-lg bg-panel transition hover:opacity-90"
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-ink-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -39,13 +39,13 @@ export default function ChapterBrowser({ chapters }: { chapters: IndexEntry[] })
 
   return (
     <div>
-      <div className="sticky top-14 z-30 -mx-4 mb-6 border-b border-line bg-ink/85 px-4 py-3 backdrop-blur">
+      <div className="sticky top-14 z-30 -mx-4 mb-6 bg-ink/90 px-4 py-3 backdrop-blur">
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search chapters — number, arc or saga (e.g. “Marineford”, “1015”)"
           aria-label="Search chapters"
-          className="w-full rounded-xl border border-line bg-panel px-4 py-2.5 text-sm outline-none focus:border-brand/60 focus:ring-2 focus:ring-brand/20"
+          className="w-full rounded-xl bg-panel px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand/25"
         />
         <div className="mt-2 text-xs text-mute">
           {filtered.length} chapter{filtered.length === 1 ? "" : "s"}

@@ -54,12 +54,12 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <section className="relative overflow-hidden border-b border-line">
+      <section className="relative overflow-hidden">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
           <div className="animate-fadeUp">
-            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-panel px-3 py-1 text-xs text-mute">
+            <span className="inline-flex items-center gap-2 rounded-full bg-panel px-3 py-1 text-xs text-mute">
               <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-              {s.colored} chapters in full color · updated to Ch. {s.last}
+              {s.total} chapters in color · updated to Ch. {s.last}
             </span>
             <h1 className="mt-5 max-w-3xl text-4xl font-black leading-[1.05] tracking-tight sm:text-6xl">
               Read <span className="text-brand">One Piece</span> in{" "}
@@ -83,7 +83,7 @@ export default function Home() {
               {s.last > 0 && (
                 <Link
                   href={`/read/${s.last}`}
-                  className="rounded-xl border border-line bg-panel px-5 py-3 text-sm font-semibold text-fg transition hover:border-brand/50"
+                  className="rounded-xl bg-panel px-5 py-3 text-sm font-semibold text-fg transition hover:bg-panel-2"
                 >
                   Latest · Chapter {s.last}
                 </Link>
@@ -139,7 +139,7 @@ export default function Home() {
                 <Link
                   key={sg.saga}
                   href={`/chapters#${slug(sg.saga)}`}
-                  className="rounded-xl border border-line bg-panel p-4 transition hover:border-brand/50 hover:bg-panel-2"
+                  className="rounded-xl bg-panel p-4 transition hover:bg-panel-2"
                 >
                   <div className="font-semibold">{sg.saga}</div>
                   <div className="mt-1 text-xs text-mute">
