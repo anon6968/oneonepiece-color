@@ -1,5 +1,46 @@
 [
   {
+    "slug": "akira",
+    "color": "full",
+    "title": "Akira",
+    "altTitles": [
+      "Akira Color",
+      "Colorized Akira",
+      "アキラ",
+      "Акира",
+      "Акіра",
+      "აკირა",
+      "Ակիրա",
+      "אקירה"
+    ],
+    "author": "Otomo Katsuhiro",
+    "publisher": "",
+    "genres": [
+      "Thriller",
+      "Sci-Fi",
+      "Action",
+      "Psychological",
+      "Romance"
+    ],
+    "status": "live",
+    "unit": "chapter",
+    "year": 1988,
+    "imageBase": "https://cdn.jsdelivr.net/gh/anon6968/akira-color-pages@main/pages",
+    "tagline": "Akira — full color, HD.",
+    "synopsis": "Welcome to Neo-Tokyo, built on the ashes of a Tokyo annihilated by a blast of unknown origin that triggered World War III. The lives of two streetwise teenage friends, Tetsuo and Kaneda, change forever when paranormal abilities begin to waken in Tetsuo, making him a target for a shadowy agency that will stop at nothing to prevent another catastrophe like the one that leveled Tokyo. At the core of the agency's motivation is a raw, all-consuming fear of an unthinkable, monstrous power known only as Akira.",
+    "keywords": [
+      "colorized akira manga",
+      "akira color manga",
+      "read akira in color",
+      "akira full color",
+      "akira manga online free"
+    ],
+    "accent": "#7f8c8d",
+    "mark": "📖",
+    "totalChapters": 38,
+    "nativeTitle": "アキラ"
+  },
+  {
     "slug": "canvas-2-rainbow-colored-sketch",
     "color": "full",
     "title": "Canvas 2 ~Rainbow colored sketch~",
