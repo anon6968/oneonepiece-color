@@ -10,7 +10,7 @@ export default function MangaCard({ manga, priority = false }: { manga: Manga; p
   return (
     <Link
       href={mangaPath(manga.slug)}
-      className="group relative flex flex-col overflow-hidden rounded-xl bg-panel ring-1 ring-line/60 transition hover:ring-brand/60"
+      className="group relative flex flex-col overflow-hidden rounded-xl bg-panel transition duration-300 hover:-translate-y-1 hover:bg-panel-2"
       aria-label={`Colorized ${manga.title} manga`}
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-ink-2">
@@ -39,7 +39,7 @@ export default function MangaCard({ manga, priority = false }: { manga: Manga; p
         <span
           className={
             "absolute left-2.5 top-2.5 rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide " +
-            (live ? "bg-brand text-white" : "bg-ink/80 text-mute ring-1 ring-line")
+            (live ? "bg-brand text-white" : "bg-ink/70 text-mute backdrop-blur-sm")
           }
         >
           {live ? (

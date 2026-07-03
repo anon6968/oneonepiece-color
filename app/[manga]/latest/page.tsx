@@ -80,7 +80,7 @@ export default async function LatestPage({
               Browse the full list by saga →
             </Link>
           </p>
-          <ol className="mt-6 divide-y divide-line/50 overflow-hidden rounded-xl bg-panel/40 ring-1 ring-line/50">
+          <ol className="mt-6 divide-y divide-line/40 overflow-hidden rounded-xl bg-panel/40">
             {latest.map((c) => (
               <li key={c.chapter}>
                 <Link

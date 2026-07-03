@@ -5,13 +5,16 @@ import { mangaPath } from "@/lib/site";
 export default function Header() {
   const live = liveMangas();
   return (
-    <header className="sticky top-0 z-40 border-b border-line/60 bg-ink/85 backdrop-blur-md">
+    <header className="sticky top-0 z-40 bg-ink/70 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4">
-        <Link href="/" className="group flex items-center gap-2 font-extrabold tracking-tight">
-          {/* Neutral mark placeholder — the brand logo is managed separately. */}
-          <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-blood to-brand text-sm shadow-lg shadow-brand/30 ring-1 ring-brand/40">
-            🏴‍☠️
-          </span>
+        <Link href="/" aria-label="Colorized Manga home" className="group flex items-center gap-2 font-extrabold tracking-tight">
+          <img
+            src="/logo-mark.svg"
+            alt=""
+            width={28}
+            height={28}
+            className="h-7 w-7 rounded-lg shadow-lg shadow-brand/20 transition group-hover:brightness-110"
+          />
           <span className="text-[15px] sm:text-base">
             Colorized <span className="text-brand">Manga</span>
           </span>

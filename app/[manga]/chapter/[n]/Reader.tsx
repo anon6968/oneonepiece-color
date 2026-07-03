@@ -99,7 +99,7 @@ export default function Reader({ manga, chapter, arc, saga, type, pages, prev, n
       </div>
 
       {/* toolbar */}
-      <div className="sticky top-14 z-30 border-b border-line/50 bg-ink/90 backdrop-blur">
+      <div className="sticky top-14 z-30 bg-ink/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center gap-2 px-3 py-2">
           <Link
             href={chaptersPath(manga.slug)}

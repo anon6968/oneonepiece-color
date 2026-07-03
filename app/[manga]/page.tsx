@@ -112,7 +112,7 @@ function LiveManga({ m }: { m: Manga }) {
             <span className="text-fg">{m.title}</span>
           </nav>
           <div className="animate-fadeUp">
-            <span className="inline-flex items-center gap-2 rounded-full bg-panel px-3 py-1 text-xs text-mute ring-1 ring-line/60">
+            <span className="inline-flex items-center gap-2 rounded-full bg-panel/70 px-3 py-1 text-xs text-mute">
               <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulseGlow" />
               {s.colored} chapters in color · updated to Ch. {s.last}
             </span>
@@ -135,7 +135,7 @@ function LiveManga({ m }: { m: Manga }) {
               {s.last > 0 && (
                 <Link
                   href={chapterPath(m.slug, s.last)}
-                  className="rounded-xl bg-panel px-5 py-3 text-sm font-semibold text-fg ring-1 ring-line/60 transition hover:bg-panel-2"
+                  className="rounded-xl bg-panel px-5 py-3 text-sm font-semibold text-fg transition hover:bg-panel-2"
                 >
                   Latest · Chapter {s.last}
                 </Link>
@@ -194,7 +194,7 @@ function LiveManga({ m }: { m: Manga }) {
                 <Link
                   key={sg.saga}
                   href={`${chaptersPath(m.slug)}#${sagaSlug(sg.saga)}`}
-                  className="rounded-xl bg-panel p-4 ring-1 ring-line/50 transition hover:bg-panel-2 hover:ring-brand/40"
+                  className="rounded-xl bg-panel p-4 transition hover:bg-panel-2"
                 >
                   <div className="font-semibold">{sg.saga}</div>
                   <div className="mt-1 text-xs text-mute">
@@ -277,7 +277,7 @@ function ComingSoonManga({ m }: { m: Manga }) {
           <span className="text-fg">{m.title}</span>
         </nav>
 
-        <span className="inline-flex items-center gap-2 rounded-full bg-panel px-3 py-1 text-xs text-mute ring-1 ring-line/60">
+        <span className="inline-flex items-center gap-2 rounded-full bg-panel/70 px-3 py-1 text-xs text-mute">
           <span className="h-1.5 w-1.5 rounded-full bg-gold" />
           Colorization in progress
         </span>
@@ -294,14 +294,14 @@ function ComingSoonManga({ m }: { m: Manga }) {
             ["Since", String(m.year)],
             ["Chapters", m.totalChapters ? `~${m.totalChapters}` : "—"],
           ].map(([k, v]) => (
-            <div key={k} className="rounded-xl bg-panel p-3 ring-1 ring-line/50">
+            <div key={k} className="rounded-xl bg-panel p-3">
               <dt className="text-[11px] uppercase tracking-wide text-mute">{k}</dt>
               <dd className="mt-1 text-sm font-semibold">{v}</dd>
             </div>
           ))}
         </dl>
 
-        <div className="mt-8 rounded-2xl bg-panel/60 p-5 ring-1 ring-line/50">
+        <div className="mt-8 rounded-2xl bg-panel/50 p-5">
           <p className="text-sm text-mute">
             Every chapter of {m.title} is being digitally colored in full HD and will appear here
             as pages are finished. In the meantime, the complete colorized One Piece manga is
@@ -319,7 +319,7 @@ function ComingSoonManga({ m }: { m: Manga }) {
             ))}
             <Link
               href="/#library"
-              className="rounded-xl bg-panel px-5 py-2.5 text-sm font-semibold ring-1 ring-line/60 hover:bg-panel-2"
+              className="rounded-xl bg-panel px-5 py-2.5 text-sm font-semibold hover:bg-panel-2"
             >
               See all manga
             </Link>

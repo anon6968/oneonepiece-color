@@ -31,22 +31,21 @@ body {
 body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  /* Blood-fog vignette from the top, deepening the corners — "creepy". */
+  /* Soft, restrained blood glow — subtle warmth from the top, no heavy vignette. */
   background-image:
-    radial-gradient(70rem 44rem at 78% -12%, rgba(224, 17, 35, 0.1), transparent 60%),
-    radial-gradient(50rem 40rem at 0% 8%, rgba(122, 10, 18, 0.08), transparent 55%),
-    radial-gradient(120% 90% at 50% 120%, rgba(0, 0, 0, 0.55), transparent 60%);
+    radial-gradient(60rem 40rem at 82% -14%, rgba(224, 17, 35, 0.06), transparent 60%),
+    radial-gradient(46rem 38rem at 0% 4%, rgba(122, 10, 18, 0.045), transparent 55%);
   background-attachment: fixed;
 }
 
-/* Faint film-grain over the whole page for the aged, printed feel. */
+/* Barely-there film grain for an aged, printed feel. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   mix-blend-mode: overlay;
 }

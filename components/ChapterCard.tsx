@@ -15,7 +15,7 @@ export default function ChapterCard({
   return (
     <Link
       href={chapterPath(manga.slug, c.chapter)}
-      className="group relative overflow-hidden rounded-lg bg-panel ring-1 ring-line/50 transition hover:ring-brand/50"
+      className="group relative overflow-hidden rounded-lg bg-panel transition duration-300 hover:-translate-y-0.5"
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-ink-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -6,14 +6,18 @@ import { chaptersPath, mangaPath, SITE } from "@/lib/site";
 export default function Footer() {
   const live = liveMangas();
   return (
-    <footer className="mt-16 border-t border-line/60 bg-ink-2/70">
+    <footer className="mt-16 bg-ink-2/50">
       <div className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-10 md:grid-cols-[1.1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-2 font-extrabold">
-              <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-blood to-brand ring-1 ring-brand/40">
-                🏴‍☠️
-              </span>
+              <img
+                src="/logo-mark.svg"
+                alt=""
+                width={28}
+                height={28}
+                className="h-7 w-7 rounded-lg"
+              />
               Colorized <span className="text-brand">Manga</span>
             </div>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-mute">
@@ -66,7 +70,7 @@ export default function Footer() {
           })}
         </div>
 
-        <div className="mt-10 border-t border-line/50 pt-6 text-xs leading-relaxed text-mute/70">
+        <div className="mt-10 pt-6 text-xs leading-relaxed text-mute/60">
           <p>
             All series are the property of their respective authors and publishers
             {live.length ? (

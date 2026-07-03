@@ -1,0 +1,14 @@
+{
+  "name": "Colorized Manga",
+  "short_name": "ColorMangas",
+  "description": "Read colorized manga online for free — every chapter digitally colored in full HD.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050506",
+  "theme_color": "#050506",
+  "icons": [
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" },
+    { "src": "/icon-512-maskable.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" }
+  ]
+}

@@ -1,25 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <defs>
     <linearGradient id="badge" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ff3b4e"/>
-      <stop offset="1" stop-color="#ff6a3d"/>
+      <stop offset="0" stop-color="#e01123"/>
+      <stop offset="1" stop-color="#8a0a14"/>
     </linearGradient>
   </defs>
   <rect width="64" height="64" rx="14" fill="url(#badge)"/>
-  <g fill="#f3efe6">
-    <!-- horns -->
+  <g fill="#ece7dd">
     <path d="M28,21 C21,14 16,12 11,10 C13,16 18,21 25,27 Z"/>
     <path d="M36,21 C43,14 48,12 53,10 C51,16 46,21 39,27 Z"/>
-    <!-- skull -->
     <path d="M32,16 C42,16 48,23 48,32 C48,38 45,42 41,45 C41,48 41,50 39,51 L25,51 C23,50 23,48 23,45 C19,42 16,38 16,32 C16,23 22,16 32,16 Z"/>
   </g>
-  <g fill="#22060a">
-    <!-- eyes -->
+  <g fill="#2a0206">
     <path d="M21,31 L29,29 L29,34 L23,37 Z"/>
     <path d="M43,31 L35,29 L35,34 L41,37 Z"/>
-    <!-- nose -->
     <path d="M32,37 L35,43 L32,45 L29,43 Z"/>
-    <!-- teeth gaps -->
     <rect x="27.2" y="45.5" width="1.6" height="5.5"/>
     <rect x="31.2" y="45.5" width="1.6" height="5.5"/>
     <rect x="35.2" y="45.5" width="1.6" height="5.5"/>

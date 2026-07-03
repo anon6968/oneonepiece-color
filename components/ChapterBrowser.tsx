@@ -52,7 +52,7 @@ export default function ChapterBrowser({
           onChange={(e) => setQ(e.target.value)}
           placeholder={`Search ${manga.title} chapters — number, arc or saga`}
           aria-label={`Search ${manga.title} chapters`}
-          className="w-full rounded-xl bg-panel px-4 py-2.5 text-sm outline-none ring-1 ring-line/50 focus:ring-2 focus:ring-brand/40"
+          className="w-full rounded-xl bg-panel px-4 py-2.5 text-sm outline-none transition focus:ring-2 focus:ring-brand/40"
         />
         <div className="mt-2 text-xs text-mute">
           {filtered.length} chapter{filtered.length === 1 ? "" : "s"}

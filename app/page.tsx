@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { MANGAS, liveMangas, comingSoonMangas } from "@/lib/manga";
 import { stats } from "@/lib/data";
@@ -56,9 +57,9 @@ export default function Home() {
 
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-16 sm:py-24 lg:grid-cols-[1.1fr_.9fr] lg:gap-10">
           <div className="animate-fadeUp">
-            <span className="inline-flex items-center gap-2 rounded-full bg-panel px-3 py-1 text-xs text-mute ring-1 ring-line/60">
+            <span className="inline-flex items-center gap-2 rounded-full bg-panel/70 px-3 py-1 text-xs text-mute">
               <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulseGlow" />
               {totalColored.toLocaleString()} chapters colorized · {live.length} series live ·{" "}
               {soon.length} more coming
@@ -71,9 +72,10 @@ export default function Home() {
               , online &amp; free.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-mute sm:text-lg">
-              {SITE.name} is the home of the colorized manga — legendary series digitally colored in
-              HD, from black &amp; white into vivid full color. No signup, built to read fast on
-              phone and laptop with pinch-to-zoom on every page.
+              {SITE.name}{" "}
+              is the home of the colorized manga — legendary series digitally colored in HD, from
+              black &amp; white into vivid full color. No signup, built to read fast on phone and
+              laptop with pinch-to-zoom on every page.
             </p>
             {featured && fStats && (
               <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -85,12 +87,26 @@ export default function Home() {
                 </Link>
                 <Link
                   href="#library"
-                  className="rounded-xl bg-panel px-5 py-3 text-sm font-semibold text-fg ring-1 ring-line/60 transition hover:bg-panel-2"
+                  className="rounded-xl bg-panel px-5 py-3 text-sm font-semibold text-fg transition hover:bg-panel-2"
                 >
                   Browse all manga
                 </Link>
               </div>
             )}
+          </div>
+
+          <div className="relative hidden animate-fadeUp justify-self-center lg:block">
+            <div className="pointer-events-none absolute inset-6 -z-10 rounded-full bg-brand/20 blur-3xl" />
+            <Image
+              src="/logo-hero.png"
+              alt="Colorized Manga — pirate ship logo"
+              width={1000}
+              height={1000}
+              priority
+              unoptimized
+              sizes="(min-width: 1024px) 480px, 0px"
+              className="h-auto w-full max-w-[480px]"
+            />
           </div>
         </div>
       </section>
@@ -124,9 +140,9 @@ export default function Home() {
                 <Link
                   key={m.slug}
                   href={mangaPath(m.slug)}
-                  className="flex items-center gap-4 rounded-2xl bg-panel p-4 ring-1 ring-line/50 transition hover:bg-panel-2 hover:ring-brand/40"
+                  className="flex items-center gap-4 rounded-2xl bg-panel p-4 transition hover:bg-panel-2"
                 >
-                  <span className="grid h-12 w-12 flex-none place-items-center rounded-xl bg-gradient-to-br from-blood to-brand text-2xl ring-1 ring-brand/40">
+                  <span className="grid h-12 w-12 flex-none place-items-center rounded-xl bg-gradient-to-br from-blood to-brand text-2xl">
                     {m.mark}
                   </span>
                   <div className="min-w-0 flex-1">
