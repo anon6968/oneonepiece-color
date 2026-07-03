@@ -2,20 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getManga, getMangaSlugs, isLive, liveMangas, type Manga } from "@/lib/manga";
-import { getIndex, groupBySaga, sagaSlug, stats } from "@/lib/data";
+import { getIndex, stats } from "@/lib/data";
 import {
   SITE,
-  latestPath,
-  listPath,
   mangaPath,
   pageUrl,
-  readPath,
   unitLabel,
   unitLabelPlural,
 } from "@/lib/site";
-import ChapterCard from "@/components/ChapterCard";
-import ChapterJump from "@/components/ChapterJump";
+import ChapterBrowser from "@/components/ChapterBrowser";
 import MangaCard from "@/components/MangaCard";
+import MangaInfoPanel from "@/components/MangaInfoPanel";
 
 export const dynamicParams = false;
 
@@ -84,11 +81,7 @@ export default async function MangaPage({
 function LiveManga({ m }: { m: Manga }) {
   const index = getIndex(m.slug);
   const s = stats(m.slug);
-  const sagas = groupBySaga(m.slug);
-  const latest = [...index].reverse().slice(0, 12);
-  const first = index.slice(0, 6);
   const firstCh = index[0]?.chapter ?? 1;
-  const label = unitLabel(m);
   const plural = unitLabelPlural(m);
 
   const jsonLd = {
@@ -121,135 +114,27 @@ function LiveManga({ m }: { m: Manga }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <section className="relative overflow-hidden">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:py-20 2xl:max-w-7xl">
-          <nav className="mb-4 text-xs text-mute" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-brand">Home</Link>
-            <span className="px-1.5">/</span>
-            <span className="text-fg">{m.title}</span>
-          </nav>
-          <div className="animate-fadeUp">
-            <span className="inline-flex items-center gap-2 rounded-full bg-panel/70 px-3 py-1 text-xs text-mute">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulseGlow" />
-              {s.colored} {plural} in color · updated to {label} {s.last}
-            </span>
-            <h1 className="mt-5 max-w-3xl text-4xl font-black leading-[1.05] tracking-tight sm:text-6xl">
-              Read <span className="text-brand">{m.title}</span> in{" "}
-              <span className="bg-gradient-to-r from-brand via-brand-2 to-gold bg-clip-text text-transparent">
-                full color
-              </span>
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-mute sm:text-lg">
-              {m.synopsis}
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link
-                href={readPath(m, firstCh)}
-                className="rounded-xl bg-gradient-to-r from-brand to-brand-2 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-brand/25 transition hover:brightness-110"
-              >
-                Start from {label} {firstCh} →
-              </Link>
-              {s.last > 0 && (
-                <Link
-                  href={readPath(m, s.last)}
-                  className="rounded-xl bg-panel px-5 py-3 text-sm font-semibold text-fg transition hover:bg-panel-2"
-                >
-                  Latest · {label} {s.last}
-                </Link>
-              )}
-              <Link
-                href={listPath(m)}
-                className="rounded-xl px-5 py-3 text-sm font-semibold text-mute transition hover:text-fg"
-              >
-                Browse all {plural}
-              </Link>
-              <div className="ml-auto hidden sm:block">
-                <ChapterJump manga={m} max={s.last} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8 2xl:max-w-[90rem]">
+        <nav className="mb-4 text-xs text-mute" aria-label="Breadcrumb">
+          <Link href="/" className="hover:text-brand">Home</Link>
+          <span className="px-1.5">/</span>
+          <span className="text-fg">{m.title}</span>
+        </nav>
 
-      {latest.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-10 2xl:max-w-7xl">
-          <div className="mb-5 flex items-end justify-between">
-            <h2 className="text-xl font-bold sm:text-2xl">Latest {m.title} color {plural}</h2>
-            <Link href={latestPath(m.slug)} className="text-sm text-brand hover:underline">
-              See all latest →
-            </Link>
-          </div>
-          <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 2xl:grid-cols-8">
-            {latest.map((c, i) => (
-              <ChapterCard key={c.chapter} manga={m} c={c} priority={i < 6} />
-            ))}
-          </div>
-        </section>
-      )}
+        <div className="grid gap-8 lg:grid-cols-[minmax(280px,36%)_1fr] lg:items-start lg:gap-10 xl:grid-cols-[minmax(300px,34%)_1fr]">
+          <MangaInfoPanel manga={m} stats={s} firstChapter={firstCh} />
 
-      {first.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 pb-2 2xl:max-w-7xl">
-          <h2 className="mb-5 text-xl font-bold sm:text-2xl">
-            Start from the beginning · {index[0].arc}
-          </h2>
-          <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 2xl:grid-cols-8">
-            {first.map((c) => (
-              <ChapterCard key={c.chapter} manga={m} c={c} />
-            ))}
-          </div>
-        </section>
-      )}
+          <div className="min-w-0 lg:max-h-[calc(100vh-5.5rem)] lg:overflow-y-auto lg:pr-1">
+            <h2 className="sr-only">Browse all {m.title} {plural}</h2>
 
-      {sagas.length > 1 && (
-        <section className="mx-auto max-w-6xl px-4 py-12 2xl:max-w-7xl">
-          <h2 className="mb-5 text-xl font-bold sm:text-2xl">Jump to an arc</h2>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {sagas.map((sg) => {
-              const from = sg.chapters[0].chapter;
-              const to = sg.chapters[sg.chapters.length - 1].chapter;
-              return (
-                <Link
-                  key={sg.saga}
-                  href={`${listPath(m)}#${sagaSlug(sg.saga)}`}
-                  className="rounded-xl bg-panel p-4 transition hover:bg-panel-2"
-                >
-                  <div className="font-semibold">{sg.saga}</div>
-                  <div className="mt-1 text-xs text-mute">
-                    {label.slice(0, 3)}. {from}–{to} · {sg.chapters.length} in color
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
-      )}
-
-      <section className="mx-auto max-w-3xl px-4 py-12">
-        <div className="space-y-4 text-sm leading-relaxed text-mute">
-          <h2 className="text-lg font-bold text-fg">About the {m.title} colored manga</h2>
-          <p>{m.synopsis}</p>
-          <p>
-            We currently host {s.colored} fully colored {plural}
-            {sagas.length > 1 && (
-              <> spanning {sagas.map((x) => x.saga).slice(0, 6).join(", ")} and beyond</>
+            {index.length > 0 ? (
+              <ChapterBrowser manga={m} chapters={index} />
+            ) : (
+              <p className="py-12 text-center text-mute">No {plural} available yet.</p>
             )}
-            , up to {label.toLowerCase()} {s.last}. The reader is optimized for mobile and desktop:
-            pages load fast from a global CDN, keep their aspect ratio to avoid layout shift, and
-            every page supports pinch-to-zoom so you never miss a detail of the colored artwork.
-          </p>
-          <p>
-            Whether you&apos;re starting from{" "}
-            <Link href={readPath(m, firstCh)} className="text-brand hover:underline">
-              {label} {firstCh}
-            </Link>{" "}
-            or catching up on the{" "}
-            <Link href={latestPath(m.slug)} className="text-brand hover:underline">
-              latest colored {label.toLowerCase()}
-            </Link>
-            , this is the fastest way to read {m.title} in color.
-          </p>
+          </div>
         </div>
-      </section>
+      </div>
     </>
   );
 }

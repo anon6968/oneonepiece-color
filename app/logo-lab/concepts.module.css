@@ -1,0 +1,217 @@
+/* ------------------------------------------------------------------ */
+/* Logo animation CONCEPTS — a menu of genuinely different reveal ideas */
+/* for the layered pirate-ship logo, so we can pick one. Each concept   */
+/* is one `.fx_<id>` class on the frame. Shared: the layer stack, the   */
+/* screen-blended moving layers, and a baseline masthead flutter that   */
+/* individual concepts override when they animate the flag themselves.  */
+/* ------------------------------------------------------------------ */
+.fx {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  isolation: isolate;
+  overflow: hidden;
+}
+.fx img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.stage,
+.ship {
+  position: absolute;
+  inset: 0;
+}
+.water,
+.pennants,
+.flag {
+  mix-blend-mode: screen;
+  backface-visibility: hidden;
+}
+.gray {
+  filter: grayscale(1) brightness(0.85) contrast(0.95);
+}
+
+/* Baseline living idle — flags flutter at the masthead. Concepts that
+   animate the flag/pennants themselves override these by specificity. */
+.flag {
+  transform-origin: 42% 15%;
+  animation: flutter 3.8s ease-in-out infinite;
+}
+.pennants {
+  transform-origin: 24% 16%;
+  animation: pflutter 3.2s ease-in-out infinite;
+}
+@keyframes flutter {
+  0%, 100% { transform: rotate(-5deg) skewX(5deg); }
+  50% { transform: rotate(6deg) skewX(-6deg); }
+}
+@keyframes pflutter {
+  0%, 100% { transform: rotate(-4deg) skewY(3deg); }
+  50% { transform: rotate(5deg) skewY(-4deg); }
+}
+
+/* 1 — Colorize Develop: B&W engraving develops into full colour. */
+.fx_colorize {
+  animation: cDevelop 1.8s linear both;
+}
+@keyframes cDevelop {
+  0% { filter: grayscale(1) brightness(0.4) blur(4px); transform: scale(1.04); opacity: 0; }
+  12% { filter: grayscale(0.9) brightness(0.5) blur(3px); opacity: 1; }
+  60% { filter: grayscale(0.28) brightness(0.9) blur(0); }
+  100% { filter: grayscale(0) brightness(1) blur(0); transform: scale(1); opacity: 1; }
+}
+
+/* 2 — Colour Wipe: colour reveals over a grayscale copy, left to right. */
+.fx_wipe .stage {
+  animation: wipeReveal 1.7s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+@keyframes wipeReveal {
+  0% { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+/* 3 — Rise from the Sea: the ship surfaces from behind the waves. */
+.fx_rise .ship {
+  animation: riseShip 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.fx_rise .water {
+  animation: riseFoam 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes riseShip {
+  0% { transform: translateY(48%); opacity: 0; }
+  60% { opacity: 1; }
+  80% { transform: translateY(-2.5%); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes riseFoam {
+  0% { transform: translateY(28%) scaleY(1.18); opacity: 0; }
+  55% { opacity: 1; }
+  100% { transform: translateY(0) scaleY(1); opacity: 1; }
+}
+
+/* 4 — Ink Sheen: a specular highlight glides across the engraving. */
+.fx_sheen {
+  animation: sheenIn 0.5s ease both;
+}
+@keyframes sheenIn {
+  from { opacity: 0.15; }
+  to { opacity: 1; }
+}
+.sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.72) 50%,
+    transparent 58%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  -webkit-mask-image: url(/logo-anim/base.png);
+  mask-image: url(/logo-anim/base.png);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-mode: luminance;
+  mask-mode: luminance;
+  animation: sheenSweep 1.7s ease both;
+}
+@keyframes sheenSweep {
+  0% { background-position: -70% 0; }
+  100% { background-position: 170% 0; }
+}
+
+/* 5 — Assemble: waves, hull, pennants and flag build in one by one. */
+.fx_assemble .water { animation: aIn 0.55s ease both; }
+.fx_assemble .ship { animation: aDrop 0.7s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.fx_assemble .pennants { animation: aIn 0.5s 0.55s ease both; }
+.fx_assemble .flag { animation: aUnfurl 0.6s 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes aIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes aDrop {
+  0% { transform: translateY(-14%); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes aUnfurl {
+  0% { transform: scaleX(0); opacity: 0; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+
+/* 6 — Flag Hoist: the jolly-roger runs up the mast and unfurls. */
+.fx_hoist .stage {
+  animation: hIn 0.5s ease both;
+}
+.fx_hoist .flag {
+  animation: hoist 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes hIn {
+  from { opacity: 0.2; }
+  to { opacity: 1; }
+}
+@keyframes hoist {
+  0% { transform: translateY(85%) scaleY(0.2); opacity: 0; }
+  55% { opacity: 1; }
+  80% { transform: translateY(-4%) scaleY(1.05); }
+  100% { transform: translateY(0) scaleY(1); opacity: 1; }
+}
+
+/* 7 — Print Register: mis-registered colour plates slide into alignment. */
+.fx_register .stage {
+  animation: reg 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes reg {
+  0% {
+    filter: drop-shadow(11px 0 0 #ff2d2d) drop-shadow(-11px 0 0 #23e3ff) brightness(0.9);
+    transform: scale(1.02);
+    opacity: 0.15;
+  }
+  100% {
+    filter: drop-shadow(0 0 0 rgba(255, 45, 45, 0)) drop-shadow(0 0 0 rgba(35, 227, 255, 0)) brightness(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 8 — Zoom Settle: rushes in oversized and soft, snaps into focus. */
+.fx_zoom {
+  animation: zoomSettle 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes zoomSettle {
+  0% { transform: scale(1.4); filter: blur(7px); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: scale(1); filter: blur(0); opacity: 1; }
+}
+
+/* 9 — Ember Glow: no reveal — the red embers pulse and breathe. */
+.fx_ember {
+  animation: emberIn 0.8s ease both;
+}
+.fx_ember .stage {
+  animation: emberPulse 3.4s ease-in-out infinite;
+}
+@keyframes emberIn {
+  from { opacity: 0; filter: brightness(0.4); }
+  to { opacity: 1; filter: brightness(1); }
+}
+@keyframes emberPulse {
+  0%, 100% { filter: brightness(0.9) saturate(0.95) drop-shadow(0 0 5px rgba(224, 17, 35, 0.15)); }
+  50% { filter: brightness(1.12) saturate(1.35) drop-shadow(0 0 20px rgba(224, 17, 35, 0.5)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx,
+  .fx *,
+  .sheen {
+    animation: none !important;
+  }
+  .fx_wipe .stage { clip-path: none !important; }
+}

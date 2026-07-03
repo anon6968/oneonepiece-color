@@ -21,7 +21,7 @@ import {
   unitMetaTitle,
   unitTitle,
 } from "@/lib/site";
-import Reader from "@/components/Reader";
+import Reader from "@/components/reader/Reader";
 
 export function unitStaticParams(unit: MangaUnit) {
   const params: { manga: string; n: string }[] = [];
@@ -109,6 +109,11 @@ export async function UnitReaderPage({
   const { prev, next } = neighbours(slug, n);
   const idx = getIndex(slug);
   const total = idx.length ? idx[idx.length - 1].chapter : n;
+  const units = idx.map((e) => e.chapter);
+  const unitTitles =
+    m.unit === "volume"
+      ? Object.fromEntries(idx.filter((e) => e.title).map((e) => [e.chapter, e.title!]))
+      : undefined;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -199,6 +204,8 @@ export async function UnitReaderPage({
         next={next}
         total={total}
         totalUnits={idx.length}
+        units={units}
+        unitTitles={unitTitles}
       />
     </>
   );

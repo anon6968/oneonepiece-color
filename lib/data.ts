@@ -13,6 +13,9 @@ export interface IndexEntry {
   coverH: number;
   /** Optional unit title (e.g. Naruto volume names like "Uzumaki Naruto"). */
   title?: string;
+  /** For volume-based series: original manga chapter range this volume covers. */
+  chapterFrom?: number;
+  chapterTo?: number;
 }
 
 export interface PageMeta {
@@ -30,6 +33,9 @@ export interface Chapter {
   pages: PageMeta[];
   /** Optional unit title (e.g. Naruto volume names like "Uzumaki Naruto"). */
   title?: string;
+  /** For volume-based series: original manga chapter range this volume covers. */
+  chapterFrom?: number;
+  chapterTo?: number;
 }
 
 const DATA_DIR = path.join(process.cwd(), "data", "manga");

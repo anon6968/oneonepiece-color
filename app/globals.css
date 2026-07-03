@@ -31,9 +31,11 @@ body {
 body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  /* Soft, restrained blood glow — subtle warmth from the top, no heavy vignette. */
+  /* Soft, restrained blood glow — subtle warmth from the top-left, kept away
+     from the right side so the hero logo sits on pure ink and its square
+     tile never shows. */
   background-image:
-    radial-gradient(60rem 40rem at 82% -14%, rgba(224, 17, 35, 0.06), transparent 60%),
+    radial-gradient(60rem 40rem at 22% -14%, rgba(224, 17, 35, 0.06), transparent 60%),
     radial-gradient(46rem 38rem at 0% 4%, rgba(122, 10, 18, 0.045), transparent 55%);
   background-attachment: fixed;
 }
@@ -122,15 +124,21 @@ body > * {
 }
 
 /* ------------------------------------------------------------------ */
-/* Animated logo — layered pirate ship (flags wave, sea rises & falls) */
-/* Layers are full-frame PNGs cut from the master art. The moving       */
-/* layers use mix-blend-mode: screen so their black areas are invisible  */
-/* and transforms never expose hard edges. */
+/* Animated brand logo — "colorized" reveal, then a restrained living idle. */
+/* Story-first: on load the engraving DEVELOPS from black-and-white into    */
+/* full colour (the brand promise), then it settles. In idle only the flag  */
+/* & pennants flutter at the masthead and the sea shimmers — the wordmark    */
+/* and hull stay rock-steady and legible. The whole stage breathes as ONE   */
+/* unit, so nothing slides against anything and the waterline can't tear.    */
+/* Moving layers blend with `screen` so their black areas stay invisible.    */
 /* ------------------------------------------------------------------ */
 .logo-anim {
   position: relative;
   aspect-ratio: 1 / 1;
   isolation: isolate;
+  /* the colourize reveal is one filter tween on the whole composite;
+     linear so the develop is even, not a front-loaded pop */
+  animation: logoReveal 1.8s linear both;
 }
 .logo-anim img {
   position: absolute;
@@ -140,87 +148,184 @@ body > * {
   user-select: none;
   -webkit-user-drag: none;
 }
+.logo-anim .l-stage,
 .logo-anim .l-ship {
   position: absolute;
   inset: 0;
+}
+/* Everything breathes together — a unified scale, no relative motion,
+   so the hull and the sea never separate at the waterline. */
+.logo-anim .l-stage {
+  transform-origin: 50% 62%;
+  animation: logoBreathe 7s ease-in-out infinite;
 }
 .logo-anim .l-water,
 .logo-anim .l-pennants,
 .logo-anim .l-flag {
   mix-blend-mode: screen;
-  will-change: transform;
+  will-change: transform, filter;
   backface-visibility: hidden;
 }
-.logo-anim .l-flag {
-  transform-origin: 42% 13%;
+.logo-anim .l-flag { transform-origin: 42% 15%; }
+.logo-anim .l-pennants { transform-origin: 24% 16%; }
+
+/* The reveal: black-and-white + dark + soft -> full colour, sharp, settled.
+   The engraving fades up from black, sharpens by ~60%, then the red sails
+   saturate in and the whole thing settles. Every keyframe declares the full
+   filter chain so each stage interpolates cleanly. */
+@keyframes logoReveal {
+  0% {
+    filter: grayscale(1) brightness(0.4) contrast(0.92) blur(4px);
+    transform: scale(1.04);
+    opacity: 0;
+  }
+  12% {
+    filter: grayscale(0.9) brightness(0.5) contrast(0.93) blur(3.4px);
+    opacity: 1;
+  }
+  60% {
+    filter: grayscale(0.28) brightness(0.9) contrast(1) blur(0);
+  }
+  88% {
+    filter: grayscale(0.04) brightness(1.06) contrast(1.02) saturate(1.12) blur(0);
+  }
+  100% {
+    filter: grayscale(0) brightness(1) contrast(1) saturate(1) blur(0);
+    transform: scale(1);
+    opacity: 1;
+  }
 }
-.logo-anim .l-pennants {
-  transform-origin: 24% 16%;
-}
-.logo-anim .l-water {
-  transform-origin: 50% 100%;
-}
-.logo-anim .l-ship {
-  transform-origin: 50% 78%;
+/* Gentle buoyancy — reads as "alive", never as "tilting". */
+@keyframes logoBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
 }
 
+/* Masthead flutter — a real flap. Peripheral, so the wordmark stays put. */
 @keyframes flagWave {
-  0%, 100% { transform: rotate(-2deg) skewX(2.5deg); }
-  50% { transform: rotate(2.4deg) skewX(-3deg); }
+  0%, 100% { transform: rotate(-5deg) skewX(5deg); }
+  50% { transform: rotate(6deg) skewX(-6deg); }
 }
 @keyframes flagWaveStrong {
-  0%, 100% { transform: rotate(-4.5deg) skewX(5deg); }
-  25% { transform: rotate(1.5deg) skewX(-1.5deg); }
-  50% { transform: rotate(5.5deg) skewX(-6.5deg); }
-  75% { transform: rotate(0.5deg) skewX(1deg); }
+  0%, 100% { transform: rotate(-10deg) skewX(10deg); }
+  25% { transform: rotate(4deg) skewX(-3deg); }
+  50% { transform: rotate(12deg) skewX(-13deg); }
+  75% { transform: rotate(2deg) skewX(3deg); }
 }
 @keyframes pennantWave {
-  0%, 100% { transform: rotate(-1.6deg) skewY(1deg); }
-  50% { transform: rotate(2.2deg) skewY(-1.6deg); }
+  0%, 100% { transform: rotate(-4deg) skewY(3deg); }
+  50% { transform: rotate(5deg) skewY(-4deg); }
 }
 @keyframes pennantWaveStrong {
-  0%, 100% { transform: rotate(-3.4deg) skewY(2deg) translateX(-0.4%); }
-  50% { transform: rotate(3.8deg) skewY(-2.6deg) translateX(0.7%); }
+  0%, 100% { transform: rotate(-8deg) skewY(5deg) translateX(-1%); }
+  50% { transform: rotate(9deg) skewY(-6deg) translateX(1.6%); }
 }
-@keyframes waterBob {
-  0%, 100% { transform: translateY(1.1%) scaleY(0.99); }
-  50% { transform: translateY(-1.3%) scaleY(1.03); }
-}
-@keyframes waterBobStrong {
-  0%, 100% { transform: translateY(2%) scaleY(0.975); }
-  50% { transform: translateY(-2.6%) scaleY(1.055); }
-}
-@keyframes shipRock {
-  0%, 100% { transform: rotate(-1deg) translateY(0.4%); }
-  50% { transform: rotate(1deg) translateY(-0.4%); }
-}
-@keyframes shipRockStrong {
-  0%, 100% { transform: rotate(-1.9deg) translateY(0.8%); }
-  50% { transform: rotate(1.9deg) translateY(-0.8%); }
+/* Sea shimmer — brightness/opacity only, NO vertical motion, so the deck the
+   water layer shares with the hull never slides and tears. */
+@keyframes waterShimmer {
+  0%, 100% { filter: brightness(0.78); opacity: 0.8; }
+  50% { filter: brightness(1.32); opacity: 1; }
 }
 
-/* Variant: calm — gentle breeze + slow swell */
-.anim-calm .l-flag { animation: flagWave 4.2s ease-in-out infinite; }
-.anim-calm .l-pennants { animation: pennantWave 3.6s ease-in-out infinite; }
-.anim-calm .l-water { animation: waterBob 5s ease-in-out infinite; }
+/* Variant: calm — just a soft breeze in the rigging */
+.anim-calm .l-flag { animation: flagWave 4.6s ease-in-out infinite; }
+.anim-calm .l-pennants { animation: pennantWave 3.8s ease-in-out infinite; }
 
-/* Variant: wind — brisker flags, livelier sea */
-.anim-wind .l-flag { animation: flagWaveStrong 2.6s ease-in-out infinite; }
-.anim-wind .l-pennants { animation: pennantWaveStrong 2.1s ease-in-out infinite; }
-.anim-wind .l-water { animation: waterBob 3.6s ease-in-out infinite; }
+/* Variant: wind — brisker flags, the sea starts to sparkle */
+.anim-wind .l-flag { animation: flagWaveStrong 2.7s ease-in-out infinite; }
+.anim-wind .l-pennants { animation: pennantWaveStrong 2.2s ease-in-out infinite; }
+.anim-wind .l-water { animation: waterShimmer 3.4s ease-in-out infinite; }
 
-/* Variant: rock — the whole ship rides the swell */
-.anim-rock .l-ship { animation: shipRock 5.5s ease-in-out infinite; }
-.anim-rock .l-flag { animation: flagWave 3.6s ease-in-out infinite; }
-.anim-rock .l-pennants { animation: pennantWave 3s ease-in-out infinite; }
-.anim-rock .l-water { animation: waterBobStrong 4.4s ease-in-out infinite; }
+/* Variant: rock — full living idle (the hero default) */
+.anim-rock .l-flag { animation: flagWave 3.8s ease-in-out infinite; }
+.anim-rock .l-pennants { animation: pennantWave 3.2s ease-in-out infinite; }
+.anim-rock .l-water { animation: waterShimmer 4.6s ease-in-out infinite; }
 
-/* Variant: storm — dramatic flap + heavy sea + hard roll */
-.anim-storm .l-ship { animation: shipRockStrong 3.4s ease-in-out infinite; }
-.anim-storm .l-flag { animation: flagWaveStrong 1.7s ease-in-out infinite; }
-.anim-storm .l-pennants { animation: pennantWaveStrong 1.4s ease-in-out infinite; }
-.anim-storm .l-water { animation: waterBobStrong 2.8s ease-in-out infinite; }
+/* Variant: storm — snapping flags, restless sea */
+.anim-storm .l-flag { animation: flagWaveStrong 1.9s ease-in-out infinite; }
+.anim-storm .l-pennants { animation: pennantWaveStrong 1.5s ease-in-out infinite; }
+.anim-storm .l-water { animation: waterShimmer 2.6s ease-in-out infinite; }
+.anim-storm .l-stage { animation-duration: 4.6s; }
 
 @media (prefers-reduced-motion: reduce) {
+  .logo-anim,
+  .logo-anim .l-stage,
   .logo-anim img { animation: none !important; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Immersive manga reader — the fixed shell owns the whole viewport.   */
+/* Site chrome disappears and the document behind it stops scrolling.  */
+/* The :has() selectors work straight from the server-rendered HTML —  */
+/* no waiting on hydration — so the header/footer can never flash or   */
+/* paint over the pages; the .reader-mode class (added by the reader   */
+/* on mount) is kept as a fallback for browsers without :has().        */
+/* ------------------------------------------------------------------ */
+html.reader-mode header,
+html.reader-mode footer,
+html:has(.reader-shell) header,
+html:has(.reader-shell) footer {
+  display: none;
+}
+
+html.reader-mode,
+html.reader-mode body,
+html:has(.reader-shell),
+html:has(.reader-shell) body {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Belt and braces: should site chrome ever still render (JS off in an
+   old browser), the reader's stacking context must beat the sticky
+   header (z-40) and footer — `body > *` pins siblings to z-index 1. */
+main:has(.reader-shell) {
+  z-index: 50;
+}
+
+/* Page scrubber — brand-filled track via --fill set inline from React. */
+.reader-scrub {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 22px;
+  background: transparent;
+  cursor: pointer;
+  touch-action: none;
+}
+.reader-scrub::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--color-brand) var(--fill, 0%),
+    #2a2a36 var(--fill, 0%)
+  );
+}
+.reader-scrub::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -6px;
+  height: 16px;
+  width: 16px;
+  border-radius: 999px;
+  background: var(--color-fg);
+  border: 2px solid var(--color-brand);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
+.reader-scrub::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: #2a2a36;
+}
+.reader-scrub::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-brand);
+}
+.reader-scrub::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 999px;
+  background: var(--color-fg);
+  border: 2px solid var(--color-brand);
 }

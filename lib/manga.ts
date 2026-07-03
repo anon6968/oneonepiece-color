@@ -35,6 +35,11 @@ export interface Manga {
   synopsis: string;
   /** Primary long-tail keywords this manga's pages target. */
   keywords: string[];
+  /** Poster art for the series card (path under public/). Cards fall back
+   *  to page 1 of chapter/volume 1 when unset. */
+  poster?: string;
+  /** CSS object-position for the poster/cover crop (default "top"). */
+  posterPosition?: string;
   /** Accent color (hex) used for subtle per-manga theming. */
   accent: string;
   /** Emoji/mark shown until real cover art is wired (never the brand logo). */
@@ -82,6 +87,8 @@ export const MANGAS: Manga[] = [
       "read one piece color free",
       "one piece manga color online",
     ],
+    poster: "/covers/one-piece.jpg",
+    posterPosition: "50% 12%",
     accent: "#ff3b4e",
     mark: "🏴‍☠️",
     totalChapters: 1130,
@@ -114,6 +121,8 @@ export const MANGAS: Manga[] = [
       "naruto shippuden colored manga",
       "read naruto color free",
     ],
+    poster: "/covers/naruto.jpg",
+    posterPosition: "50% 20%",
     accent: "#f7a600",
     mark: "🍥",
     totalChapters: 72,
@@ -144,6 +153,8 @@ export const MANGAS: Manga[] = [
       "bleach colored chapters",
       "bleach thousand year blood war colored",
     ],
+    poster: "/covers/bleach.jpg",
+    posterPosition: "50% 40%",
     accent: "#ff6a3d",
     mark: "⚔️",
     totalChapters: 686,

@@ -5,6 +5,7 @@ import "./globals.css";
 import { SITE } from "@/lib/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HideOnHome from "@/components/HideOnHome";
 
 const geist = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
 
@@ -67,7 +68,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
       </head>
       <body className="min-h-full flex flex-col bg-ink text-fg">
-        <Header />
+        <HideOnHome>
+          <Header />
+        </HideOnHome>
         <main className="flex-1">{children}</main>
         <Footer />
         <Analytics />

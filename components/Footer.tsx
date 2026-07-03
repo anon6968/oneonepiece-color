@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MANGAS, liveMangas } from "@/lib/manga";
+import { liveMangas } from "@/lib/manga";
 import { groupBySaga, sagaSlug, stats } from "@/lib/data";
 import { listPath, mangaPath, unitLabelPlural, SITE } from "@/lib/site";
 
@@ -30,15 +30,10 @@ export default function Footer() {
               Colorized manga
             </h2>
             <ul className="grid gap-1.5 text-sm">
-              {MANGAS.map((m) => (
+              {live.map((m) => (
                 <li key={m.slug}>
                   <Link href={mangaPath(m.slug)} className="text-mute hover:text-brand">
                     {m.title} in color
-                    {m.status === "coming-soon" && (
-                      <span className="ml-1 text-[10px] uppercase tracking-wide text-mute/60">
-                        soon
-                      </span>
-                    )}
                   </Link>
                 </li>
               ))}
