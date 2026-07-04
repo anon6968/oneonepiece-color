@@ -80,6 +80,8 @@ const DEATH_NOTE_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/death-note-color-pages@main/pages";
 const RUROUNI_KENSHIN_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/rurouni-kenshin-color-pages@main/pages";
+const ATTACK_ON_TITAN_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/attack-on-titan-color-pages@main/pages";
 
 const HAND_MANGAS: Manga[] = [
   {
@@ -294,8 +296,8 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "attack-on-titan",
-    color: "none",
-    colorNote: "No colorized source available — black & white only",
+    color: "partial",
+    colorNote: "Fan-colored — a partial run of chapters in color",
     title: "Attack on Titan",
     nativeTitle: "進撃の巨人",
     altTitles: [
@@ -307,10 +309,10 @@ const HAND_MANGAS: Manga[] = [
     author: "Hajime Isayama",
     publisher: "Kodansha",
     genres: ["Action", "Dark Fantasy", "Post-Apocalyptic", "Drama"],
-    status: "coming-soon",
+    status: "live",
     unit: "chapter",
     year: 2009,
-    imageBase: "",
+    imageBase: ATTACK_ON_TITAN_IMAGE_BASE,
     tagline:
       "Hajime Isayama's titan epic, being digitally colorized in full HD.",
     synopsis:
