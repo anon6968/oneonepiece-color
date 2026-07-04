@@ -119,6 +119,43 @@
     "nativeTitle": "男女比1：39の平行世界は思いのほか普通"
   },
   {
+    "slug": "dragon-ball",
+    "color": "full",
+    "title": "Dragon Ball",
+    "altTitles": [
+      "Dragon Ball Color",
+      "Colorized Dragon Ball",
+      "Dragon Ball - Digital Colored Comics",
+      "DRAGON BALL カラー版"
+    ],
+    "author": "Toriyama Akira",
+    "publisher": "",
+    "genres": [
+      "Sci-Fi",
+      "Action",
+      "Comedy",
+      "Martial Arts",
+      "Adventure"
+    ],
+    "status": "live",
+    "unit": "chapter",
+    "year": 2013,
+    "imageBase": "https://cdn.jsdelivr.net/gh/anon6968/dragon-ball-color-pages@main/pages",
+    "tagline": "Dragon Ball — full color, HD.",
+    "synopsis": "Goku and friends battle intergalactic evil in the greatest action-adventure-fantasy-comedy-fighting series ever! Legend has it that if all seven of the precious orbs called “Dragon Balls” are gathered together, an incredibly powerful dragon god will appear to grant one wish. Unfortunately, the orbs are scattered across the world, making them extremely difficult to collect. Enter 16-year-old Bulma, a scientific genius who has constructed a radar to detect the exact locations of the Dragon Balls. She’s on a mission to find all seven orbs, but first she must convince young Son Goku to join her on",
+    "keywords": [
+      "colorized dragon ball manga",
+      "dragon ball color manga",
+      "read dragon ball in color",
+      "dragon ball full color",
+      "dragon ball manga online free"
+    ],
+    "accent": "#f7a600",
+    "mark": "📖",
+    "totalChapters": 519,
+    "nativeTitle": "DRAGON BALL カラー版"
+  },
+  {
     "slug": "getsuyoubi-no-tawawa-blue",
     "color": "full",
     "title": "Getsuyoubi no Tawawa (Blue)",
