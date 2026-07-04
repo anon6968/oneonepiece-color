@@ -18,7 +18,6 @@ export default function Home() {
   const soon = comingSoonMangas();
   const featured = live[0];
   const totalPages = live.reduce((sum, m) => sum + stats(m.slug).totalPages, 0);
-  const liveTitles = live.map((m) => m.title).join(", ").replace(/, ([^,]*)$/, " and $1");
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -88,10 +87,8 @@ export default function Home() {
           </h1>
 
           <p className="mt-5 max-w-xl text-base leading-relaxed text-mute sm:text-lg">
-            {SITE.name} is the home of colorized manga — legendary series like {liveTitles},
-            digitally colored in HD from black &amp; white into vivid full color. No signup,
-            no paywall: a fast reader built for phone and desktop, with pinch-to-zoom on
-            every page.
+            Every page digitally colored in HD. No signup, no paywall — just pick a
+            series and start reading.
           </p>
 
           {featured && (
