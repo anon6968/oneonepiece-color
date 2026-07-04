@@ -82,6 +82,8 @@ const RUROUNI_KENSHIN_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/rurouni-kenshin-color-pages@main/pages";
 const ATTACK_ON_TITAN_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/attack-on-titan-color-pages@main/pages";
+const JUJUTSU_KAISEN_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/jujutsu-kaisen-color-pages@main/pages";
 
 const HAND_MANGAS: Manga[] = [
   {
@@ -481,22 +483,22 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "jujutsu-kaisen",
-    color: "none",
-    colorNote: "No colorized source available — black & white only",
+    color: "partial",
+    colorNote: "Fan-colored — a partial run of chapters in color",
     title: "Jujutsu Kaisen",
     nativeTitle: "呪術廻戦",
     altTitles: ["JJK", "Sorcery Fight"],
     author: "Gege Akutami",
     publisher: "Shueisha",
     genres: ["Action", "Supernatural", "Dark Fantasy"],
-    status: "coming-soon",
+    status: "live",
     unit: "chapter",
     year: 2018,
-    imageBase: "",
-    tagline: "Gege Akutami's curse-hunter hit — black & white only, no color edition.",
+    imageBase: JUJUTSU_KAISEN_IMAGE_BASE,
+    tagline: "Gege Akutami's curse-hunter hit — a fan-colored run of chapters in full color.",
     synopsis:
-      "Jujutsu Kaisen — Yuji Itadori and the Tokyo Jujutsu High sorcerers against cursed spirits and Sukuna. No genuine colorized edition of this series exists yet, so it is listed here in black & white only; we do not have a color version.",
-    keywords: ["jujutsu kaisen manga", "jjk manga online", "jujutsu kaisen black and white"],
+      "Jujutsu Kaisen — Yuji Itadori and the Tokyo Jujutsu High sorcerers against cursed spirits and Sukuna. Read the fan-colored chapters in full color, HD, free — no official color edition exists, so this partial colorization is the closest thing to Jujutsu Kaisen in color.",
+    keywords: ["jujutsu kaisen colored", "jjk colored manga", "jujutsu kaisen color", "read jujutsu kaisen in color"],
     accent: "#8e44ad",
     mark: "👊",
     totalChapters: 271,
