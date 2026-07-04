@@ -632,6 +632,47 @@
     "nativeTitle": "めだかボックス （ジャンプコミックスDIGITAL）"
   },
   {
+    "slug": "shadows-house",
+    "color": "full",
+    "title": "Shadows House",
+    "altTitles": [
+      "Shadows House Color",
+      "Colorized Shadows House",
+      "Shadows House (Official Colored)",
+      "Shadow House (Official Colored)",
+      "Keluarga Shadow",
+      "Дом теней",
+      "Мрачный дом",
+      "シャドーハウス (Official Colored)"
+    ],
+    "author": "Soumatou",
+    "publisher": "",
+    "genres": [
+      "Monsters",
+      "Psychological",
+      "Comedy",
+      "Drama",
+      "Fantasy"
+    ],
+    "status": "live",
+    "unit": "chapter",
+    "year": 2019,
+    "imageBase": "https://cdn.jsdelivr.net/gh/anon6968/shadows-house-color-pages@main/pages",
+    "tagline": "Shadows House — full color, HD.",
+    "synopsis": "Faceless shadow nobles living in a vast mansion, attended by living dolls who spend much of their time cleaning up the soot endlessly emitted by their mysterious masters. Follow the story of Emilyko, a young and cheerful living doll, as she learns her duties serving as the attendant for Kate Shadow-sama. What dangers and dark secrets will she and Kate encounter, as they become more deeply involved in the inner workings of the shadows' society?",
+    "keywords": [
+      "colorized shadows house manga",
+      "shadows house color manga",
+      "read shadows house in color",
+      "shadows house full color",
+      "shadows house manga online free"
+    ],
+    "accent": "#8e44ad",
+    "mark": "📖",
+    "totalChapters": 237,
+    "nativeTitle": "シャドーハウス (Official Colored)"
+  },
+  {
     "slug": "shin-elf-san-wa-yaserarenai",
     "color": "full",
     "title": "Shin Elf-san wa Yaserarenai.",
