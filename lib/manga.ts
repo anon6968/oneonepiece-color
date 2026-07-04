@@ -112,7 +112,7 @@ const HAND_MANGAS: Manga[] = [
       "one piece manga color online",
     ],
     poster: "/covers/one-piece.jpg",
-    posterPosition: "50% 42%",
+    posterPosition: "50% 20%",
     accent: "#ff3b4e",
     mark: "🏴‍☠️",
     totalChapters: 1130,
