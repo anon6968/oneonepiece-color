@@ -125,6 +125,7 @@ export async function UnitReaderPage({
             volumeNumber: n,
             url: `${SITE.url}${readPath(m, n)}`,
             inLanguage: "en",
+            isAccessibleForFree: true,
             image: pageUrl(m, n, 1),
             isPartOf: {
               "@type": "ComicSeries",
@@ -140,6 +141,7 @@ export async function UnitReaderPage({
             issueNumber: n,
             url: `${SITE.url}${readPath(m, n)}`,
             inLanguage: "en",
+            isAccessibleForFree: true,
             image: pageUrl(m, n, 1),
             isPartOf: {
               "@type": "ComicSeries",

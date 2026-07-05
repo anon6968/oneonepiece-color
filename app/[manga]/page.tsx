@@ -98,6 +98,8 @@ function LiveManga({ m }: { m: Manga }) {
         publisher: { "@type": "Organization", name: m.publisher },
         numberOfEpisodes: s.total,
         inLanguage: "en",
+        isAccessibleForFree: true,
+        image: pageUrl(m, firstCh, 1),
         description: m.synopsis,
       },
       {

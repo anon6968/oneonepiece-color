@@ -19,7 +19,10 @@ export const metadata: Metadata = {
   description: SITE.description,
   keywords: [...SITE.keywords],
   applicationName: SITE.name,
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    types: { "application/rss+xml": `${SITE.url}/feed.xml` },
+  },
   openGraph: {
     type: "website",
     url: SITE.url,
@@ -61,12 +64,44 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+// Sitewide brand entity — carried on every page so search engines can build a
+// consistent Organization/WebSite knowledge graph and attach the logo.
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE.url}/#organization`,
+      name: SITE.name,
+      url: SITE.url,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE.url}/icon-512.png`,
+        width: 512,
+        height: 512,
+      },
+      description: SITE.description,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE.url}/#website`,
+      url: SITE.url,
+      name: SITE.name,
+      description: SITE.description,
+      inLanguage: "en",
+      publisher: { "@id": `${SITE.url}/#organization` },
+    },
+  ],
+};
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable} h-full antialiased`}>
       <head>
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="" />
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+        <link rel="alternate" type="application/rss+xml" title="Colorized Manga — latest chapters" href="/feed.xml" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
       </head>
       <body className="min-h-full flex flex-col bg-ink text-fg">
         <HideOnHome>

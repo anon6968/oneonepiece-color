@@ -19,33 +19,59 @@ export default function Home() {
   const featured = live[0];
   const totalPages = live.reduce((sum, m) => sum + stats(m.slug).totalPages, 0);
 
+  const faqs = [
+    {
+      q: "What is colorized manga?",
+      a: `Colorized manga is the original black-and-white manga with every page digitally colored in full HD. ${SITE.name} publishes color editions of hit series like ${live
+        .slice(0, 3)
+        .map((m) => m.title)
+        .join(", ")} so you can read them the way the anime looks — in full color.`,
+    },
+    {
+      q: "Is it free to read colorized manga here?",
+      a: "Yes. Every colorized chapter is free to read online — no signup, no account and no paywall. Just open a series and start reading.",
+    },
+    {
+      q: "Do I need to download an app or create an account?",
+      a: "No. It runs entirely in your browser on phone, tablet or desktop, with a fast reader and pinch-to-zoom on every page. Nothing to install and no login required.",
+    },
+    {
+      q: "Which manga are available in color?",
+      a: `${live.length} series are live in full color right now — including ${live
+        .slice(0, 5)
+        .map((m) => m.title)
+        .join(", ")} — with ${soon.length} more being colorized. New color chapters are added as they are finished.`,
+    },
+    {
+      q: "How often are new colorized chapters added?",
+      a: "New colored chapters are published as soon as they are finished. Check any series' Latest page for the most recent color releases first.",
+    },
+  ];
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": `${SITE.url}/#website`,
-        url: SITE.url,
-        name: SITE.name,
-        description: SITE.description,
-        inLanguage: "en",
-        potentialAction: {
-          "@type": "SearchAction",
-          target: `${SITE.url}/one-piece/chapters?q={search_term_string}`,
-          "query-input": "required name=search_term_string",
-        },
-      },
       {
         "@type": "CollectionPage",
         "@id": `${SITE.url}/#collection`,
         url: SITE.url,
         name: "Colorized Manga library",
         description: SITE.description,
+        isPartOf: { "@id": `${SITE.url}/#website` },
         hasPart: MANGAS.map((m) => ({
           "@type": "ComicSeries",
           name: `${m.title} (Colored Edition)`,
           url: `${SITE.url}${mangaPath(m.slug)}`,
           author: { "@type": "Person", name: m.author },
+        })),
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${SITE.url}/#faq`,
+        mainEntity: faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
         })),
       },
     ],
@@ -143,6 +169,26 @@ export default function Home() {
             </div>
           </div>
         )}
+      </section>
+
+      {/* FAQ — real on-page answers backing the FAQPage structured data. */}
+      <section className="mx-auto max-w-3xl px-4 pb-12" aria-labelledby="faq-heading">
+        <h2 id="faq-heading" className="mb-6 text-2xl font-bold tracking-tight sm:text-3xl">
+          Frequently asked questions
+        </h2>
+        <div className="divide-y divide-line/40 rounded-2xl bg-panel/40">
+          {faqs.map((f) => (
+            <details key={f.q} className="group px-5 py-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold sm:text-base">
+                {f.q}
+                <span className="text-mute transition group-open:rotate-45" aria-hidden>
+                  +
+                </span>
+              </summary>
+              <p className="mt-3 text-sm leading-relaxed text-mute">{f.a}</p>
+            </details>
+          ))}
+        </div>
       </section>
 
       {/* About / SEO copy — condensed and kept at the very bottom for search engines. */}
