@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export type ChapterType = "color" | "partial";
+export type ChapterType = "color" | "partial" | "bw";
 
 export interface IndexEntry {
   chapter: number;
@@ -129,6 +129,7 @@ export interface MangaStats {
   total: number;
   colored: number;
   partial: number;
+  bw: number;
   last: number;
   totalPages: number;
 }
@@ -137,9 +138,10 @@ export function stats(slug: string): MangaStats {
   const index = getIndex(slug);
   const colored = index.filter((c) => c.type === "color").length;
   const partial = index.filter((c) => c.type === "partial").length;
+  const bw = index.filter((c) => c.type === "bw").length;
   const last = index.length ? index[index.length - 1].chapter : 0;
   const totalPages = index.reduce((s, c) => s + c.pageCount, 0);
-  return { total: index.length, colored, partial, last, totalPages };
+  return { total: index.length, colored, partial, bw, last, totalPages };
 }
 
 export function sagaSlug(s: string) {

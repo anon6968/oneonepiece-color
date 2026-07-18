@@ -117,6 +117,11 @@ export default async function LatestPage({
                           PARTIAL
                         </span>
                       )}
+                      {c.type === "bw" && (
+                        <span className="ml-2 rounded bg-bone/20 px-1 py-0.5 text-[10px] font-bold text-bone ring-1 ring-white/10">
+                          B&amp;W
+                        </span>
+                      )}
                     </div>
                     <div className="truncate text-xs text-mute">
                       {c.arc === c.saga ? c.arc : `${c.arc} · ${c.saga}`} · {c.pageCount} pages

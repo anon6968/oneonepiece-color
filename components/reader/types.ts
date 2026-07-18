@@ -7,7 +7,7 @@ export interface ReaderProps {
   arc: string;
   saga: string;
   unitTitle?: string;
-  type: "color" | "partial";
+  type: "color" | "partial" | "bw";
   pages: PageMeta[];
   prev: number | null;
   next: number | null;

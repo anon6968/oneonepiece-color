@@ -381,9 +381,9 @@ const HAND_MANGAS: Manga[] = [
     year: 2018,
     imageBase: CHAINSAW_MAN_IMAGE_BASE,
     tagline:
-      "Tatsuki Fujimoto's devil-hunter horror — Part 1 in official full color, HD.",
+      "Tatsuki Fujimoto's devil-hunter horror — Part 1 in official full color, plus the complete Part 2.",
     synopsis:
-      "Read the colorized Chainsaw Man manga online for free — Part 1 in vivid official full color instead of black and white. Follow Denji and his chainsaw devil Pochita, the Public Safety Devil Hunters, Makima and the war against the devils, every chapter digitally colored in high definition. No signup, no paywall — a fast, mobile-friendly reader with pinch-to-zoom on every page.",
+      "Read the colorized Chainsaw Man manga online for free — Part 1 (chapters 1–97) in vivid official full color instead of black and white. Follow Denji and his chainsaw devil Pochita, the Public Safety Devil Hunters, Makima and the war against the devils, every chapter digitally colored in high definition. Part 2, the Academy Saga (chapters 98 onward), is included in full so you can read the whole story to date — shown in black & white, clearly labeled, until an official color edition is released. No signup, no paywall — a fast, mobile-friendly reader with pinch-to-zoom on every page.",
     keywords: [
       "colorized chainsaw man manga",
       "chainsaw man color manga",
@@ -397,7 +397,7 @@ const HAND_MANGAS: Manga[] = [
     posterPosition: "center",
     accent: "#ee5a24",
     mark: "🪚",
-    totalChapters: 190,
+    totalChapters: 232,
   },
   {
     slug: "black-clover",

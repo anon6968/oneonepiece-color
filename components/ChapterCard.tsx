@@ -64,6 +64,15 @@ export default function ChapterCard({
             Partial
           </span>
         )}
+        {variant === "grid" && c.type === "bw" && !unavailable && (
+          <span
+            title="Official color for Part 2 has not been released yet — shown in black & white"
+            className="absolute left-1.5 top-1.5 inline-flex items-center gap-1 rounded-full bg-ink/70 px-1.5 py-0.5 text-[9px] font-medium text-bone/90 ring-1 ring-white/10 backdrop-blur-sm"
+          >
+            <span className="h-1 w-1 rounded-full bg-bone/70" />
+            B&amp;W
+          </span>
+        )}
         {unavailable && (
           <span className="absolute inset-x-0 bottom-0 bg-ink/80 py-0.5 text-center text-[8px] font-bold uppercase tracking-wide text-mute">
             Soon
@@ -98,6 +107,15 @@ export default function ChapterCard({
               >
                 <span className="h-1 w-1 rounded-full bg-gold/70" />
                 Partial color
+              </span>
+            )}
+            {c.type === "bw" && !unavailable && (
+              <span
+                title="Official color for Part 2 has not been released yet — shown in black & white"
+                className="inline-flex items-center gap-1 rounded-full bg-panel-2/70 px-1.5 py-0.5 text-[10px] font-medium text-mute"
+              >
+                <span className="h-1 w-1 rounded-full bg-bone/70" />
+                Black &amp; white
               </span>
             )}
             {unavailable && (
