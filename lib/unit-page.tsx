@@ -37,7 +37,9 @@ export function unitStaticParams(unit: MangaUnit) {
 
 function parse(n: string) {
   const v = Number(n);
-  return Number.isInteger(v) && v > 0 ? v : null;
+  // Allow chapter/volume 0 — some series (e.g. Against the Gods, Martial
+  // Universe, Peerless Battle Spirit) open on a chapter 0 prologue.
+  return Number.isInteger(v) && v >= 0 ? v : null;
 }
 
 function resolve(unit: MangaUnit, slug: string, raw: string) {
