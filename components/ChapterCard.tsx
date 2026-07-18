@@ -141,8 +141,12 @@ export default function ChapterCard({
     return <div className={className + " cursor-default"}>{inner}</div>;
   }
 
+  // A chapter list can render 1000+ of these (e.g. One Piece). Next.js would
+  // otherwise prefetch every card's RSC payload as it scrolls into view — each
+  // one an ISR read on Vercel. Disable viewport prefetch; navigation still
+  // fetches on click/hover.
   return (
-    <Link href={href} className={className}>
+    <Link href={href} prefetch={false} className={className}>
       {inner}
     </Link>
   );

@@ -97,6 +97,7 @@ export default async function LatestPage({
               <li key={c.chapter}>
                 <Link
                   href={readPath(m, c.chapter)}
+                  prefetch={false}
                   className="flex items-center gap-3 px-3 py-2.5 transition hover:bg-panel"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}

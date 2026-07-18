@@ -8,6 +8,11 @@ import { SITE, latestPath, listPath, mangaPath, pageUrl, readPath } from "@/lib/
 // Google to distrust our lastmod and wastes crawl budget re-checking finished
 // pages. Hub pages (home / per-series / latest) genuinely update as new
 // chapters land, so those keep a fresh timestamp.
+// Generate at build time only — never as a per-request function. Crawlers hit
+// sitemap.xml constantly; keeping it fully static means those requests are
+// served from the CDN instead of invoking a serverless function every time.
+export const dynamic = "force-static";
+
 const STABLE = new Date("2026-01-01T00:00:00Z");
 
 /** Absolute cover image for a series (poster if set, else first page). */

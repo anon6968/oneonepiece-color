@@ -32,7 +32,7 @@ export default function Footer() {
             <ul className="grid gap-1.5 text-sm">
               {live.map((m) => (
                 <li key={m.slug}>
-                  <Link href={mangaPath(m.slug)} className="text-mute hover:text-brand">
+                  <Link href={mangaPath(m.slug)} prefetch={false} className="text-mute hover:text-brand">
                     {m.title} in color
                   </Link>
                 </li>
@@ -49,7 +49,7 @@ export default function Footer() {
                 const s = stats(m.slug);
                 return (
                   <li key={m.slug}>
-                    <Link href={listPath(m)} className="text-mute hover:text-brand">
+                    <Link href={listPath(m)} prefetch={false} className="text-mute hover:text-brand">
                       All {m.title} {unitLabelPlural(m)}{" "}
                       <span className="text-mute/60">({s.colored})</span>
                     </Link>
@@ -63,6 +63,7 @@ export default function Footer() {
                     <li key={sg.saga}>
                       <Link
                         href={`${listPath(live[0])}#${sagaSlug(sg.saga)}`}
+                        prefetch={false}
                         className="text-mute hover:text-brand"
                       >
                         {live[0].title}: {sg.saga}

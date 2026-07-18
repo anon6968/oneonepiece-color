@@ -54,6 +54,7 @@ export default function ChapterMenu({ manga, units, unitTitles, current, onClose
                   key={n}
                   ref={n === current ? currentRef : undefined}
                   href={readPath(manga, n)}
+                  prefetch={false}
                   onClick={onClose}
                   className={`flex items-baseline gap-2 rounded-lg px-3 py-2.5 text-sm transition ${
                     n === current
@@ -79,6 +80,7 @@ export default function ChapterMenu({ manga, units, unitTitles, current, onClose
                   key={n}
                   ref={n === current ? currentRef : undefined}
                   href={readPath(manga, n)}
+                  prefetch={false}
                   onClick={onClose}
                   className={`rounded-lg py-2 text-center text-xs tabular-nums transition ${
                     n === current

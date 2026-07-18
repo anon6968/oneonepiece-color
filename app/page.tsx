@@ -203,7 +203,7 @@ export default function Home() {
             {live.map((m, i) => (
               <span key={m.slug}>
                 {i > 0 && (i === live.length - 1 ? " and " : ", ")}
-                <Link href={mangaPath(m.slug)} className="text-brand/80 hover:underline">
+                <Link href={mangaPath(m.slug)} prefetch={false} className="text-brand/80 hover:underline">
                   colorized {m.title}
                 </Link>
               </span>

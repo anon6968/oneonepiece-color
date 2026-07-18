@@ -28,6 +28,7 @@ export default function MangaCard({ manga, priority = false }: { manga: Manga; p
   return (
     <Link
       href={mangaPath(manga.slug)}
+      prefetch={false}
       aria-label={`${manga.title} — ${sub}`}
       className="group relative block overflow-hidden rounded-2xl bg-ink-2 shadow-lg shadow-black/40 ring-1 ring-line/50 transition-transform duration-300 ease-out hover:z-10 hover:scale-[1.02] hover:ring-brand/40"
     >

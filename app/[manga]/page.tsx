@@ -216,6 +216,7 @@ function ComingSoonManga({ m }: { m: Manga }) {
               <Link
                 key={o.slug}
                 href={mangaPath(o.slug)}
+                prefetch={false}
                 className="rounded-xl bg-gradient-to-r from-brand to-brand-2 px-5 py-2.5 text-sm font-bold text-white transition hover:brightness-110"
               >
                 Read {o.title} in color →
