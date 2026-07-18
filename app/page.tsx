@@ -158,9 +158,12 @@ export default function Home() {
 
         {soon.length > 0 && (
           <div className="mt-14">
-            <h3 className="text-xl font-bold tracking-tight sm:text-2xl">More in the library</h3>
+            <h3 className="text-xl font-bold tracking-tight sm:text-2xl">
+              Black &amp; white now — full color coming soon
+            </h3>
             <p className="mt-1.5 mb-6 text-sm text-mute sm:text-base">
-              Being colorized now — each card shows how much color is ready so far.
+              These run in black &amp; white today. We&apos;re working on the full-color
+              editions — they&apos;ll move up into the library above as color is ready.
             </p>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {soon.map((m) => (

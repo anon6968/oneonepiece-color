@@ -263,7 +263,7 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "fullmetal-alchemist",
     color: "none",
-    colorNote: "No colorized source available — black & white only",
+    colorNote: "Black & white now — full-color edition coming soon",
     title: "Fullmetal Alchemist",
     nativeTitle: "鋼の錬金術師",
     altTitles: [
@@ -402,7 +402,7 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "black-clover",
     color: "none",
-    colorNote: "No complete color source — black & white only",
+    colorNote: "Black & white now — full-color edition coming soon",
     title: "Black Clover",
     nativeTitle: "ブラッククローバー",
     altTitles: ["Black Clover Color", "Colorized Black Clover", "Black Clover Colored"],
@@ -462,7 +462,7 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "my-hero-academia",
     color: "none",
-    colorNote: "No colorized source available — black & white only",
+    colorNote: "Black & white now — full-color edition coming soon",
     title: "My Hero Academia",
     nativeTitle: "僕のヒーローアカデミア",
     altTitles: ["Boku no Hero Academia", "MHA", "BNHA"],
@@ -506,7 +506,7 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "tokyo-ghoul",
     color: "none",
-    colorNote: "No colorized source available — black & white only",
+    colorNote: "Black & white now — full-color edition coming soon",
     title: "Tokyo Ghoul",
     nativeTitle: "東京喰種",
     altTitles: ["Tokyo Ghoul:re", "Toukyou Kushu"],
@@ -528,7 +528,7 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "spy-x-family",
     color: "none",
-    colorNote: "No complete colorized source — black & white only",
+    colorNote: "Black & white now — full-color edition coming soon",
     title: "Spy × Family",
     nativeTitle: "スパイファミリー",
     altTitles: ["Spy Family", "SxF"],

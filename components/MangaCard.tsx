@@ -16,7 +16,7 @@ export default function MangaCard({ manga, priority = false }: { manga: Manga; p
         ? `${s.colored} ${unitLabelPlural(manga)} in full color`
         : `${s.colored} colored ${unitLabelPlural(manga)}${manga.colorNote ? ` · ${manga.colorNote}` : ""}`;
   } else if (manga.color === "none") {
-    sub = "Black & white only";
+    sub = manga.colorNote ?? "Black & white now · full color coming soon";
   } else if (manga.color === "partial") {
     sub = manga.colorNote ?? "Partial color";
   } else {
