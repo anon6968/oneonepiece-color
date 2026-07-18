@@ -190,6 +190,11 @@ export default function Reader(props: ReaderProps) {
     setChrome(d === "up");
   }, []);
 
+  const backToTop = useCallback(() => {
+    setPage(1);
+    stripRef.current?.scrollToPage(1, true);
+  }, []);
+
   /* ------------------------------ keyboard ------------------------------- */
 
   useEffect(() => {
@@ -355,6 +360,18 @@ export default function Reader(props: ReaderProps) {
           </div>
         </div>
       </div>
+
+      {/* Back to top — appears once you've scrolled into a long strip. */}
+      {mode === "strip" && chrome && progress > 6 && (
+        <button
+          type="button"
+          onClick={backToTop}
+          className="absolute bottom-28 right-3 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-line bg-panel/90 text-lg text-fg shadow-xl backdrop-blur transition hover:bg-panel-2 active:scale-95"
+          aria-label="Back to top"
+        >
+          ↑
+        </button>
+      )}
 
       {/* Resume pill */}
       {resumeAt !== null && (

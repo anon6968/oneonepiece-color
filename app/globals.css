@@ -87,6 +87,37 @@ body::before {
   animation: fadeUp 0.5s ease both;
 }
 
+/* Manga-page load shimmer. Sits behind each page while its image decodes so a
+   blank frame reads as "loading", not "broken". The opaque page fades in over
+   it (see PageImage), and the class is dropped once loaded so the animation
+   stops — no wasted compositor work under 50+ covered pages. */
+@keyframes pageShimmer {
+  0% {
+    background-position: 180% 0;
+  }
+  100% {
+    background-position: -80% 0;
+  }
+}
+.img-skeleton {
+  background-color: var(--color-ink-2);
+  background-image: linear-gradient(
+    100deg,
+    transparent 28%,
+    rgba(236, 231, 221, 0.05) 46%,
+    rgba(224, 17, 35, 0.05) 54%,
+    transparent 72%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  animation: pageShimmer 1.5s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .img-skeleton {
+    animation: none;
+  }
+}
+
 /* Slow blood-pulse for the "live" status dot. */
 @keyframes pulseGlow {
   0%,

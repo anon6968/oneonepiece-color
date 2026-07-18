@@ -4,6 +4,7 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, type ReactNode } fr
 import { pageUrl, unitLabel } from "@/lib/site";
 import type { Manga } from "@/lib/manga";
 import type { PageMeta } from "@/lib/data";
+import PageImage from "./PageImage";
 
 export interface StripHandle {
   scrollToPage: (page: number, smooth?: boolean) => void;
@@ -96,17 +97,12 @@ const StripView = forwardRef<StripHandle, Props>(function StripView(
             }}
             className="mb-1"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <PageImage
               src={pageUrl(manga, chapter, p.n)}
               alt={`${manga.title} color ${unitLabel(manga).toLowerCase()} ${chapter} page ${p.n}`}
-              width={p.w}
-              height={p.h}
-              loading={i < 2 ? "eager" : "lazy"}
-              decoding="async"
-              className="h-auto w-full bg-ink-2 sm:rounded-sm"
-              style={{ aspectRatio: `${p.w} / ${p.h}` }}
-              draggable={false}
+              w={p.w}
+              h={p.h}
+              eager={i < 2}
             />
           </div>
         ))}
