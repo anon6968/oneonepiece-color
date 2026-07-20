@@ -499,6 +499,7 @@ const HAND_MANGAS: Manga[] = [
     synopsis:
       "Jujutsu Kaisen — Yuji Itadori and the Tokyo Jujutsu High sorcerers against cursed spirits and Sukuna. Read the fan-colored chapters in full color, HD, free — no official color edition exists, so this partial colorization is the closest thing to Jujutsu Kaisen in color.",
     keywords: ["jujutsu kaisen colored", "jjk colored manga", "jujutsu kaisen color", "read jujutsu kaisen in color"],
+    poster: "/covers/jujutsu-kaisen.jpg",
     accent: "#8e44ad",
     mark: "👊",
     totalChapters: 271,

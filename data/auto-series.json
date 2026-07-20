@@ -39,7 +39,8 @@
     "mark": "📖",
     "totalChapters": 231,
     "nativeTitle": "天に逆らう邪神の帰還",
-    "colorNote": "89 of ~231 chapters colored so far"
+    "colorNote": "89 of ~231 chapters colored so far",
+    "poster": "/covers/against-the-gods.jpg"
   },
   {
     "slug": "akira",
@@ -80,7 +81,8 @@
     "accent": "#7f8c8d",
     "mark": "📖",
     "totalChapters": 38,
-    "nativeTitle": "アキラ"
+    "nativeTitle": "アキラ",
+    "poster": "/covers/akira.jpg"
   },
   {
     "slug": "battle-through-the-heavens",
@@ -120,7 +122,8 @@
     ],
     "accent": "#16a085",
     "mark": "📖",
-    "totalChapters": 143
+    "totalChapters": 143,
+    "poster": "/covers/battle-through-the-heavens.jpg"
   },
   {
     "slug": "canvas-2-rainbow-colored-sketch",
@@ -160,7 +163,8 @@
     "accent": "#e84393",
     "mark": "📖",
     "totalChapters": 25,
-    "nativeTitle": "キャンバス２"
+    "nativeTitle": "キャンバス２",
+    "poster": "/covers/canvas-2-rainbow-colored-sketch.jpg"
   },
   {
     "slug": "danjo-hi-1-39-no-heikou-sekai-wa-omoi-no",
@@ -198,7 +202,8 @@
     "accent": "#3dbb6b",
     "mark": "📖",
     "totalChapters": 201,
-    "nativeTitle": "男女比1：39の平行世界は思いのほか普通"
+    "nativeTitle": "男女比1：39の平行世界は思いのほか普通",
+    "poster": "/covers/danjo-hi-1-39-no-heikou-sekai-wa-omoi-no.jpg"
   },
   {
     "slug": "dragon-ball",
@@ -235,7 +240,8 @@
     "accent": "#f7a600",
     "mark": "📖",
     "totalChapters": 519,
-    "nativeTitle": "DRAGON BALL カラー版"
+    "nativeTitle": "DRAGON BALL カラー版",
+    "poster": "/covers/dragon-ball.jpg"
   },
   {
     "slug": "freezing",
@@ -270,7 +276,8 @@
     ],
     "accent": "#ff3b4e",
     "mark": "📖",
-    "totalChapters": 42
+    "totalChapters": 42,
+    "poster": "/covers/freezing.jpg"
   },
   {
     "slug": "getsuyoubi-no-tawawa-blue",
@@ -307,7 +314,8 @@
     "accent": "#16a085",
     "mark": "📖",
     "totalChapters": 128,
-    "nativeTitle": "月曜日のたわわ"
+    "nativeTitle": "月曜日のたわわ",
+    "poster": "/covers/getsuyoubi-no-tawawa-blue.jpg"
   },
   {
     "slug": "getsuyoubi-no-tawawa-twitter-webcomic",
@@ -346,7 +354,8 @@
     "accent": "#8e44ad",
     "mark": "📖",
     "totalChapters": 51,
-    "nativeTitle": "月曜日のたわわ"
+    "nativeTitle": "月曜日のたわわ",
+    "poster": "/covers/getsuyoubi-no-tawawa-twitter-webcomic.jpg"
   },
   {
     "slug": "hoshin-engi",
@@ -386,7 +395,8 @@
     "accent": "#2fbf71",
     "mark": "📖",
     "totalChapters": 46,
-    "nativeTitle": "封神演義 カラー版"
+    "nativeTitle": "封神演義 カラー版",
+    "poster": "/covers/hoshin-engi.jpg"
   },
   {
     "slug": "i-am-the-sorcerer-king",
@@ -428,7 +438,8 @@
     "mark": "📖",
     "totalChapters": 19,
     "nativeTitle": "俺は大魔導士だ！",
-    "colorNote": "Chapters 3–19 in color"
+    "colorNote": "Chapters 3–19 in color",
+    "poster": "/covers/i-am-the-sorcerer-king.jpg"
   },
   {
     "slug": "jojo-no-kimyou-na-bouken-dai-9-bu-the-jo",
@@ -467,7 +478,8 @@
     "accent": "#3dbb6b",
     "mark": "📖",
     "totalChapters": 28,
-    "nativeTitle": "ジョジョの奇妙な冒険 第9部 ザ・ジョジョランズ カラー版"
+    "nativeTitle": "ジョジョの奇妙な冒険 第9部 ザ・ジョジョランズ カラー版",
+    "poster": "/covers/jojo-no-kimyou-na-bouken-dai-9-bu-the-jo.jpg"
   },
   {
     "slug": "jojo-no-kimyou-na-bouken-part-1-phantom-",
@@ -508,7 +520,8 @@
     "accent": "#3dbb6b",
     "mark": "📖",
     "totalChapters": 44,
-    "nativeTitle": "ジョジョの奇妙な冒険"
+    "nativeTitle": "ジョジョの奇妙な冒険",
+    "poster": "/covers/jojo-no-kimyou-na-bouken-part-1-phantom-.jpg"
   },
   {
     "slug": "jojo-no-kimyou-na-bouken-part-2-sentou-c",
@@ -549,7 +562,8 @@
     "accent": "#e84393",
     "mark": "📖",
     "totalChapters": 69,
-    "nativeTitle": "ジョジョの奇妙な冒険"
+    "nativeTitle": "ジョジョの奇妙な冒険",
+    "poster": "/covers/jojo-no-kimyou-na-bouken-part-2-sentou-c.jpg"
   },
   {
     "slug": "jojo-no-kimyou-na-bouken-part-3-stardust",
@@ -590,7 +604,8 @@
     "accent": "#e67e22",
     "mark": "📖",
     "totalChapters": 152,
-    "nativeTitle": "ジョジョの奇妙な冒険"
+    "nativeTitle": "ジョジョの奇妙な冒険",
+    "poster": "/covers/jojo-no-kimyou-na-bouken-part-3-stardust.jpg"
   },
   {
     "slug": "jojo-no-kimyou-na-bouken-part-4-diamond-",
@@ -631,7 +646,8 @@
     "accent": "#d35400",
     "mark": "📖",
     "totalChapters": 174,
-    "nativeTitle": "ジョジョの奇妙な冒険 ダイヤモンドは砕けない"
+    "nativeTitle": "ジョジョの奇妙な冒険 ダイヤモンドは砕けない",
+    "poster": "/covers/jojo-no-kimyou-na-bouken-part-4-diamond-.jpg"
   },
   {
     "slug": "jojo-no-kimyou-na-bouken-part-5-ougon-no",
@@ -672,7 +688,8 @@
     "accent": "#8e44ad",
     "mark": "📖",
     "totalChapters": 155,
-    "nativeTitle": "ジョジョの奇妙な冒険"
+    "nativeTitle": "ジョジョの奇妙な冒険",
+    "poster": "/covers/jojo-no-kimyou-na-bouken-part-5-ougon-no.jpg"
   },
   {
     "slug": "jojo-no-kimyou-na-bouken-part-6-stone-oc",
@@ -713,7 +730,8 @@
     "accent": "#a06bff",
     "mark": "📖",
     "totalChapters": 158,
-    "nativeTitle": "ジョジョの奇妙な冒険"
+    "nativeTitle": "ジョジョの奇妙な冒険",
+    "poster": "/covers/jojo-no-kimyou-na-bouken-part-6-stone-oc.jpg"
   },
   {
     "slug": "jojo-no-kimyou-na-bouken-part-7-steel-ba",
@@ -754,7 +772,8 @@
     "accent": "#a06bff",
     "mark": "📖",
     "totalChapters": 95,
-    "nativeTitle": "ジョジョの奇妙な冒険 第7部 カラー版"
+    "nativeTitle": "ジョジョの奇妙な冒険 第7部 カラー版",
+    "poster": "/covers/jojo-no-kimyou-na-bouken-part-7-steel-ba.jpg"
   },
   {
     "slug": "jojo-no-kimyou-na-bouken-part-8-jojolion",
@@ -795,7 +814,8 @@
     "accent": "#8e44ad",
     "mark": "📖",
     "totalChapters": 110,
-    "nativeTitle": "ジョジョの奇妙な冒険"
+    "nativeTitle": "ジョジョの奇妙な冒険",
+    "poster": "/covers/jojo-no-kimyou-na-bouken-part-8-jojolion.jpg"
   },
   {
     "slug": "jojo-s-bizarre-adventure-part-9-the-jojo",
@@ -829,7 +849,8 @@
     ],
     "accent": "#c0392b",
     "mark": "📖",
-    "totalChapters": 29
+    "totalChapters": 29,
+    "poster": "/covers/jojo-s-bizarre-adventure-part-9-the-jojo.jpg"
   },
   {
     "slug": "lookism",
@@ -871,7 +892,8 @@
     "mark": "📖",
     "totalChapters": 612,
     "nativeTitle": "外見至上主義",
-    "colorNote": "Chapters 423–612 in color"
+    "colorNote": "Chapters 423–612 in color",
+    "poster": "/covers/lookism.jpg"
   },
   {
     "slug": "martial-universe",
@@ -910,7 +932,8 @@
     ],
     "accent": "#d35400",
     "mark": "📖",
-    "totalChapters": 229
+    "totalChapters": 229,
+    "poster": "/covers/martial-universe.jpg"
   },
   {
     "slug": "medaka-box",
@@ -947,7 +970,8 @@
     "accent": "#2fbf71",
     "mark": "📖",
     "totalChapters": 44,
-    "nativeTitle": "めだかボックス （ジャンプコミックスDIGITAL）"
+    "nativeTitle": "めだかボックス （ジャンプコミックスDIGITAL）",
+    "poster": "/covers/medaka-box.jpg"
   },
   {
     "slug": "peerless-battle-spirit",
@@ -985,7 +1009,8 @@
     ],
     "accent": "#d35400",
     "mark": "📖",
-    "totalChapters": 52
+    "totalChapters": 52,
+    "poster": "/covers/peerless-battle-spirit.jpg"
   },
   {
     "slug": "shadows-house",
@@ -1026,7 +1051,8 @@
     "accent": "#8e44ad",
     "mark": "📖",
     "totalChapters": 237,
-    "nativeTitle": "シャドーハウス (Official Colored)"
+    "nativeTitle": "シャドーハウス (Official Colored)",
+    "poster": "/covers/shadows-house.jpg"
   },
   {
     "slug": "shin-elf-san-wa-yaserarenai",
@@ -1063,7 +1089,8 @@
     "accent": "#2fbf71",
     "mark": "📖",
     "totalChapters": 31,
-    "nativeTitle": "新・エルフさんは痩せられない。【秋田書店フルカラー版"
+    "nativeTitle": "新・エルフさんは痩せられない。【秋田書店フルカラー版",
+    "poster": "/covers/shin-elf-san-wa-yaserarenai.jpg"
   },
   {
     "slug": "sokushi-cheat-ga-saikyou-sugite-isekai-n",
@@ -1100,7 +1127,8 @@
     "accent": "#ff3b4e",
     "mark": "📖",
     "totalChapters": 52,
-    "nativeTitle": "即死チートが最強すぎて、異世界のやつらがまるで相手にならないんですが。－ΑΩ－"
+    "nativeTitle": "即死チートが最強すぎて、異世界のやつらがまるで相手にならないんですが。－ΑΩ－",
+    "poster": "/covers/sokushi-cheat-ga-saikyou-sugite-isekai-n.jpg"
   },
   {
     "slug": "soul-land",
@@ -1139,7 +1167,8 @@
     ],
     "accent": "#e67e22",
     "mark": "📖",
-    "totalChapters": 134
+    "totalChapters": 134,
+    "poster": "/covers/soul-land.jpg"
   },
   {
     "slug": "spirit-sword-sovereign",
@@ -1180,7 +1209,8 @@
     "accent": "#2980b9",
     "mark": "📖",
     "totalChapters": 382,
-    "colorNote": "114 of ~382 chapters colored so far"
+    "colorNote": "114 of ~382 chapters colored so far",
+    "poster": "/covers/spirit-sword-sovereign.jpg"
   },
   {
     "slug": "the-breaker",
@@ -1220,7 +1250,8 @@
     ],
     "accent": "#ee5a24",
     "mark": "📖",
-    "totalChapters": 72
+    "totalChapters": 72,
+    "poster": "/covers/the-breaker.jpg"
   },
   {
     "slug": "the-great-ruler",
@@ -1261,7 +1292,8 @@
     "accent": "#d35400",
     "mark": "📖",
     "totalChapters": 495,
-    "colorNote": "111 of ~495 chapters colored so far"
+    "colorNote": "111 of ~495 chapters colored so far",
+    "poster": "/covers/the-great-ruler.jpg"
   },
   {
     "slug": "to-love-ru-darkness",
@@ -1302,7 +1334,8 @@
     "accent": "#e84393",
     "mark": "📖",
     "totalChapters": 77,
-    "nativeTitle": "To LOVEる―とらぶる―ダークネス カラー版"
+    "nativeTitle": "To LOVEる―とらぶる―ダークネス カラー版",
+    "poster": "/covers/to-love-ru-darkness.jpg"
   },
   {
     "slug": "versatile-mage",
@@ -1343,7 +1376,8 @@
     "accent": "#3fae7a",
     "mark": "📖",
     "totalChapters": 665,
-    "colorNote": "90 of ~665 chapters colored so far"
+    "colorNote": "90 of ~665 chapters colored so far",
+    "poster": "/covers/versatile-mage.jpg"
   },
   {
     "slug": "when-will-ayumu-make-his-move",
@@ -1378,7 +1412,8 @@
     ],
     "accent": "#ff3b4e",
     "mark": "📖",
-    "totalChapters": 24
+    "totalChapters": 24,
+    "poster": "/covers/when-will-ayumu-make-his-move.jpg"
   },
   {
     "slug": "yandere-ka-to-omottara-motto-yabe-onna-d",
@@ -1415,6 +1450,7 @@
     "accent": "#ff6a3d",
     "mark": "📖",
     "totalChapters": 78,
-    "nativeTitle": "ヤンデレかと思ったらもっとヤベー女だった (Fan Colored)"
+    "nativeTitle": "ヤンデレかと思ったらもっとヤベー女だった (Fan Colored)",
+    "poster": "/covers/yandere-ka-to-omottara-motto-yabe-onna-d.jpg"
   }
 ]
