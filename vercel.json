@@ -1,0 +1,41 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/read/:n", "destination": "/one-piece/chapter/:n", "permanent": true },
+    { "source": "/chapters", "destination": "/one-piece/chapters", "permanent": true },
+    { "source": "/naruto/chapter/:n", "destination": "/naruto/volume/:n", "permanent": true },
+    { "source": "/naruto/chapters", "destination": "/naruto/volumes", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/:manga/chapter/:n",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=31536000, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/:manga/volume/:n",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=31536000, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/:manga/chapters",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=31536000, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/:manga/volumes",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=31536000, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/:manga/latest",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=31536000, stale-while-revalidate=604800" }
+      ]
+    }
+  ]
+}

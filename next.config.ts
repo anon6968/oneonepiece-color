@@ -1,50 +1,26 @@
 import type { NextConfig } from "next";
 
-// Colored pages are immutable once published — the content of
-// /<manga>/chapter/<n> never changes, and any real update (new chapter,
-// re-colored page) ships as a new deploy, which purges Vercel's CDN cache.
-// So we tell the edge to hold these pages for a long time and serve stale
-// while revalidating. This keeps repeat/crawler traffic on the CDN (cheap
-// edge cache hits) instead of falling through to Vercel's prerender store on
-// every request — which is billed as an ISR read. Applied to the reader and
-// listing routes, which are ~all of the site's ~6k prerendered pages.
-const IMMUTABLE_CONTENT_CACHE =
-  "public, max-age=0, s-maxage=31536000, stale-while-revalidate=604800";
-
+// The site is fully static: every page is prerendered at build time from
+// generateStaticParams (dynamicParams = false) and all page images are served
+// from jsDelivr's CDN, not from here. `output: "export"` emits the whole site
+// as flat .html files into out/ instead of Vercel's prerender store. Those are
+// served as ordinary static assets, so they are NOT billed as ISR reads —
+// eliminating the ISR metering that was the entire reason for the old
+// long-cache headers below.
+//
+// Static export does not support next.config `headers()` / `redirects()`
+// (they only run in a Node/edge server, which no longer exists). The equivalent
+// host-level config now lives in:
+//   - vercel.json          (redirects + cache headers on Vercel)
+//   - public/_redirects    (redirects on Cloudflare Pages)
+//   - public/_headers      (cache headers on Cloudflare Pages)
 const nextConfig: NextConfig = {
-  async headers() {
-    return [
-      {
-        source: "/:manga/chapter/:n",
-        headers: [{ key: "Cache-Control", value: IMMUTABLE_CONTENT_CACHE }],
-      },
-      {
-        source: "/:manga/volume/:n",
-        headers: [{ key: "Cache-Control", value: IMMUTABLE_CONTENT_CACHE }],
-      },
-      {
-        source: "/:manga/chapters",
-        headers: [{ key: "Cache-Control", value: IMMUTABLE_CONTENT_CACHE }],
-      },
-      {
-        source: "/:manga/volumes",
-        headers: [{ key: "Cache-Control", value: IMMUTABLE_CONTENT_CACHE }],
-      },
-      {
-        source: "/:manga/latest",
-        headers: [{ key: "Cache-Control", value: IMMUTABLE_CONTENT_CACHE }],
-      },
-    ];
-  },
-  async redirects() {
-    return [
-      // Legacy One-Piece-only URLs → new multi-manga structure.
-      { source: "/read/:n", destination: "/one-piece/chapter/:n", permanent: true },
-      { source: "/chapters", destination: "/one-piece/chapters", permanent: true },
-      // Naruto is served per-volume — send chapter-style URLs to volume routes.
-      { source: "/naruto/chapter/:n", destination: "/naruto/volume/:n", permanent: true },
-      { source: "/naruto/chapters", destination: "/naruto/volumes", permanent: true },
-    ];
+  output: "export",
+  images: {
+    // No server exists to run Next's image optimizer in an exported site.
+    // Only logo-lab / not-found use next/image; every reader image is a plain
+    // <img> pointing at jsDelivr, so this changes nothing users see.
+    unoptimized: true,
   },
 };
 

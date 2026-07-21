@@ -1,0 +1,13 @@
+# Cloudflare Pages headers — mirror of vercel.json "headers".
+# Colored pages are immutable once published; a real update ships as a new
+# deploy. Hold them at the edge for a year, serve stale while revalidating.
+/:manga/chapter/*
+  Cache-Control: public, max-age=0, s-maxage=31536000, stale-while-revalidate=604800
+/:manga/volume/*
+  Cache-Control: public, max-age=0, s-maxage=31536000, stale-while-revalidate=604800
+/:manga/chapters
+  Cache-Control: public, max-age=0, s-maxage=31536000, stale-while-revalidate=604800
+/:manga/volumes
+  Cache-Control: public, max-age=0, s-maxage=31536000, stale-while-revalidate=604800
+/:manga/latest
+  Cache-Control: public, max-age=0, s-maxage=31536000, stale-while-revalidate=604800
