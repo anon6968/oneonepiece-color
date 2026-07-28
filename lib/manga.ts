@@ -688,7 +688,7 @@ const HAND_MANGAS: Manga[] = [
     author: "Naoya Matsumoto",
     publisher: "Shueisha",
     genres: ["Action", "Sci-Fi", "Comedy"],
-    status: "coming-soon",
+    status: "live",
     unit: "chapter",
     year: 2020,
     imageBase: KAIJU_NO_8_IMAGE_BASE,
