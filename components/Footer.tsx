@@ -101,6 +101,9 @@ export default function Footer() {
             )}
           </p>
           <nav aria-label="Legal" className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+            <Link href="/contact" className="hover:text-brand">
+              Contact
+            </Link>
             <Link href="/dmca" className="hover:text-brand">
               Content removal / DMCA
             </Link>

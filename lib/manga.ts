@@ -59,6 +59,10 @@ export interface Manga {
   mark: string;
   /** Rough total chapter count of the source series (for coming-soon copy). */
   totalChapters?: number;
+  /** When true, the series is kept in the repo as source data but removed from
+   *  the live site — filtered out of MANGAS, so it vanishes from the grid,
+   *  schema, sitemap, feed and its routes 404. Flip to false to restore. */
+  hidden?: boolean;
 }
 
 const OP_IMAGE_BASE = (
@@ -512,8 +516,8 @@ const HAND_MANGAS: Manga[] = [
     synopsis:
       "Jujutsu Kaisen — Yuji Itadori and the Tokyo Jujutsu High sorcerers against cursed spirits and Sukuna. Read the fan-colored chapters in full color, HD, free — no official color edition exists, so this partial colorization is the closest thing to Jujutsu Kaisen in color.",
     keywords: ["jujutsu kaisen colored", "jjk colored manga", "jujutsu kaisen color", "read jujutsu kaisen in color"],
-    poster: "/covers/jujutsu-kaisen-poster.png",
-    posterPosition: "50% 35%",
+    poster: "/covers/jujutsu-kaisen-yuji.png",
+    posterPosition: "center",
     accent: "#8e44ad",
     mark: "👊",
     totalChapters: 271,
@@ -774,7 +778,7 @@ const _handSlugs = new Set(HAND_MANGAS.map((m) => m.slug));
 export const MANGAS: Manga[] = [
   ...HAND_MANGAS,
   ...AUTO_MANGAS.filter((m) => !_handSlugs.has(m.slug)),
-];
+].filter((m) => !m.hidden); // `hidden` series stay in the source data but leave the site entirely.
 
 const BY_SLUG = new Map(MANGAS.map((m) => [m.slug, m]));
 

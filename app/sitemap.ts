@@ -27,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [
     { url: SITE.url, lastModified: now, changeFrequency: "daily", priority: 1 },
+    { url: `${SITE.url}/contact`, lastModified: STABLE, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE.url}/dmca`, lastModified: STABLE, changeFrequency: "yearly", priority: 0.2 },
     { url: `${SITE.url}/terms`, lastModified: STABLE, changeFrequency: "yearly", priority: 0.2 },
     { url: `${SITE.url}/privacy`, lastModified: STABLE, changeFrequency: "yearly", priority: 0.2 },

@@ -28,6 +28,8 @@ export const SITE = {
   twitter: "@colorizedmanga",
   // Address for content-removal / takedown requests. Point this at a real inbox.
   contact: "removals@colorizedmangas.com",
+  // General contact / support inbox shown on the Contact page (real, monitored).
+  email: "anon69contact@proton.me",
 } as const;
 
 /* ------------------------------ Unit labels ----------------------------- */

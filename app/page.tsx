@@ -99,7 +99,7 @@ export default function Home() {
           <AnimatedLogo
             motion="rock"
             priority
-            className="mx-auto mb-8 w-36 [mask-image:radial-gradient(ellipse_at_center,black_68%,transparent_98%)] sm:mx-0 md:hidden"
+            className="mx-auto mb-8 w-36 [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_86%)] sm:mx-0 md:hidden"
           />
 
           <p className="inline-flex items-center gap-2 rounded-full bg-panel px-3.5 py-1.5 text-xs font-medium text-mute sm:text-sm">
@@ -137,17 +137,10 @@ export default function Home() {
         </div>
 
         <div className="relative hidden animate-fadeUp md:flex md:justify-center">
-          {/* Red-black depth behind the ship — a blood-crimson core glow fading
-              into a black vignette, so the logo emerges from depth instead of
-              floating on flat ink (matches the brand art's red/black mood). */}
-          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-            <div className="absolute left-1/2 top-1/2 h-[128%] w-[128%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(224,17,35,0.20),rgba(122,10,18,0.12)_40%,transparent_70%)] blur-2xl" />
-            <div className="absolute left-1/2 top-1/2 h-[112%] w-[112%] -translate-x-1/2 -translate-y-1/2 rounded-full [background:radial-gradient(circle_at_center,transparent_52%,rgba(0,0,0,0.6)_100%)]" />
-          </div>
           <AnimatedLogo
             motion="rock"
             priority
-            className="w-full max-w-[420px] [mask-image:radial-gradient(ellipse_at_center,black_68%,transparent_98%)]"
+            className="w-full max-w-[420px] [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_86%)]"
           />
         </div>
       </section>

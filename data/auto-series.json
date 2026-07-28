@@ -80,7 +80,8 @@
     "accent": "#16a085",
     "mark": "📖",
     "totalChapters": 143,
-    "poster": "/covers/battle-through-the-heavens.jpg"
+    "poster": "/covers/battle-through-the-heavens.jpg",
+    "hidden": true
   },
   {
     "slug": "canvas-2-rainbow-colored-sketch",
@@ -121,7 +122,8 @@
     "mark": "📖",
     "totalChapters": 25,
     "nativeTitle": "キャンバス２",
-    "poster": "/covers/canvas-2-rainbow-colored-sketch.jpg"
+    "poster": "/covers/canvas-2-rainbow-colored-sketch.jpg",
+    "hidden": true
   },
   {
     "slug": "dragon-ball",
@@ -200,7 +202,8 @@
     "mark": "📖",
     "totalChapters": 46,
     "nativeTitle": "封神演義 カラー版",
-    "poster": "/covers/hoshin-engi.jpg"
+    "poster": "/covers/hoshin-engi.jpg",
+    "hidden": true
   },
   {
     "slug": "i-am-the-sorcerer-king",
@@ -243,7 +246,8 @@
     "totalChapters": 19,
     "nativeTitle": "俺は大魔導士だ！",
     "colorNote": "Chapters 3–19 in color",
-    "poster": "/covers/i-am-the-sorcerer-king.jpg"
+    "poster": "/covers/i-am-the-sorcerer-king.jpg",
+    "hidden": true
   },
   {
     "slug": "jojo-no-kimyou-na-bouken-dai-9-bu-the-jo",
@@ -737,7 +741,8 @@
     "accent": "#d35400",
     "mark": "📖",
     "totalChapters": 229,
-    "poster": "/covers/martial-universe.jpg"
+    "poster": "/covers/martial-universe.jpg",
+    "hidden": true
   },
   {
     "slug": "peerless-battle-spirit",
@@ -776,7 +781,8 @@
     "accent": "#d35400",
     "mark": "📖",
     "totalChapters": 52,
-    "poster": "/covers/peerless-battle-spirit.jpg"
+    "poster": "/covers/peerless-battle-spirit.jpg",
+    "hidden": true
   },
   {
     "slug": "shadows-house",
@@ -856,7 +862,8 @@
     "mark": "📖",
     "totalChapters": 52,
     "nativeTitle": "即死チートが最強すぎて、異世界のやつらがまるで相手にならないんですが。－ΑΩ－",
-    "poster": "/covers/sokushi-cheat-ga-saikyou-sugite-isekai-n.jpg"
+    "poster": "/covers/sokushi-cheat-ga-saikyou-sugite-isekai-n.jpg",
+    "hidden": true
   },
   {
     "slug": "soul-land",
@@ -896,7 +903,8 @@
     "accent": "#e67e22",
     "mark": "📖",
     "totalChapters": 134,
-    "poster": "/covers/soul-land.jpg"
+    "poster": "/covers/soul-land.jpg",
+    "hidden": true
   },
   {
     "slug": "spirit-sword-sovereign",
@@ -938,7 +946,8 @@
     "mark": "📖",
     "totalChapters": 382,
     "colorNote": "114 of ~382 chapters colored so far",
-    "poster": "/covers/spirit-sword-sovereign.jpg"
+    "poster": "/covers/spirit-sword-sovereign.jpg",
+    "hidden": true
   },
   {
     "slug": "the-breaker",
@@ -979,7 +988,8 @@
     "accent": "#ee5a24",
     "mark": "📖",
     "totalChapters": 72,
-    "poster": "/covers/the-breaker.jpg"
+    "poster": "/covers/the-breaker.jpg",
+    "hidden": true
   },
   {
     "slug": "the-great-ruler",
@@ -1021,7 +1031,8 @@
     "mark": "📖",
     "totalChapters": 495,
     "colorNote": "111 of ~495 chapters colored so far",
-    "poster": "/covers/the-great-ruler.jpg"
+    "poster": "/covers/the-great-ruler.jpg",
+    "hidden": true
   },
   {
     "slug": "versatile-mage",
@@ -1063,7 +1074,8 @@
     "mark": "📖",
     "totalChapters": 665,
     "colorNote": "90 of ~665 chapters colored so far",
-    "poster": "/covers/versatile-mage.jpg"
+    "poster": "/covers/versatile-mage.jpg",
+    "hidden": true
   },
   {
     "slug": "when-will-ayumu-make-his-move",
@@ -1099,7 +1111,8 @@
     "accent": "#ff3b4e",
     "mark": "📖",
     "totalChapters": 24,
-    "poster": "/covers/when-will-ayumu-make-his-move.jpg"
+    "poster": "/covers/when-will-ayumu-make-his-move.jpg",
+    "hidden": true
   },
   {
     "slug": "yandere-ka-to-omottara-motto-yabe-onna-d",
@@ -1137,6 +1150,7 @@
     "mark": "📖",
     "totalChapters": 78,
     "nativeTitle": "ヤンデレかと思ったらもっとヤベー女だった (Fan Colored)",
-    "poster": "/covers/yandere-ka-to-omottara-motto-yabe-onna-d.jpg"
+    "poster": "/covers/yandere-ka-to-omottara-motto-yabe-onna-d.jpg",
+    "hidden": true
   }
 ]
