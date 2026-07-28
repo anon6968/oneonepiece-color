@@ -717,7 +717,7 @@ const HAND_MANGAS: Manga[] = [
     author: "Yuji Kaku",
     publisher: "Shueisha",
     genres: ["Action", "Adventure", "Dark Fantasy", "Historical"],
-    status: "coming-soon",
+    status: "live",
     unit: "chapter",
     year: 2018,
     imageBase: HELLS_PARADISE_IMAGE_BASE,
