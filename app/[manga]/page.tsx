@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getManga, getMangaSlugs, isLive, liveMangas, type Manga } from "@/lib/manga";
-import { getIndex, stats } from "@/lib/data";
+import { getIndex, stats, type MangaStats } from "@/lib/data";
 import {
   SITE,
   mangaPath,
   pageUrl,
   unitLabel,
+  unitLabelLower,
   unitLabelPlural,
 } from "@/lib/site";
 import ChapterBrowser from "@/components/ChapterBrowser";
@@ -30,22 +31,40 @@ export async function generateMetadata({
   if (!m) return { title: "Not found" };
 
   const live = isLive(m);
+  const bw = m.color === "none";
   const plural = unitLabelPlural(m);
-  const title = live
-    ? `${m.title} Colored Manga — Read ${m.title} in Full Color Online Free`
-    : `${m.title} Colored Manga — Colorized ${m.title} (Coming Soon)`;
-  const description = live
-    ? `Read the colorized ${m.title} manga online for free. Every ${unitLabel(m).toLowerCase()} of ${m.author}'s ${m.title} digitally colored in full HD, with a fast mobile reader and zoom. ${m.tagline}`
-    : `The colorized ${m.title} manga is coming soon — every chapter of ${m.author}'s ${m.title} digitally colored in full HD. ${m.tagline} Read our live colorized series while ${m.title} is colorized.`;
+  const title = !live
+    ? `${m.title} Colored Manga — Colorized ${m.title} (Coming Soon)`
+    : bw
+      ? `${m.title} Manga — Read ${m.title} Online Free (Black & White)`
+      : `${m.title} Colored Manga — Read ${m.title} in Full Color Online Free`;
+  const description = !live
+    ? `The colorized ${m.title} manga is coming soon — every chapter of ${m.author}'s ${m.title} digitally colored in full HD. ${m.tagline} Read our live colorized series while ${m.title} is colorized.`
+    : bw
+      ? `Read the ${m.title} manga online free in high-quality black & white — the full series by ${m.author}, every ${unitLabel(m).toLowerCase()} on a fast mobile reader with zoom. ${m.tagline}`
+      : `Read the colorized ${m.title} manga online for free. Every ${unitLabel(m).toLowerCase()} of ${m.author}'s ${m.title} digitally colored in full HD, with a fast mobile reader and zoom. ${m.tagline}`;
 
   const ogImages = live
-    ? [{ url: pageUrl(m, getIndex(slug)[0]?.chapter ?? 1, 1), alt: `${m.title} colored manga cover` }]
+    ? [{ url: pageUrl(m, getIndex(slug)[0]?.chapter ?? 1, 1), alt: `${m.title} manga cover` }]
     : undefined;
 
   return {
     title,
     description,
-    keywords: [...m.keywords, `${m.title.toLowerCase()} colored ${plural}`],
+    keywords: [
+      ...m.keywords,
+      bw
+        ? `${m.title.toLowerCase()} manga online free`
+        : `${m.title.toLowerCase()} colored ${plural}`,
+    ],
+    // Coming-soon / not-yet-colored series have nothing to read. Keep them
+    // out of the index (but crawlable via follow) so thin placeholder pages
+    // don't dilute site quality or disappoint searchers, then flip to
+    // indexable automatically the moment the series goes live. Spread the key
+    // conditionally — live pages must OMIT robots entirely so they inherit the
+    // layout's index/follow + googleBot max-image-preview:large directive
+    // (setting robots: undefined would strip that inherited image directive).
+    ...(live ? {} : { robots: { index: false, follow: true } }),
     alternates: { canonical: mangaPath(slug) },
     openGraph: {
       type: "website",
@@ -78,19 +97,99 @@ export default async function MangaPage({
 
 /* --------------------------------- LIVE --------------------------------- */
 
+/** Per-series Q&A backing the on-page FAQ + FAQPage structured data. These map
+ *  directly onto the real "is <series> available in color / where can I read
+ *  it / how many colored chapters" searches that forum threads currently win. */
+function seriesFaqs(m: Manga, s: MangaStats, firstCh: number) {
+  const label = unitLabel(m);
+  const lower = unitLabelLower(m);
+  const plural = unitLabelPlural(m);
+  const fan = !!m.colorNote?.toLowerCase().includes("fan");
+  const bw = m.color === "none";
+
+  if (bw) {
+    return [
+      {
+        q: `Where can I read ${m.title} online for free?`,
+        a: `Right here. The ${m.title} manga is free to read online in high-quality black & white — ${s.total} ${plural}, ${s.totalPages.toLocaleString("en-US")} pages — with no account, no app and no paywall.`,
+      },
+      {
+        q: `Is ${m.title} available in color?`,
+        a: `Not yet. There is no official full-color edition of ${m.title}, so we host the complete series in high-quality black & white instead — every ${lower} clearly labeled B&W. If an official colored ${m.title} is ever released, it will replace these pages.`,
+      },
+      {
+        q: `How many ${plural} of ${m.title} can I read here?`,
+        a: `All ${s.total} ${plural} we host are live right now — ${s.totalPages.toLocaleString("en-US")} pages of ${m.author}'s ${m.title} — with more added as they release.`,
+      },
+      {
+        q: `Is it free to read ${m.title}?`,
+        a: `Yes. Every ${lower} of ${m.title} is free to read online — no account, no app and no paywall — on a fast mobile reader with pinch-to-zoom.`,
+      },
+      {
+        q: `Where should I start reading ${m.title}?`,
+        a: `Start with ${label} ${firstCh} and use the reader's next-page controls to keep going. You can jump to any ${lower} from the ${m.title} ${plural} list.`,
+      },
+    ];
+  }
+
+  const availability =
+    m.color === "full"
+      ? `Yes. The ${m.title} manga is available in full color here — ${s.colored} ${plural} digitally colored in HD, free to read with no signup.`
+      : `Partly. ${
+          m.colorNote ?? `Only some ${plural} are colored so far`
+        }. Those are in full color here; the rest of ${m.title} isn't colored yet.`;
+
+  return [
+    { q: `Is ${m.title} available in color?`, a: availability },
+    {
+      q: `How many colored ${plural} of ${m.title} are there?`,
+      a: `${s.colored} colored ${plural} — ${s.totalPages.toLocaleString(
+        "en-US",
+      )} digitally colored pages — are live right now, with more added as they're finished.`,
+    },
+    {
+      q: `Is it free to read ${m.title} in color?`,
+      a: `Yes. Every colored ${lower} of ${m.title} is free to read online — no account, no app and no paywall.`,
+    },
+    {
+      q: fan
+        ? `Is this an official colored ${m.title}?`
+        : `Is this the official colored ${m.title}?`,
+      a: fan
+        ? `These are high-quality fan-colored ${plural} — no official color edition of ${m.title} exists yet, so this is the closest way to read it in color.`
+        : `These are digitally colored HD editions of ${m.title}, faithfully colored page by page and read in a fast mobile-friendly reader.`,
+    },
+    {
+      q: `Where should I start reading ${m.title} in color?`,
+      a: `Start with ${label} ${firstCh} and use the reader's next-page controls to keep going. You can jump to any ${lower} from the ${m.title} ${plural} list.`,
+    },
+  ];
+}
+
 function LiveManga({ m }: { m: Manga }) {
   const index = getIndex(m.slug);
   const s = stats(m.slug);
   const firstCh = index[0]?.chapter ?? 1;
   const plural = unitLabelPlural(m);
+  const faqs = seriesFaqs(m, s, firstCh);
+  const bw = m.color === "none";
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "FAQPage",
+        "@id": `${SITE.url}${mangaPath(m.slug)}#faq`,
+        mainEntity: faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      },
+      {
         "@type": "ComicSeries",
         "@id": `${SITE.url}${mangaPath(m.slug)}#series`,
-        name: `${m.title} (Colored / Digital Color Edition)`,
+        name: bw ? m.title : `${m.title} (Colored / Digital Color Edition)`,
         alternateName: m.altTitles,
         url: `${SITE.url}${mangaPath(m.slug)}`,
         genre: m.genres,
@@ -136,6 +235,44 @@ function LiveManga({ m }: { m: Manga }) {
             )}
           </div>
         </div>
+
+        {/* Unique on-page editorial + FAQ. This is the crawlable body copy that
+            lets the hub rank for "<series> colored manga" and the question
+            queries — the forum threads that currently outrank us have none of
+            this depth. */}
+        <section className="mt-12 border-t border-line/40 pt-8">
+          <h2 className="text-xl font-bold tracking-tight sm:text-2xl">
+            About the {bw ? "" : "colorized "}{m.title} manga
+          </h2>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-mute sm:text-base">
+            {m.synopsis}
+          </p>
+        </section>
+
+        <section
+          className="mt-10 border-t border-line/40 pt-8"
+          aria-labelledby={`${m.slug}-faq`}
+        >
+          <h2
+            id={`${m.slug}-faq`}
+            className="text-xl font-bold tracking-tight sm:text-2xl"
+          >
+            {m.title} {bw ? "" : "colored "}manga — FAQ
+          </h2>
+          <div className="mt-4 max-w-3xl divide-y divide-line/40 rounded-2xl bg-panel/40">
+            {faqs.map((f) => (
+              <details key={f.q} className="group px-5 py-4">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold sm:text-base">
+                  {f.q}
+                  <span className="text-mute transition group-open:rotate-45" aria-hidden>
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-mute">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
       </div>
     </>
   );

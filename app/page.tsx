@@ -16,13 +16,17 @@ export const metadata: Metadata = {
 export default function Home() {
   const live = liveMangas();
   const soon = comingSoonMangas();
-  const featured = live[0];
-  const totalPages = live.reduce((sum, m) => sum + stats(m.slug).totalPages, 0);
+  // Split live titles: genuinely colorized editions vs. black & white editions
+  // (the full manga in B&W, hosted free — official color not out yet).
+  const liveColor = live.filter((m) => m.color !== "none");
+  const liveBW = live.filter((m) => m.color === "none");
+  const featured = liveColor[0] ?? live[0];
+  const totalPages = liveColor.reduce((sum, m) => sum + stats(m.slug).totalPages, 0);
 
   const faqs = [
     {
       q: "What is colorized manga?",
-      a: `Colorized manga is the original black-and-white manga with every page digitally colored in full HD. ${SITE.name} publishes color editions of hit series like ${live
+      a: `Colorized manga is the original black-and-white manga with every page digitally colored in full HD. ${SITE.name} publishes color editions of hit series like ${liveColor
         .slice(0, 3)
         .map((m) => m.title)
         .join(", ")} so you can read them the way the anime looks — in full color.`,
@@ -37,7 +41,7 @@ export default function Home() {
     },
     {
       q: "Which manga are available in color?",
-      a: `${live.length} series are live in full color right now — including ${live
+      a: `${liveColor.length} series are live in full color right now — including ${liveColor
         .slice(0, 5)
         .map((m) => m.title)
         .join(", ")} — with ${soon.length} more being colorized. New color chapters are added as they are finished.`,
@@ -60,7 +64,7 @@ export default function Home() {
         isPartOf: { "@id": `${SITE.url}/#website` },
         hasPart: MANGAS.map((m) => ({
           "@type": "ComicSeries",
-          name: `${m.title} (Colored Edition)`,
+          name: m.color === "none" ? m.title : `${m.title} (Colored Edition)`,
           url: `${SITE.url}${mangaPath(m.slug)}`,
           author: { "@type": "Person", name: m.author },
         })),
@@ -105,11 +109,11 @@ export default function Home() {
           </p>
 
           <h1 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-6xl">
-            Read manga in{" "}
-            <span className="bg-gradient-to-r from-brand via-brand-2 to-gold bg-clip-text text-transparent">
-              full color
-            </span>
-            , online &amp; free.
+            Read{" "}
+            <span className="bg-gradient-to-r from-brand-2 via-brand to-brand bg-clip-text text-transparent [text-shadow:0_0_40px_rgba(224,17,35,0.35)]">
+              colorized manga
+            </span>{" "}
+            in full color, free.
           </h1>
 
           <p className="mt-5 max-w-xl text-base leading-relaxed text-mute sm:text-lg">
@@ -121,7 +125,7 @@ export default function Home() {
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <Link
                 href={readPath(featured, 1)}
-                className="rounded-xl bg-gradient-to-r from-brand to-brand-2 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-brand/25 transition hover:brightness-110"
+                className="inline-flex items-center rounded-xl bg-gradient-to-r from-brand to-brand-2 px-6 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-brand/40 ring-1 ring-brand-2/50 transition hover:brightness-110 hover:shadow-brand/60"
               >
                 Read {featured.title} in color →
               </Link>
@@ -132,7 +136,14 @@ export default function Home() {
           )}
         </div>
 
-        <div className="hidden animate-fadeUp md:flex md:justify-center">
+        <div className="relative hidden animate-fadeUp md:flex md:justify-center">
+          {/* Red-black depth behind the ship — a blood-crimson core glow fading
+              into a black vignette, so the logo emerges from depth instead of
+              floating on flat ink (matches the brand art's red/black mood). */}
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+            <div className="absolute left-1/2 top-1/2 h-[128%] w-[128%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(224,17,35,0.20),rgba(122,10,18,0.12)_40%,transparent_70%)] blur-2xl" />
+            <div className="absolute left-1/2 top-1/2 h-[112%] w-[112%] -translate-x-1/2 -translate-y-1/2 rounded-full [background:radial-gradient(circle_at_center,transparent_52%,rgba(0,0,0,0.6)_100%)]" />
+          </div>
           <AnimatedLogo
             motion="rock"
             priority
@@ -151,10 +162,29 @@ export default function Home() {
           are on the way.
         </p>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {live.map((m, i) => (
+          {liveColor.map((m, i) => (
             <MangaCard key={m.slug} manga={m} priority={i < 3} />
           ))}
         </div>
+
+        {liveBW.length > 0 && (
+          <div id="black-and-white" className="mt-16 scroll-mt-20">
+            <h3 className="text-xl font-bold tracking-tight sm:text-2xl">
+              Black &amp; white editions — the full manga, free
+            </h3>
+            <p className="mt-1.5 mb-6 text-sm text-mute sm:text-base">
+              The biggest series that don&apos;t have an official color edition yet — hosted
+              complete in high-quality black &amp; white so you can read the whole story right
+              now, free. Every chapter is clearly labeled B&amp;W, and each one flips to color
+              the moment an official colored release exists.
+            </p>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              {liveBW.map((m) => (
+                <MangaCard key={m.slug} manga={m} />
+              ))}
+            </div>
+          </div>
+        )}
 
         {soon.length > 0 && (
           <div className="mt-14">
@@ -213,6 +243,19 @@ export default function Home() {
             ))}{" "}
             {live.length === 1 ? "is" : "are"} live now, each with a fast, mobile-friendly reader
             and pinch-to-zoom on every page. No signup, just the color manga.
+          </p>
+          <p>
+            However you spell it — <strong className="text-mute">colourised manga</strong>,{" "}
+            <strong className="text-mute">coloured manga</strong> or colour manga — it&apos;s the
+            same thing: the original black-and-white pages digitally recolored in full HD, free to
+            read online. Prefer British English? Read{" "}
+            <a
+              href="https://colourisedmanga.com"
+              className="text-brand/80 hover:underline"
+            >
+              colourised manga
+            </a>{" "}
+            over on our sister site.
           </p>
         </div>
       </section>

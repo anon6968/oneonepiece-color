@@ -10,7 +10,9 @@ export default function MangaCard({ manga, priority = false }: { manga: Manga; p
   // Honest one-line status under the title — carries the colour info simply,
   // so no overlay badge is needed on the cover.
   let sub: string;
-  if (live && s) {
+  if (live && s && manga.color === "none") {
+    sub = manga.colorNote ?? `${s.total} ${unitLabelPlural(manga)} · black & white, free`;
+  } else if (live && s) {
     sub =
       manga.color === "full"
         ? `${s.colored} ${unitLabelPlural(manga)} in full color`
@@ -23,7 +25,13 @@ export default function MangaCard({ manga, priority = false }: { manga: Manga; p
     sub = "Full color — coming soon";
   }
 
-  const cta = live ? "Read in full color" : manga.color === "none" ? "View details" : "Preview";
+  const cta = live
+    ? manga.color === "none"
+      ? "Read free →"
+      : "Read in full color"
+    : manga.color === "none"
+      ? "View details"
+      : "Preview";
 
   return (
     <Link

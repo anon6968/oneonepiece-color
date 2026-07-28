@@ -84,6 +84,24 @@ const ATTACK_ON_TITAN_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/attack-on-titan-color-pages@main/pages";
 const JUJUTSU_KAISEN_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/jujutsu-kaisen-color-pages@main/pages";
+const FULLMETAL_ALCHEMIST_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/fullmetal-alchemist-color-pages@main/pages";
+const BERSERK_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/berserk-color-pages@main/pages";
+const MOB_PSYCHO_100_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/mob-psycho-100-color-pages@main/pages";
+const DR_STONE_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/dr-stone-color-pages@main/pages";
+const BLACK_CLOVER_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/black-clover-color-pages@main/pages";
+const BLUE_LOCK_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/blue-lock-color-pages@main/pages";
+const KAIJU_NO_8_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/kaiju-no-8-color-pages@main/pages";
+const HELLS_PARADISE_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/hells-paradise-color-pages@main/pages";
+const DANDADAN_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/dandadan-color-pages@main/pages";
 
 const HAND_MANGAS: Manga[] = [
   {
@@ -263,38 +281,35 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "fullmetal-alchemist",
     color: "none",
-    colorNote: "Black & white now — full-color edition coming soon",
+    colorNote: "Complete series in black & white — free to read",
     title: "Fullmetal Alchemist",
     nativeTitle: "鋼の錬金術師",
     altTitles: [
       "Hagane no Renkinjutsushi",
       "FMA",
-      "Fullmetal Alchemist Color",
-      "Colorized Fullmetal Alchemist",
+      "Fullmetal Alchemist Manga",
     ],
     author: "Hiromu Arakawa",
     publisher: "Square Enix",
     genres: ["Action", "Adventure", "Fantasy", "Steampunk"],
-    status: "coming-soon",
+    status: "live",
     unit: "chapter",
     year: 2001,
-    imageBase: "",
+    imageBase: FULLMETAL_ALCHEMIST_IMAGE_BASE,
     tagline:
-      "Hiromu Arakawa's alchemy epic, being digitally colorized in full HD.",
+      "Hiromu Arakawa's alchemy epic — the complete manga in HD black & white, free.",
     synopsis:
-      "The colorized Fullmetal Alchemist manga is coming soon. Every chapter of Hiromu Arakawa's beloved series — brothers Edward and Alphonse Elric and their search for the Philosopher's Stone to restore their bodies — is being digitally colored in high definition. Read Fullmetal Alchemist in vivid full color online, free.",
+      "Read Fullmetal Alchemist online free — the complete manga in high-quality black & white. Brothers Edward and Alphonse Elric break the ultimate taboo of alchemy and set out to find the Philosopher's Stone to restore their bodies. No official full-color edition exists, so every chapter of Hiromu Arakawa's beloved series is hosted here in black & white, clearly labeled — a fast, mobile-friendly reader with pinch-to-zoom on every page. No signup, no paywall.",
     keywords: [
-      "colorized fullmetal alchemist manga",
-      "fullmetal alchemist color manga",
-      "fullmetal alchemist colored manga",
-      "read fullmetal alchemist in color",
-      "fma full color",
       "fullmetal alchemist manga online free",
-      "fullmetal alchemist colored chapters",
+      "read fullmetal alchemist manga",
+      "fullmetal alchemist manga black and white",
+      "fma full manga",
+      "fullmetal alchemist brotherhood manga",
     ],
     accent: "#d9c14a",
     mark: "⚗️",
-    totalChapters: 116,
+    totalChapters: 108,
   },
   {
     slug: "attack-on-titan",
@@ -402,33 +417,31 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "black-clover",
     color: "none",
-    colorNote: "Black & white now — full-color edition coming soon",
+    colorNote: "Complete series in black & white — free to read",
     title: "Black Clover",
     nativeTitle: "ブラッククローバー",
-    altTitles: ["Black Clover Color", "Colorized Black Clover", "Black Clover Colored"],
+    altTitles: ["Black Clover Manga", "Bulakku Kurōbā"],
     author: "Yūki Tabata",
     publisher: "Shueisha",
     genres: ["Action", "Adventure", "Fantasy", "Magic"],
-    status: "coming-soon",
+    status: "live",
     unit: "chapter",
     year: 2015,
-    imageBase: "",
+    imageBase: BLACK_CLOVER_IMAGE_BASE,
     tagline:
-      "Yūki Tabata's magic-knight shonen, being digitally colorized in full HD.",
+      "Yūki Tabata's magic-knight shonen — the manga in HD black & white, free.",
     synopsis:
-      "The colorized Black Clover manga is on its way. Every chapter of Yūki Tabata's magic-knight epic — Asta, born with no magic in a world of mages, and his rival Yuno racing to become the Wizard King — is being digitally colored in high definition. Read Black Clover in vivid full color online, free.",
+      "Read Black Clover online free — the manga in high-quality black & white. Asta, born with no magic in a world where it's everything, and his rival Yuno chase the same dream: to become the Wizard King. No official full-color edition exists, so every chapter of Yūki Tabata's magic-knight epic is hosted here in black & white, clearly labeled — a fast, mobile-friendly reader with pinch-to-zoom on every page. No signup, no paywall.",
     keywords: [
-      "colorized black clover manga",
-      "black clover color manga",
-      "black clover colored manga",
-      "read black clover in color",
-      "black clover full color",
       "black clover manga online free",
-      "black clover colored chapters",
+      "read black clover manga",
+      "black clover manga black and white",
+      "black clover full manga",
+      "asta black clover manga",
     ],
     accent: "#3dbb6b",
     mark: "🍀",
-    totalChapters: 370,
+    totalChapters: 392,
   },
   {
     slug: "rurouni-kenshin",
@@ -499,7 +512,8 @@ const HAND_MANGAS: Manga[] = [
     synopsis:
       "Jujutsu Kaisen — Yuji Itadori and the Tokyo Jujutsu High sorcerers against cursed spirits and Sukuna. Read the fan-colored chapters in full color, HD, free — no official color edition exists, so this partial colorization is the closest thing to Jujutsu Kaisen in color.",
     keywords: ["jujutsu kaisen colored", "jjk colored manga", "jujutsu kaisen color", "read jujutsu kaisen in color"],
-    poster: "/covers/jujutsu-kaisen.jpg",
+    poster: "/covers/jujutsu-kaisen-poster.png",
+    posterPosition: "50% 35%",
     accent: "#8e44ad",
     mark: "👊",
     totalChapters: 271,
@@ -547,6 +561,209 @@ const HAND_MANGAS: Manga[] = [
     accent: "#e67e22",
     mark: "🕶️",
     totalChapters: 100,
+  },
+  {
+    slug: "berserk",
+    color: "none",
+    colorNote: "Complete series in black & white — free to read",
+    title: "Berserk",
+    nativeTitle: "ベルセルク",
+    altTitles: ["Berserk Manga", "Berserk Colored"],
+    author: "Kentaro Miura",
+    publisher: "Hakusensha",
+    genres: ["Action", "Dark Fantasy", "Horror", "Tragedy"],
+    status: "live",
+    unit: "chapter",
+    year: 1989,
+    imageBase: BERSERK_IMAGE_BASE,
+    tagline:
+      "Kentaro Miura's dark-fantasy masterpiece — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Berserk online free — the complete manga in high-quality black & white. Follow Guts, the Black Swordsman, and his brutal quest for revenge against Griffith and the God Hand in Kentaro Miura's genre-defining dark fantasy epic. No official full-color edition of Berserk exists, so every chapter is hosted here in black & white, clearly labeled — a fast, mobile-friendly reader with pinch-to-zoom on every page. No signup, no paywall.",
+    keywords: [
+      "berserk manga online free",
+      "read berserk manga",
+      "berserk manga black and white",
+      "berserk full manga",
+      "berserk guts manga",
+    ],
+    accent: "#8b0000",
+    mark: "⚔️",
+    totalChapters: 374,
+  },
+  {
+    slug: "dr-stone",
+    color: "none",
+    colorNote: "Complete series in black & white — free to read",
+    title: "Dr. Stone",
+    nativeTitle: "ドクターストーン",
+    altTitles: ["Doctor Stone", "Dr Stone Manga"],
+    author: "Riichiro Inagaki",
+    publisher: "Shueisha",
+    genres: ["Adventure", "Sci-Fi", "Comedy", "Shounen"],
+    status: "live",
+    unit: "chapter",
+    year: 2017,
+    imageBase: DR_STONE_IMAGE_BASE,
+    tagline:
+      "Riichiro Inagaki & Boichi's science-adventure epic — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Dr. Stone online free — the complete manga in high-quality black & white. After humanity is turned to stone, genius Senku Ishigami wakes thousands of years later and sets out to rebuild civilization from zero with the power of science. No official full-color edition exists, so every chapter of Riichiro Inagaki and Boichi's hit is hosted here in black & white, clearly labeled. Fast, mobile-friendly reader with pinch-to-zoom — no signup, no paywall.",
+    keywords: [
+      "dr stone manga online free",
+      "read dr stone manga",
+      "dr stone manga black and white",
+      "dr stone full manga",
+      "senku dr stone manga",
+    ],
+    accent: "#27ae60",
+    mark: "🧪",
+    totalChapters: 232,
+  },
+  {
+    slug: "mob-psycho-100",
+    color: "none",
+    colorNote: "Complete series in black & white — free to read",
+    title: "Mob Psycho 100",
+    nativeTitle: "モブサイコ100",
+    altTitles: ["Mob Psycho", "Mob Psycho 100 Manga"],
+    author: "ONE",
+    publisher: "Shogakukan",
+    genres: ["Action", "Comedy", "Supernatural", "Slice of Life"],
+    status: "live",
+    unit: "chapter",
+    year: 2012,
+    imageBase: MOB_PSYCHO_100_IMAGE_BASE,
+    tagline:
+      "ONE's psychic coming-of-age comedy — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Mob Psycho 100 online free — the complete manga in high-quality black & white. Shigeo \"Mob\" Kageyama is an ordinary middle-schooler with overwhelming psychic power he'd rather keep bottled up — until his emotions hit 100%. From ONE, the creator of One-Punch Man. No official full-color edition exists, so every chapter is hosted here in black & white, clearly labeled. Fast, mobile-friendly reader with pinch-to-zoom — no signup, no paywall.",
+    keywords: [
+      "mob psycho 100 manga online free",
+      "read mob psycho 100 manga",
+      "mob psycho 100 manga black and white",
+      "mob psycho full manga",
+      "mob psycho 100 manga ONE",
+    ],
+    accent: "#3867d6",
+    mark: "💯",
+    totalChapters: 101,
+  },
+  {
+    slug: "blue-lock",
+    color: "none",
+    colorNote: "Black & white — free to read",
+    title: "Blue Lock",
+    nativeTitle: "ブルーロック",
+    altTitles: ["Blue Lock Manga", "Burū Rokku"],
+    author: "Muneyuki Kaneshiro",
+    publisher: "Kodansha",
+    genres: ["Sports", "Drama", "Thriller"],
+    status: "live",
+    unit: "chapter",
+    year: 2018,
+    imageBase: BLUE_LOCK_IMAGE_BASE,
+    tagline:
+      "Muneyuki Kaneshiro & Yusuke Nomura's striker survival-game — the manga in HD black & white, free.",
+    synopsis:
+      "Read Blue Lock online free in high-quality black & white. After Japan crashes out of the World Cup, 300 of the country's best high-school strikers are locked in a radical facility to forge the world's greatest egoist striker. No official full-color edition exists, so every chapter is hosted here in black & white, clearly labeled — fast, mobile-friendly reader with pinch-to-zoom. No signup, no paywall.",
+    keywords: [
+      "blue lock manga online free",
+      "read blue lock manga",
+      "blue lock manga black and white",
+      "blue lock full manga",
+      "blue lock isagi manga",
+    ],
+    accent: "#2d6cdf",
+    mark: "⚽",
+    totalChapters: 290,
+  },
+  {
+    slug: "kaiju-no-8",
+    color: "none",
+    colorNote: "Complete run in black & white — free to read",
+    title: "Kaiju No. 8",
+    nativeTitle: "怪獣8号",
+    altTitles: ["Kaiju No.8", "Monster #8", "Kaijuu 8-gou"],
+    author: "Naoya Matsumoto",
+    publisher: "Shueisha",
+    genres: ["Action", "Sci-Fi", "Comedy"],
+    status: "live",
+    unit: "chapter",
+    year: 2020,
+    imageBase: KAIJU_NO_8_IMAGE_BASE,
+    tagline:
+      "Naoya Matsumoto's kaiju-hunting action-comedy — the manga in HD black & white, free.",
+    synopsis:
+      "Read Kaiju No. 8 online free in high-quality black & white. Kafka Hibino cleans up kaiju corpses for the Defense Force until he gains the power to become a kaiju himself — and vows to fight from the inside. No official full-color edition exists, so every chapter of Naoya Matsumoto's hit is hosted here in black & white, clearly labeled — fast, mobile-friendly reader with pinch-to-zoom. No signup, no paywall.",
+    keywords: [
+      "kaiju no 8 manga online free",
+      "read kaiju no 8 manga",
+      "kaiju no 8 manga black and white",
+      "monster 8 manga",
+      "kaiju no 8 full manga",
+    ],
+    accent: "#8e44ad",
+    mark: "👹",
+    totalChapters: 129,
+  },
+  {
+    slug: "hells-paradise",
+    color: "none",
+    colorNote: "Complete series in black & white — free to read",
+    title: "Hell's Paradise: Jigokuraku",
+    nativeTitle: "地獄楽",
+    altTitles: ["Hell's Paradise", "Jigokuraku", "Hells Paradise Manga"],
+    author: "Yuji Kaku",
+    publisher: "Shueisha",
+    genres: ["Action", "Adventure", "Dark Fantasy", "Historical"],
+    status: "live",
+    unit: "chapter",
+    year: 2018,
+    imageBase: HELLS_PARADISE_IMAGE_BASE,
+    tagline:
+      "Yuji Kaku's ninja-vs-immortals death-island epic — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Hell's Paradise: Jigokuraku online free — the complete manga in high-quality black & white. Gabimaru the Hollow, a death-row ninja who can't die, is offered a pardon if he retrieves the Elixir of Life from a mysterious island crawling with monsters. No official full-color edition exists, so every chapter of Yuji Kaku's series is hosted here in black & white, clearly labeled — fast, mobile-friendly reader with pinch-to-zoom. No signup, no paywall.",
+    keywords: [
+      "hells paradise manga online free",
+      "read hells paradise manga",
+      "jigokuraku manga black and white",
+      "hells paradise full manga",
+      "gabimaru hells paradise manga",
+    ],
+    accent: "#b03a5b",
+    mark: "🗡️",
+    totalChapters: 127,
+  },
+  {
+    slug: "dandadan",
+    color: "none",
+    colorNote: "Black & white — free to read",
+    title: "Dandadan",
+    nativeTitle: "ダンダダン",
+    altTitles: ["Dan Da Dan", "Dandadan Manga"],
+    author: "Yukinobu Tatsu",
+    publisher: "Shueisha",
+    genres: ["Action", "Comedy", "Supernatural", "Sci-Fi"],
+    status: "live",
+    unit: "chapter",
+    year: 2021,
+    imageBase: DANDADAN_IMAGE_BASE,
+    tagline:
+      "Yukinobu Tatsu's aliens-vs-yokai supernatural romp — the manga in HD black & white, free.",
+    synopsis:
+      "Read Dandadan online free in high-quality black & white. Momo believes in ghosts, Okarun believes in aliens — and when both turn out to be real, the two are dragged into a chaotic, fast-drawn supernatural adventure. No official full-color edition exists, so every chapter of Yukinobu Tatsu's breakout hit is hosted here in black & white, clearly labeled — fast, mobile-friendly reader with pinch-to-zoom. No signup, no paywall.",
+    keywords: [
+      "dandadan manga online free",
+      "read dandadan manga",
+      "dandadan manga black and white",
+      "dandadan full manga",
+      "dan da dan manga",
+    ],
+    accent: "#7d5fff",
+    mark: "👽",
+    totalChapters: 240,
   },
 ];
 

@@ -8,7 +8,7 @@ export const SITE = {
   short: "Colorized Manga",
   tagline: "Read manga in full color, online and free.",
   description:
-    "Read colorized manga online for free. One Piece, Naruto, Bleach and more — every chapter digitally colorized in full HD. Fast, mobile-friendly reader with zoom, no signup.",
+    "Read colorized manga online free — One Piece, Naruto, Bleach & more, every chapter digitally colored in full HD. Fast mobile reader, no signup.",
   keywords: [
     "colorized manga",
     "colored manga online",
@@ -18,6 +18,12 @@ export const SITE = {
     "manga in color online",
     "digital colored manga",
     "colorized manga reader",
+    // British-English spelling variants — same intent, distinct queries. We own
+    // colourisedmanga.com; capturing the spelling on-site lets the primary
+    // domain rank for both "colorized" (US) and "colourised" (UK) searches.
+    "colourised manga",
+    "coloured manga online",
+    "colour manga",
   ],
   twitter: "@colorizedmanga",
   // Address for content-removal / takedown requests. Point this at a real inbox.

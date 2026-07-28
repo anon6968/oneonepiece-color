@@ -33,17 +33,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   for (const m of MANGAS) {
-    const live = isLive(m);
+    // Coming-soon series are noindex (see app/[manga]/page.tsx) — a noindex URL
+    // in the sitemap sends Google a contradictory signal, so we leave them out
+    // entirely until the series goes live and becomes indexable.
+    if (!isLive(m)) continue;
+
     const cover = seriesCover(m.slug, m.poster);
     entries.push({
       url: `${SITE.url}${mangaPath(m.slug)}`,
       lastModified: now,
       changeFrequency: "daily",
-      priority: live ? 0.9 : 0.6,
+      priority: 0.9,
       ...(cover ? { images: [cover] } : {}),
     });
-
-    if (!live) continue;
 
     entries.push(
       {

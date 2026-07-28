@@ -15,10 +15,13 @@ export default function MangaInfoPanel({
 }) {
   const label = unitLabel(manga);
   const plural = unitLabelPlural(manga);
+  const bw = manga.color === "none";
   const totalExpected = manga.totalChapters;
+  // For B&W editions we track chapters hosted, not colored.
+  const count = bw ? s.total : s.colored;
   const progressPct =
     totalExpected && totalExpected > 0
-      ? Math.round((s.colored / totalExpected) * 100)
+      ? Math.round((count / totalExpected) * 100)
       : null;
 
   return (
@@ -28,11 +31,11 @@ export default function MangaInfoPanel({
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={manga.poster ?? pageUrl(manga, firstChapter, 1)}
-            alt={`Colorized ${manga.title} cover`}
+            alt={`${bw ? "" : "Colorized "}${manga.title} manga cover`}
             width={1080}
             height={1662}
             style={{ objectPosition: manga.posterPosition ?? "top" }}
-            className="aspect-[3/4] w-full object-cover"
+            className={`aspect-[3/4] w-full object-cover${bw ? " grayscale" : ""}`}
           />
           <div
             className="pointer-events-none absolute inset-0"
@@ -51,12 +54,13 @@ export default function MangaInfoPanel({
               className="h-1.5 w-1.5 rounded-full animate-pulseGlow"
               style={{ background: manga.accent }}
             />
-            {s.colored} {plural} in full color
+            {count} {plural} {bw ? "· black & white" : "in full color"}
             {totalExpected ? ` · ${progressPct}% of series` : ""}
           </span>
 
           <h1 className="mt-4 text-2xl font-black leading-tight tracking-tight sm:text-3xl">
-            Colorized <span style={{ color: manga.accent }}>{manga.title}</span>
+            {bw ? "" : "Colorized "}
+            <span style={{ color: manga.accent }}>{manga.title}</span>
           </h1>
           {manga.nativeTitle && (
             <p className="mt-1 text-sm text-mute">{manga.nativeTitle}</p>
@@ -64,7 +68,7 @@ export default function MangaInfoPanel({
           <p className="mt-3 text-sm leading-relaxed text-mute">{manga.tagline}</p>
         </div>
 
-        {totalExpected && s.colored < totalExpected && (
+        {!bw && totalExpected && s.colored < totalExpected && (
           <div className="mt-4">
             <div className="mb-1.5 flex justify-between text-[11px] text-mute">
               <span>

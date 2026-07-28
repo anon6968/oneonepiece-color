@@ -36,7 +36,7 @@ export default function ContinueReading({ series }: { series: Series[] }) {
     return (
       <Link
         href="#library"
-        className="rounded-xl bg-panel px-5 py-3 text-sm font-semibold text-fg transition hover:bg-panel-2"
+        className="inline-flex items-center rounded-xl bg-panel px-6 py-3.5 text-[15px] font-semibold text-fg ring-1 ring-line transition hover:bg-panel-2 hover:ring-brand/40"
       >
         Browse all manga
       </Link>
@@ -49,9 +49,14 @@ export default function ContinueReading({ series }: { series: Series[] }) {
   return (
     <Link
       href={`/${s.slug}/${s.unit}/${n}`}
-      className="inline-flex items-center gap-2 rounded-xl bg-panel px-5 py-3 text-sm font-semibold text-fg ring-1 ring-line transition hover:bg-panel-2 hover:ring-brand/40"
+      className="group inline-flex items-center gap-2.5 rounded-xl bg-brand/10 px-6 py-3.5 text-[15px] font-bold text-fg ring-1 ring-brand/40 shadow-lg shadow-brand/10 transition hover:bg-brand/20 hover:ring-brand/70 hover:shadow-brand/25"
     >
-      <span className="h-1.5 w-1.5 shrink-0 animate-pulseGlow rounded-full bg-brand" aria-hidden />
+      <span
+        aria-hidden
+        className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand text-[10px] text-white shadow shadow-brand/40 transition group-hover:brightness-110"
+      >
+        ▶
+      </span>
       Resume {s.title} · {abbrev} {n}
     </Link>
   );
