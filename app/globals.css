@@ -134,6 +134,48 @@ body::before {
   animation: pulseGlow 2.2s ease-in-out infinite;
 }
 
+/* ------------------------------------------------------------------ */
+/* Library Color / B&W view toggle. Pure CSS via :has() driven by two    */
+/* uncontrolled radios in #library — no JS, works before hydration, and   */
+/* BOTH grids ship in the server-rendered HTML (SEO intact); the switch   */
+/* only changes what's visible. Default = color.                          */
+/* ------------------------------------------------------------------ */
+.lib-bw-view {
+  display: none;
+}
+#library:has(#lib-view-bw:checked) .lib-color-view {
+  display: none;
+}
+#library:has(#lib-view-bw:checked) .lib-bw-view {
+  display: block;
+}
+
+.lib-toggle label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-mute);
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.lib-toggle label:hover {
+  color: var(--color-fg);
+}
+/* Active tab follows the checked radio — flat brand fill, no shadow. */
+#library:has(#lib-view-color:checked) .lib-toggle label[data-tab="color"],
+#library:has(#lib-view-bw:checked) .lib-toggle label[data-tab="bw"] {
+  background: var(--color-brand);
+  color: #fff;
+}
+.lib-toggle label:focus-within {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
 /* Torn-parchment top edge used on section dividers. */
 .edge-blood {
   border-top: 1px solid color-mix(in srgb, var(--color-brand) 30%, transparent);

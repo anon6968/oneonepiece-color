@@ -688,7 +688,7 @@ const HAND_MANGAS: Manga[] = [
     author: "Naoya Matsumoto",
     publisher: "Shueisha",
     genres: ["Action", "Sci-Fi", "Comedy"],
-    status: "live",
+    status: "coming-soon",
     unit: "chapter",
     year: 2020,
     imageBase: KAIJU_NO_8_IMAGE_BASE,
@@ -717,7 +717,7 @@ const HAND_MANGAS: Manga[] = [
     author: "Yuji Kaku",
     publisher: "Shueisha",
     genres: ["Action", "Adventure", "Dark Fantasy", "Historical"],
-    status: "live",
+    status: "coming-soon",
     unit: "chapter",
     year: 2018,
     imageBase: HELLS_PARADISE_IMAGE_BASE,
@@ -763,7 +763,7 @@ const HAND_MANGAS: Manga[] = [
     ],
     accent: "#7d5fff",
     mark: "👽",
-    totalChapters: 240,
+    totalChapters: 198,
   },
 ];
 

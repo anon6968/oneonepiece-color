@@ -154,54 +154,86 @@ export default function Home() {
 
       {/* Library — the cards ARE the navigation. Only series we actually have. */}
       <section id="library" className="mx-auto max-w-6xl scroll-mt-20 px-4 pb-14 pt-6 2xl:max-w-7xl">
-        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-          The colorized manga library
-        </h2>
-        <p className="mt-1.5 mb-7 text-sm text-mute sm:text-base">
-          Every series we&apos;re coloring — live titles are fully readable now, the rest
-          are on the way.
-        </p>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {liveColor.map((m, i) => (
-            <MangaCard key={m.slug} manga={m} priority={i < 3} />
-          ))}
+        {/* Color / B&W view switch — uncontrolled radios so the toggle is pure
+            CSS (:has, see globals.css). No JS, works before hydration, and BOTH
+            grids stay in the server-rendered DOM, so the colorized-manga SEO is
+            never gated behind a click — this is purely a visual filter. */}
+        <input type="radio" name="lib-view" id="lib-view-color" className="sr-only" defaultChecked />
+        <input type="radio" name="lib-view" id="lib-view-bw" className="sr-only" />
+
+        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
+          <div>
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              The colorized manga library
+            </h2>
+            <p className="mt-1.5 text-sm text-mute sm:text-base">
+              Every series we&apos;re coloring — live titles are fully readable now, the rest
+              are on the way.
+            </p>
+          </div>
+
+          {/* Color / Black & white segmented toggle. */}
+          <div
+            className="lib-toggle inline-flex shrink-0 items-center gap-1 rounded-lg border border-line bg-panel/60 p-1"
+            role="tablist"
+            aria-label="Filter library by color or black and white"
+          >
+            <label htmlFor="lib-view-color" data-tab="color">
+              Color
+            </label>
+            <label htmlFor="lib-view-bw" data-tab="bw">
+              Black &amp; white
+            </label>
+          </div>
         </div>
 
-        {liveBW.length > 0 && (
-          <div id="black-and-white" className="mt-16 scroll-mt-20">
-            <h3 className="text-xl font-bold tracking-tight sm:text-2xl">
-              Black &amp; white editions — the full manga, free
-            </h3>
-            <p className="mt-1.5 mb-6 text-sm text-mute sm:text-base">
-              The biggest series that don&apos;t have an official color edition yet — hosted
-              complete in high-quality black &amp; white so you can read the whole story right
-              now, free. Every chapter is clearly labeled B&amp;W, and each one flips to color
-              the moment an official colored release exists.
-            </p>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-              {liveBW.map((m) => (
-                <MangaCard key={m.slug} manga={m} />
-              ))}
-            </div>
+        {/* Color library (default view) */}
+        <div className="lib-color-view mt-7">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {liveColor.map((m, i) => (
+              <MangaCard key={m.slug} manga={m} priority={i < 3} />
+            ))}
           </div>
-        )}
+        </div>
 
-        {soon.length > 0 && (
-          <div className="mt-14">
-            <h3 className="text-xl font-bold tracking-tight sm:text-2xl">
-              Black &amp; white now — full color coming soon
-            </h3>
-            <p className="mt-1.5 mb-6 text-sm text-mute sm:text-base">
-              These run in black &amp; white today. We&apos;re working on the full-color
-              editions — they&apos;ll move up into the library above as color is ready.
-            </p>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-              {soon.map((m) => (
-                <MangaCard key={m.slug} manga={m} />
-              ))}
+        {/* Black & white library (revealed by the toggle) */}
+        <div className="lib-bw-view mt-7">
+          {liveBW.length > 0 && (
+            <div id="black-and-white" className="scroll-mt-20">
+              <h3 className="text-xl font-bold tracking-tight sm:text-2xl">
+                Black &amp; white editions — the full manga, free
+              </h3>
+              <p className="mt-1.5 mb-6 text-sm text-mute sm:text-base">
+                The biggest series that don&apos;t have an official color edition yet — hosted
+                complete in high-quality black &amp; white so you can read the whole story right
+                now, free. Every chapter is clearly labeled B&amp;W, and each one flips to color
+                the moment an official colored release exists.
+              </p>
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                {liveBW.map((m) => (
+                  <MangaCard key={m.slug} manga={m} />
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+
+          {soon.length > 0 && (
+            <div className="mt-14">
+              <h3 className="text-xl font-bold tracking-tight sm:text-2xl">
+                Black &amp; white now — full color coming soon
+              </h3>
+              <p className="mt-1.5 mb-6 text-sm text-mute sm:text-base">
+                These run in black &amp; white today. We&apos;re working on the full-color
+                editions — they&apos;ll move up into the library above as color is ready.
+              </p>
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                {soon.map((m) => (
+                  <MangaCard key={m.slug} manga={m} />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </section>
 
       {/* FAQ — real on-page answers backing the FAQPage structured data. */}
