@@ -13,7 +13,11 @@ export default function ChapterJump({ manga, max }: { manga: Manga; max: number 
   function go(e: React.FormEvent) {
     e.preventDefault();
     const n = parseInt(v, 10);
-    if (!Number.isNaN(n) && n > 0) router.push(readPath(manga, n));
+    // Routes are statically generated (dynamicParams = false), so an
+    // out-of-range chapter would hard-404. Only navigate within 1..max.
+    if (!Number.isNaN(n) && n >= 1 && (!max || n <= max)) {
+      router.push(readPath(manga, n));
+    }
   }
 
   return (

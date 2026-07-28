@@ -5,7 +5,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Colorized Manga — questions, feedback, corrections, a broken chapter, business enquiries or content-removal requests. We read every message.",
+    "Get in touch with Colorized Manga — questions, feedback, corrections, a broken chapter, business inquiries or content-removal requests. We read every message.",
   alternates: { canonical: "/contact" },
 };
 
@@ -16,7 +16,7 @@ const reasons = [
   },
   {
     title: "Report a problem",
-    body: "A chapter that won’t load, a wrong page order, a typo or a mislabelled title — tell us the series and page and we’ll fix it.",
+    body: "A chapter that won’t load, a wrong page order, a typo or a mislabeled title — tell us the series and page and we’ll fix it.",
   },
   {
     title: "Business & partnerships",
@@ -32,7 +32,7 @@ export default function ContactPage() {
     name: "Contact Colorized Manga",
     url: `${SITE.url}/contact`,
     description:
-      "Get in touch with Colorized Manga for questions, feedback, corrections, business enquiries or content-removal requests.",
+      "Get in touch with Colorized Manga for questions, feedback, corrections, business inquiries or content-removal requests.",
     isPartOf: { "@id": `${SITE.url}/#website` },
     mainEntity: {
       "@type": "Organization",

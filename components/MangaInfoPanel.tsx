@@ -19,9 +19,11 @@ export default function MangaInfoPanel({
   const totalExpected = manga.totalChapters;
   // For B&W editions we track chapters hosted, not colored.
   const count = bw ? s.total : s.colored;
+  // totalChapters is a rough total, so a hosted/colored count can exceed it —
+  // clamp to 100 so the badge and bar never read "103% of series".
   const progressPct =
     totalExpected && totalExpected > 0
-      ? Math.round((count / totalExpected) * 100)
+      ? Math.min(100, Math.round((count / totalExpected) * 100))
       : null;
 
   return (
@@ -93,7 +95,7 @@ export default function MangaInfoPanel({
             ["Author", manga.author],
             ["Publisher", manga.publisher],
             ["Since", String(manga.year)],
-            ["Pages", s.totalPages.toLocaleString()],
+            ["Pages", s.totalPages.toLocaleString("en-US")],
           ].map(([k, v]) => (
             <div key={k}>
               <dt className="text-[10px] uppercase tracking-wider text-mute">{k}</dt>

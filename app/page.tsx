@@ -8,7 +8,9 @@ import AnimatedLogo from "@/components/AnimatedLogo";
 import ContinueReading from "@/components/ContinueReading";
 
 export const metadata: Metadata = {
-  title: "Colorized Manga — Read Manga in Full Color Online Free",
+  // `absolute` bypasses the layout's "%s | Colorized Manga" template so the
+  // home <title> isn't doubled up into "… Free | Colorized Manga".
+  title: { absolute: "Colorized Manga — Read Manga in Full Color Online Free" },
   description: SITE.description,
   alternates: { canonical: "/" },
 };
