@@ -219,7 +219,7 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "demon-slayer",
     color: "partial",
-    colorNote: "Later chapters colored; earlier ones in HD black & white — full color coming soon",
+    colorNote: "Colored where available — remaining chapters in HD black & white, full color coming soon",
     title: "Demon Slayer",
     nativeTitle: "鬼滅の刃",
     altTitles: [
@@ -257,7 +257,7 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "death-note",
     color: "partial",
-    colorNote: "Chapters 1–10 only — the rest isn't colored yet",
+    colorNote: "Colored where available — remaining chapters in HD black & white, full color coming soon",
     title: "Death Note",
     nativeTitle: "デスノート",
     altTitles: ["Death Note Color", "Colorized Death Note", "Death Note Colored"],
@@ -455,7 +455,7 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "rurouni-kenshin",
     color: "partial",
-    colorNote: "Chapters 1–81 in official color (the rest isn't colored yet)",
+    colorNote: "Colored where available — remaining chapters in HD black & white, full color coming soon",
     title: "Rurouni Kenshin",
     nativeTitle: "るろうに剣心",
     altTitles: ["Samurai X", "Rurouni Kenshin Color", "Colorized Rurouni Kenshin"],
@@ -506,7 +506,7 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "jujutsu-kaisen",
     color: "partial",
-    colorNote: "Fan-colored — a partial run of chapters in color",
+    colorNote: "Colored where available — remaining chapters in HD black & white, full color coming soon",
     title: "Jujutsu Kaisen",
     nativeTitle: "呪術廻戦",
     altTitles: ["JJK", "Sorcery Fight"],
