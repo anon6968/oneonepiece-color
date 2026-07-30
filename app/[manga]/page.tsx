@@ -37,12 +37,15 @@ export async function generateMetadata({
     ? `${m.title} Colored Manga — Colorized ${m.title} (Coming Soon)`
     : bw
       ? `${m.title} Manga — Read ${m.title} Online Free (Black & White)`
-      : `${m.title} Colored Manga — Read ${m.title} in Full Color Online Free`;
+      : `${m.title} Colored Manga — Read in Full Color Online Free`;
+  // Keep meta descriptions ≤160 chars and non-repetitive: the per-series
+  // `tagline` was being appended onto an already-complete sentence, producing
+  // a duplicated ~246-char description that Google truncates.
   const description = !live
-    ? `The colorized ${m.title} manga is coming soon — every chapter of ${m.author}'s ${m.title} digitally colored in full HD. ${m.tagline} Read our live colorized series while ${m.title} is colorized.`
+    ? `The colorized ${m.title} manga is coming soon — every chapter of ${m.author}'s ${m.title} is being digitally colored in full HD. Read our live colorized series in the meantime.`
     : bw
-      ? `Read the ${m.title} manga online free in high-quality black & white — the full series by ${m.author}, every ${unitLabel(m).toLowerCase()} on a fast mobile reader with zoom. ${m.tagline}`
-      : `Read the colorized ${m.title} manga online for free. Every ${unitLabel(m).toLowerCase()} of ${m.author}'s ${m.title} digitally colored in full HD, with a fast mobile reader and zoom. ${m.tagline}`;
+      ? `Read the ${m.title} manga online free in high-quality black & white — the full series by ${m.author}, every ${unitLabel(m).toLowerCase()} on a fast mobile reader.`
+      : `Read the colorized ${m.title} manga online free. Every ${unitLabel(m).toLowerCase()} of ${m.author}'s ${m.title} digitally colored in full HD, on a fast mobile reader.`;
 
   const ogImages = m.parts
     ? [{ url: `${SITE.url}${m.poster}`, alt: `${m.title} colored manga` }]

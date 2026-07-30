@@ -103,6 +103,7 @@ const StripView = forwardRef<StripHandle, Props>(function StripView(
               w={p.w}
               h={p.h}
               eager={i < 2}
+              priority={i === 0}
             />
           </div>
         ))}

@@ -9,12 +9,15 @@ interface Props {
   w: number;
   h: number;
   eager?: boolean;
+  /** The LCP page (first in the strip): fetch it at high priority so the
+   *  colored page paints sooner on mobile. */
+  priority?: boolean;
 }
 
 /** A single long-strip page. Reserves its aspect box up front, shows a subtle
  *  shimmer while the image decodes, then fades the page in over it. The
  *  shimmer class is removed on load so the (now covered) animation stops. */
-export default function PageImage({ src, alt, w, h, eager = false }: Props) {
+export default function PageImage({ src, alt, w, h, eager = false, priority = false }: Props) {
   const [loaded, setLoaded] = useState(false);
   const ref = useRef<HTMLImageElement>(null);
 
@@ -35,7 +38,8 @@ export default function PageImage({ src, alt, w, h, eager = false }: Props) {
         alt={alt}
         width={w}
         height={h}
-        loading={eager ? "eager" : "lazy"}
+        loading={eager || priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "auto"}
         decoding="async"
         onLoad={() => setLoaded(true)}
         className={`h-auto w-full transition-opacity duration-500 ease-out ${
