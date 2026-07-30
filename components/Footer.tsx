@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { liveMangas } from "@/lib/manga";
+import { topLevelLiveMangas } from "@/lib/manga";
 import { groupBySaga, sagaSlug, stats } from "@/lib/data";
 import { listPath, mangaPath, unitLabelPlural, SITE } from "@/lib/site";
 
 export default function Footer() {
-  const live = liveMangas();
+  const live = topLevelLiveMangas();
   return (
     <footer className="mt-16 bg-ink-2/50">
       <div className="mx-auto max-w-6xl px-4 py-12 2xl:max-w-7xl">

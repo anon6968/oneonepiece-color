@@ -26,8 +26,12 @@ export const SITE = {
     "colour manga",
   ],
   twitter: "@colorizedmanga",
-  // Address for content-removal / takedown requests. Point this at a real inbox.
-  contact: "removals@colorizedmangas.com",
+  // Content-removal / takedown address. colorizedmangas.com has no mailbox (no MX
+  // records), so a removals@colorizedmangas.com address bounces — point takedowns
+  // at the real, monitored inbox instead so DMCA/legal contact actually works.
+  // (Optional upgrade: Cloudflare Email Routing can forward a branded
+  // removals@colorizedmangas.com here for free once the destination is verified.)
+  contact: "anon69contact@proton.me",
   // General contact / support inbox shown on the Contact page (real, monitored).
   email: "anon69contact@proton.me",
 } as const;

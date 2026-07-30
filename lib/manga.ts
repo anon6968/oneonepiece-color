@@ -63,6 +63,11 @@ export interface Manga {
    *  the live site — filtered out of MANGAS, so it vanishes from the grid,
    *  schema, sitemap, feed and its routes 404. Flip to false to restore. */
   hidden?: boolean;
+  /** Franchise "hub" series (e.g. JoJo): the sub-series it groups. Its page
+   *  renders these as Part sections instead of a chapter list, and the child
+   *  slugs are hidden from the landing/footer grids — but their individual
+   *  pages stay live and indexed (no URL breakage). */
+  parts?: { slug: string; title: string }[];
 }
 
 const OP_IMAGE_BASE = (
@@ -769,6 +774,51 @@ const HAND_MANGAS: Manga[] = [
     mark: "👽",
     totalChapters: 198,
   },
+  {
+    // Franchise hub — groups the individual JoJo Part series into one landing
+    // card. Its page renders the Parts as sections; the Part pages stay live at
+    // their own URLs (already indexed), so no SEO is lost.
+    slug: "jojos-bizarre-adventure",
+    color: "full",
+    title: "JoJo's Bizarre Adventure",
+    nativeTitle: "ジョジョの奇妙な冒険",
+    altTitles: ["JoJo", "JJBA", "JoJo no Kimyou na Bouken", "Colorized JoJo"],
+    author: "Hirohiko Araki",
+    publisher: "Shueisha",
+    genres: ["Action", "Adventure", "Supernatural"],
+    status: "live",
+    unit: "chapter",
+    year: 1987,
+    imageBase: "",
+    tagline:
+      "Hirohiko Araki's generational saga — every Part, digitally colorized in full HD.",
+    synopsis:
+      "Read JoJo's Bizarre Adventure in full color — every Part of Hirohiko Araki's genre-defining saga, digitally colored in high definition. From Jonathan Joestar and Dio Brando in Phantom Blood, through Joseph Joestar's Battle Tendency, Jotaro and the Stardust Crusaders, Diamond is Unbreakable, Golden Wind, Stone Ocean, Steel Ball Run and JoJolion, all the way to The JOJOLands — the whole bizarre bloodline of the Joestars and their Stands, in vivid color instead of black and white. Pick a Part below and start reading, free, on a fast mobile reader with pinch-to-zoom.",
+    keywords: [
+      "colorized jojo manga",
+      "jojo colored manga",
+      "jojo's bizarre adventure color manga",
+      "read jojo in color",
+      "jojo full color",
+      "jojo bizarre adventure colored",
+      "jojo manga online free",
+    ],
+    poster: "/covers/jojos-bizarre-adventure.png",
+    posterPosition: "50% 18%",
+    accent: "#b06be0",
+    mark: "⭐",
+    parts: [
+      { slug: "jojo-no-kimyou-na-bouken-part-1-phantom-", title: "Part 1: Phantom Blood" },
+      { slug: "jojo-no-kimyou-na-bouken-part-2-sentou-c", title: "Part 2: Battle Tendency" },
+      { slug: "jojo-no-kimyou-na-bouken-part-3-stardust", title: "Part 3: Stardust Crusaders" },
+      { slug: "jojo-no-kimyou-na-bouken-part-4-diamond-", title: "Part 4: Diamond is Unbreakable" },
+      { slug: "jojo-no-kimyou-na-bouken-part-5-ougon-no", title: "Part 5: Golden Wind" },
+      { slug: "jojo-no-kimyou-na-bouken-part-6-stone-oc", title: "Part 6: Stone Ocean" },
+      { slug: "jojo-no-kimyou-na-bouken-part-7-steel-ba", title: "Part 7: Steel Ball Run" },
+      { slug: "jojo-no-kimyou-na-bouken-part-8-jojolion", title: "Part 8: JoJolion" },
+      { slug: "jojo-s-bizarre-adventure-part-9-the-jojo", title: "Part 9: The JOJOLands" },
+    ],
+  },
 ];
 
 // Auto-registered series (added by tools/register_series.py). Hand-authored
@@ -800,4 +850,22 @@ export function comingSoonMangas(): Manga[] {
 
 export function isLive(m: Manga): boolean {
   return m.status === "live";
+}
+
+// Slugs that belong to a franchise hub (e.g. JoJo Parts). These are hidden from
+// the landing/footer grids so the hub's single card represents them — but their
+// individual pages stay live and indexed (they are NOT removed from MANGAS).
+const _partSlugs = new Set<string>();
+for (const m of MANGAS) if (m.parts) for (const p of m.parts) _partSlugs.add(p.slug);
+// The duplicate romaji Part 9 entry the hub doesn't feature — hide it too.
+_partSlugs.add("jojo-no-kimyou-na-bouken-dai-9-bu-the-jo");
+
+export function isPartSlug(slug: string): boolean {
+  return _partSlugs.has(slug);
+}
+
+/** Live series shown on the landing/footer grids: excludes franchise Part
+ *  sub-series (represented by their hub card instead). */
+export function topLevelLiveMangas(): Manga[] {
+  return MANGAS.filter((m) => m.status === "live" && !_partSlugs.has(m.slug));
 }

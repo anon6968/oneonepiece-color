@@ -48,6 +48,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ...(cover ? { images: [cover] } : {}),
     });
 
+    // Franchise hubs (JoJo) have only their landing page — no /chapters,
+    // /latest or chapter URLs of their own (those live on the Part pages).
+    if (m.parts) continue;
+
     entries.push(
       {
         url: `${SITE.url}${listPath(m)}`,

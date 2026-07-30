@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { MANGAS, comingSoonMangas, liveMangas } from "@/lib/manga";
+import { MANGAS, comingSoonMangas, topLevelLiveMangas } from "@/lib/manga";
 import { SITE, mangaPath, readPath } from "@/lib/site";
 import { stats } from "@/lib/data";
 import MangaCard from "@/components/MangaCard";
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const live = liveMangas();
+  const live = topLevelLiveMangas();
   const soon = comingSoonMangas();
   // Split live titles: genuinely colorized editions vs. black & white editions
   // (the full manga in B&W, hosted free — official color not out yet).
@@ -248,6 +248,25 @@ export default function Home() {
               <p className="mt-3 text-sm leading-relaxed text-mute">{f.a}</p>
             </details>
           ))}
+        </div>
+      </section>
+
+      {/* Contact CTA — closing call-to-action + an internal link to /contact. */}
+      <section className="mx-auto max-w-3xl px-4 pb-14">
+        <div className="flex flex-col items-center gap-4 rounded-2xl border border-line bg-panel/40 px-6 py-10 text-center sm:px-10">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            Still have a question?
+          </h2>
+          <p className="max-w-xl text-sm leading-relaxed text-mute sm:text-base">
+            Spotted a broken chapter, want a series colorized, or just want to say hi?
+            We read every message and reply as soon as we can.
+          </p>
+          <Link
+            href="/contact"
+            className="mt-1 inline-flex items-center rounded-xl bg-gradient-to-r from-brand to-brand-2 px-6 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-brand/40 ring-1 ring-brand-2/50 transition hover:brightness-110 hover:shadow-brand/60"
+          >
+            Contact us →
+          </Link>
         </div>
       </section>
 

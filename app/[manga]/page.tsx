@@ -44,9 +44,11 @@ export async function generateMetadata({
       ? `Read the ${m.title} manga online free in high-quality black & white — the full series by ${m.author}, every ${unitLabel(m).toLowerCase()} on a fast mobile reader with zoom. ${m.tagline}`
       : `Read the colorized ${m.title} manga online for free. Every ${unitLabel(m).toLowerCase()} of ${m.author}'s ${m.title} digitally colored in full HD, with a fast mobile reader and zoom. ${m.tagline}`;
 
-  const ogImages = live
-    ? [{ url: pageUrl(m, getIndex(slug)[0]?.chapter ?? 1, 1), alt: `${m.title} manga cover` }]
-    : undefined;
+  const ogImages = m.parts
+    ? [{ url: `${SITE.url}${m.poster}`, alt: `${m.title} colored manga` }]
+    : live
+      ? [{ url: pageUrl(m, getIndex(slug)[0]?.chapter ?? 1, 1), alt: `${m.title} manga cover` }]
+      : undefined;
 
   return {
     title,
@@ -91,8 +93,135 @@ export default async function MangaPage({
   const { manga: slug } = await params;
   const m = getManga(slug);
   if (!m) notFound();
+  if (m.parts) return <PartsHub m={m} />;
 
   return isLive(m) ? <LiveManga m={m} /> : <ComingSoonManga m={m} />;
+}
+
+/* ------------------------------- PARTS HUB ------------------------------ */
+
+/** Franchise hub page (e.g. JoJo): renders the grouped Part sub-series as a
+ *  grid of sections linking to their own live pages, instead of a chapter list. */
+function PartsHub({ m }: { m: Manga }) {
+  const parts = (m.parts ?? []).map((p) => {
+    const pm = getManga(p.slug);
+    const idx = pm ? getIndex(p.slug) : [];
+    const s = pm ? stats(p.slug) : null;
+    const cover = pm && idx[0] ? pageUrl(pm, idx[0].chapter, 1) : undefined;
+    return { ...p, cover, colored: s?.colored ?? 0 };
+  });
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ComicSeries",
+        "@id": `${SITE.url}${mangaPath(m.slug)}#series`,
+        name: `${m.title} (Colored / Digital Color Edition)`,
+        alternateName: m.altTitles,
+        url: `${SITE.url}${mangaPath(m.slug)}`,
+        genre: m.genres,
+        author: { "@type": "Person", name: m.author },
+        publisher: { "@type": "Organization", name: m.publisher },
+        inLanguage: "en",
+        isAccessibleForFree: true,
+        image: `${SITE.url}${m.poster}`,
+        description: m.synopsis,
+        hasPart: parts.map((p) => ({
+          "@type": "ComicSeries",
+          name: p.title,
+          url: `${SITE.url}${mangaPath(p.slug)}`,
+        })),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+          { "@type": "ListItem", position: 2, name: m.title, item: `${SITE.url}${mangaPath(m.slug)}` },
+        ],
+      },
+    ],
+  };
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
+      <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8 2xl:max-w-7xl">
+        <nav className="mb-4 text-xs text-mute" aria-label="Breadcrumb">
+          <Link href="/" className="hover:text-brand">Home</Link>
+          <span className="px-1.5">/</span>
+          <span className="text-fg">{m.title}</span>
+        </nav>
+
+        <div className="grid gap-8 md:grid-cols-[minmax(200px,280px)_1fr] md:items-start md:gap-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={m.poster}
+            alt={`${m.title} colored manga poster`}
+            className="w-full max-w-[280px] rounded-2xl object-cover shadow-lg ring-1 ring-line/50"
+          />
+          <div className="min-w-0">
+            <h1 className="text-3xl font-black leading-tight tracking-tight sm:text-4xl">
+              {m.title} <span className="text-brand">in full color</span>
+            </h1>
+            <p className="mt-2 text-sm text-mute">
+              {m.author} · {parts.length} Parts · digitally colorized in HD
+            </p>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-mute sm:text-base">
+              {m.synopsis}
+            </p>
+          </div>
+        </div>
+
+        <section className="mt-12">
+          <h2 className="text-xl font-bold tracking-tight sm:text-2xl">Read {m.title} by Part</h2>
+          <p className="mt-1.5 mb-6 max-w-2xl text-sm text-mute sm:text-base">
+            The saga is told in self-contained Parts. Pick one to start reading in color — each opens
+            its own colorized chapters.
+          </p>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {parts.map((p) => (
+              <Link
+                key={p.slug}
+                href={mangaPath(p.slug)}
+                prefetch={false}
+                className="group overflow-hidden rounded-2xl bg-ink-2 shadow-lg shadow-black/30 ring-1 ring-line/50 transition-transform duration-300 hover:z-10 hover:scale-[1.02] hover:ring-brand/40"
+              >
+                <div className="aspect-[3/4] w-full overflow-hidden bg-panel">
+                  {p.cover && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={p.cover}
+                      alt={`${p.title} colored`}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    />
+                  )}
+                </div>
+                <div className="p-3 sm:p-4">
+                  <h3 className="text-sm font-bold leading-tight sm:text-base">{p.title}</h3>
+                  <p className="mt-1 text-xs text-mute">
+                    {p.colored > 0 ? `${p.colored} colored chapters` : "Read in color →"}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-12 border-t border-line/40 pt-8">
+          <h2 className="text-xl font-bold tracking-tight sm:text-2xl">
+            About the colorized {m.title} manga
+          </h2>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-mute sm:text-base">
+            {m.synopsis}
+          </p>
+        </section>
+      </div>
+    </>
+  );
 }
 
 /* --------------------------------- LIVE --------------------------------- */

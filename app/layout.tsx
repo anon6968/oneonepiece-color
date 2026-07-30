@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { SITE } from "@/lib/site";
 import Header from "@/components/Header";
@@ -110,7 +109,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main className="flex-1 pb-14 sm:pb-0">{children}</main>
         <Footer />
         <MobileNav />
-        <Analytics />
       </body>
     </html>
   );

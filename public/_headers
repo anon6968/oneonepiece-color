@@ -1,4 +1,18 @@
-# Cloudflare Pages headers — mirror of vercel.json "headers".
+# Cloudflare Pages headers.
+
+# Site-wide baseline: safe security headers (no CSP, so nothing can break the
+# jsDelivr-hosted reader images or inline JSON-LD). These are SEO-neutral and
+# a minor trust/ranking signal.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()
+
+# Next.js build assets are content-hashed, so they can be cached forever.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Colored pages are immutable once published; a real update ships as a new
 # deploy. Hold them at the edge for a year, serve stale while revalidating.
 /:manga/chapter/*

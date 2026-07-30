@@ -17,7 +17,11 @@ import {
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return getMangaSlugs().map((manga) => ({ manga }));
+  // Exclude franchise hubs (JoJo) — they group Parts and have no chapters, so
+  // no /latest page is built for them.
+  return getMangaSlugs()
+    .filter((slug) => !getManga(slug)?.parts)
+    .map((manga) => ({ manga }));
 }
 
 export async function generateMetadata({

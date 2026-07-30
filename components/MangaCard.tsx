@@ -10,7 +10,10 @@ export default function MangaCard({ manga, priority = false }: { manga: Manga; p
   // Honest one-line status under the title — carries the colour info simply,
   // so no overlay badge is needed on the cover.
   let sub: string;
-  if (live && s && manga.color === "none") {
+  if (manga.parts) {
+    // Franchise hub card (e.g. JoJo) — represents its Part sub-series.
+    sub = `${manga.parts.length} Parts · full color`;
+  } else if (live && s && manga.color === "none") {
     sub = manga.colorNote ?? `${s.total} ${unitLabelPlural(manga)} · black & white, free`;
   } else if (live && s) {
     sub =

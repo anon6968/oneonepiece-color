@@ -12,7 +12,12 @@ import ChapterBrowser from "@/components/ChapterBrowser";
 
 export function listStaticParams(unit: MangaUnit) {
   return getMangaSlugs()
-    .filter((slug) => getManga(slug)?.unit === unit)
+    .filter((slug) => {
+      const m = getManga(slug);
+      // Franchise hubs (JoJo) group Parts and have no chapters of their own —
+      // skip their /chapters + /latest pages so no empty listing is built.
+      return m?.unit === unit && !m.parts;
+    })
     .map((manga) => ({ manga }));
 }
 
