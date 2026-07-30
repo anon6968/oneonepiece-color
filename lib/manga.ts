@@ -112,6 +112,51 @@ const HELLS_PARADISE_IMAGE_BASE =
 const DANDADAN_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/dandadan-color-pages@main/pages";
 
+const TOKYO_GHOUL_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/tokyo-ghoul-color-pages@main/pages";
+const TOKYO_REVENGERS_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/tokyo-revengers-color-pages@main/pages";
+const FIRE_FORCE_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/fire-force-color-pages@main/pages";
+const VINLAND_SAGA_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/vinland-saga-color-pages@main/pages";
+const THE_PROMISED_NEVERLAND_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/the-promised-neverland-color-pages@main/pages";
+const FAIRY_TAIL_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/fairy-tail-color-pages@main/pages";
+const YU_YU_HAKUSHO_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/yu-yu-hakusho-color-pages@main/pages";
+const BLUE_EXORCIST_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/blue-exorcist-color-pages@main/pages";
+const FOOD_WARS_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/food-wars-color-pages@main/pages";
+const SEVEN_DEADLY_SINS_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/seven-deadly-sins-color-pages@main/pages";
+const WORLD_TRIGGER_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/world-trigger-color-pages@main/pages";
+const MASHLE_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/mashle-color-pages@main/pages";
+const N20TH_CENTURY_BOYS_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/20th-century-boys-color-pages@main/pages";
+const SOLO_LEVELING_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/solo-leveling-color-pages@main/pages";
+const HAIKYU_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/haikyu-color-pages@main/pages";
+const KINGDOM_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/kingdom-color-pages@main/pages";
+const OSHI_NO_KO_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/oshi-no-ko-color-pages@main/pages";
+const BLACK_BUTLER_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/black-butler-color-pages@main/pages";
+const SOUL_EATER_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/soul-eater-color-pages@main/pages";
+const NORAGAMI_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/noragami-color-pages@main/pages";
+const GOBLIN_SLAYER_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/goblin-slayer-color-pages@main/pages";
+const GOODNIGHT_PUNPUN_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/goodnight-punpun-color-pages@main/pages";
+
 const HAND_MANGAS: Manga[] = [
   {
     slug: "one-piece",
@@ -528,28 +573,6 @@ const HAND_MANGAS: Manga[] = [
     totalChapters: 271,
   },
   {
-    slug: "tokyo-ghoul",
-    color: "none",
-    colorNote: "Black & white now — full-color edition coming soon",
-    title: "Tokyo Ghoul",
-    nativeTitle: "東京喰種",
-    altTitles: ["Tokyo Ghoul:re", "Toukyou Kushu"],
-    author: "Sui Ishida",
-    publisher: "Shueisha",
-    genres: ["Dark Fantasy", "Horror", "Supernatural"],
-    status: "coming-soon",
-    unit: "chapter",
-    year: 2011,
-    imageBase: "",
-    tagline: "Sui Ishida's dark ghoul saga — black & white only, no color edition.",
-    synopsis:
-      "Tokyo Ghoul — Ken Kaneki caught between humans and flesh-eating ghouls. No genuine colorized edition of this series exists (only an art book), so it is listed here in black & white only; we do not have a color version.",
-    keywords: ["tokyo ghoul manga", "tokyo ghoul re manga", "tokyo ghoul black and white"],
-    accent: "#c0392b",
-    mark: "🎭",
-    totalChapters: 179,
-  },
-  {
     slug: "spy-x-family",
     color: "none",
     colorNote: "Black & white now — full-color edition coming soon",
@@ -818,6 +841,534 @@ const HAND_MANGAS: Manga[] = [
       { slug: "jojo-no-kimyou-na-bouken-part-8-jojolion", title: "Part 8: JoJolion" },
       { slug: "jojo-s-bizarre-adventure-part-9-the-jojo", title: "Part 9: The JOJOLands" },
     ],
+  },
+  {
+    slug: "tokyo-ghoul",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Tokyo Ghoul",
+    nativeTitle: "東京喰種",
+    altTitles: ["Tokyo Guru", "Tokyo Ghoul Manga"],
+    author: "Sui Ishida",
+    publisher: "Shueisha",
+    genres: ["Horror", "Dark Fantasy", "Psychological", "Action"],
+    status: "live",
+    unit: "chapter",
+    year: 2011,
+    imageBase: TOKYO_GHOUL_IMAGE_BASE,
+    tagline:
+      "Sui Ishida's Tokyo Ghoul — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Tokyo Ghoul online free — the complete manga in high-quality black & white. College student Ken Kaneki barely survives a date with a flesh-eating ghoul, only to be reborn as a half-ghoul forced to live between two worlds in Sui Ishida's haunting dark-fantasy tragedy. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["tokyo ghoul manga online free", "read tokyo ghoul manga", "tokyo ghoul manga black and white", "tokyo ghoul full manga", "tokyo ghoul manga free"],
+    poster: "/covers/tokyo-ghoul.jpg",
+    accent: "#8a0f1a",
+    mark: "🩸",
+    totalChapters: 143,
+  },
+  {
+    slug: "tokyo-revengers",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Tokyo Revengers",
+    nativeTitle: "東京卍リベンジャーズ",
+    altTitles: ["Tokyo Manji Revengers", "Tokyo Revengers Manga"],
+    author: "Ken Wakui",
+    publisher: "Kodansha",
+    genres: ["Action", "Drama", "Delinquents", "Time Travel"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 2017,
+    imageBase: TOKYO_REVENGERS_IMAGE_BASE,
+    tagline:
+      "Ken Wakui's Tokyo Revengers — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Tokyo Revengers online free — the complete manga in high-quality black & white. Failure Takemichi Hanagaki discovers he can travel twelve years into the past and sets out to rewrite the future of the gang war that killed the only girl who ever loved him, in Ken Wakui's time-leaping delinquent saga. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["tokyo revengers manga online free", "read tokyo revengers manga", "tokyo revengers manga black and white", "tokyo revengers full manga", "tokyo revengers manga free"],
+    poster: "/covers/tokyo-revengers.jpg",
+    accent: "#123a63",
+    mark: "🕰️",
+    totalChapters: 278,
+  },
+  {
+    slug: "fire-force",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Fire Force",
+    nativeTitle: "炎炎ノ消防隊",
+    altTitles: ["Enen no Shouboutai", "Fire Force Manga"],
+    author: "Atsushi Ohkubo",
+    publisher: "Kodansha",
+    genres: ["Action", "Supernatural", "Sci-Fi"],
+    status: "live",
+    unit: "chapter",
+    year: 2015,
+    imageBase: FIRE_FORCE_IMAGE_BASE,
+    tagline:
+      "Atsushi Ohkubo's Fire Force — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Fire Force online free — the complete manga in high-quality black & white. In a world where people spontaneously combust into rampaging Infernals, third-generation pyrokinetic Shinra Kusakabe joins Special Fire Force Company 8 to burn away a burning conspiracy, in Atsushi Ohkubo's blazing action epic. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["fire force manga online free", "read fire force manga", "fire force manga black and white", "fire force full manga", "fire force manga free"],
+    poster: "/covers/fire-force.jpg",
+    accent: "#d94f1a",
+    mark: "🔥",
+    totalChapters: 304,
+  },
+  {
+    slug: "vinland-saga",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Vinland Saga",
+    nativeTitle: "ヴィンランド・サガ",
+    altTitles: ["Vinland Saga Manga"],
+    author: "Makoto Yukimura",
+    publisher: "Kodansha",
+    genres: ["Action", "Adventure", "Historical", "Drama"],
+    status: "live",
+    unit: "chapter",
+    year: 2005,
+    imageBase: VINLAND_SAGA_IMAGE_BASE,
+    tagline:
+      "Makoto Yukimura's Vinland Saga — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Vinland Saga online free — the complete manga in high-quality black & white. Young Thorfinn joins a band of Viking mercenaries to avenge his father, then must learn what it means to be a true warrior in a land beyond war, in Makoto Yukimura's sweeping historical epic of Vikings and vengeance. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["vinland saga manga online free", "read vinland saga manga", "vinland saga manga black and white", "vinland saga full manga", "vinland saga manga free"],
+    poster: "/covers/vinland-saga.jpg",
+    accent: "#3a5a40",
+    mark: "⚔️",
+    totalChapters: 220,
+  },
+  {
+    slug: "the-promised-neverland",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "The Promised Neverland",
+    nativeTitle: "約束のネバーランド",
+    altTitles: ["Yakusoku no Neverland", "TPN", "The Promised Neverland Manga"],
+    author: "Kaiu Shirai",
+    publisher: "Shueisha",
+    genres: ["Horror", "Mystery", "Thriller", "Sci-Fi"],
+    status: "live",
+    unit: "chapter",
+    year: 2016,
+    imageBase: THE_PROMISED_NEVERLAND_IMAGE_BASE,
+    tagline:
+      "Kaiu Shirai's The Promised Neverland — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read The Promised Neverland online free — the complete manga in high-quality black & white. The gifted orphans of Grace Field House live an idyllic life until Emma and Norman discover the horrifying truth behind the walls and plot a desperate escape, in Kaiu Shirai and Posuka Demizu's pulse-pounding thriller. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["the promised neverland manga online free", "read the promised neverland manga", "the promised neverland manga black and white", "the promised neverland full manga", "the promised neverland manga free"],
+    poster: "/covers/the-promised-neverland.jpg",
+    accent: "#1f6f6f",
+    mark: "🌱",
+    totalChapters: 181,
+  },
+  {
+    slug: "fairy-tail",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Fairy Tail",
+    nativeTitle: "フェアリーテイル",
+    altTitles: ["Fairy Tail Manga"],
+    author: "Hiro Mashima",
+    publisher: "Kodansha",
+    genres: ["Action", "Adventure", "Fantasy"],
+    status: "live",
+    unit: "chapter",
+    year: 2006,
+    imageBase: FAIRY_TAIL_IMAGE_BASE,
+    tagline:
+      "Hiro Mashima's Fairy Tail — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Fairy Tail online free — the complete manga in high-quality black & white. Celestial wizard Lucy joins the rowdiest guild in the kingdom and teams with fire-eating dragon slayer Natsu for a magic-blasting adventure, in Hiro Mashima's beloved fantasy about friendship and found family. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["fairy tail manga online free", "read fairy tail manga", "fairy tail manga black and white", "fairy tail full manga", "fairy tail manga free"],
+    poster: "/covers/fairy-tail.jpg",
+    accent: "#d81e5b",
+    mark: "🧚",
+    totalChapters: 545,
+  },
+  {
+    slug: "yu-yu-hakusho",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Yu Yu Hakusho",
+    nativeTitle: "幽☆遊☆白書",
+    altTitles: ["Yuyu Hakusho", "Ghost Files", "Yu Yu Hakusho Manga"],
+    author: "Yoshihiro Togashi",
+    publisher: "Shueisha",
+    genres: ["Action", "Supernatural", "Martial Arts"],
+    status: "live",
+    unit: "chapter",
+    year: 1990,
+    imageBase: YU_YU_HAKUSHO_IMAGE_BASE,
+    tagline:
+      "Yoshihiro Togashi's Yu Yu Hakusho — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Yu Yu Hakusho online free — the complete manga in high-quality black & white. Teenage delinquent Yusuke Urameshi dies saving a child, earns a second chance as a Spirit Detective, and battles demons in brutal tournaments, in Yoshihiro Togashi's genre-defining supernatural shonen. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["yu yu hakusho manga online free", "read yu yu hakusho manga", "yu yu hakusho manga black and white", "yu yu hakusho full manga", "yu yu hakusho manga free"],
+    poster: "/covers/yu-yu-hakusho.jpg",
+    accent: "#2e5e8c",
+    mark: "👻",
+    totalChapters: 175,
+  },
+  {
+    slug: "blue-exorcist",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Blue Exorcist",
+    nativeTitle: "青の祓魔師",
+    altTitles: ["Ao no Exorcist", "Blue Exorcist Manga"],
+    author: "Kazue Kato",
+    publisher: "Shueisha",
+    genres: ["Action", "Supernatural", "Fantasy"],
+    status: "live",
+    unit: "chapter",
+    year: 2009,
+    imageBase: BLUE_EXORCIST_IMAGE_BASE,
+    tagline:
+      "Kazue Kato's Blue Exorcist — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Blue Exorcist online free — the complete manga in high-quality black & white. Rin Okumura learns he is the son of Satan and enrolls at True Cross Academy to become an exorcist strong enough to defeat his own father, in Kazue Kato's stylish demon-hunting adventure. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["blue exorcist manga online free", "read blue exorcist manga", "blue exorcist manga black and white", "blue exorcist full manga", "blue exorcist manga free"],
+    poster: "/covers/blue-exorcist.jpg",
+    accent: "#1e5fd8",
+    mark: "🔵",
+    totalChapters: 149,
+  },
+  {
+    slug: "food-wars",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Food Wars!",
+    nativeTitle: "食戟のソーマ",
+    altTitles: ["Shokugeki no Soma", "Food Wars Manga"],
+    author: "Yuto Tsukuda",
+    publisher: "Shueisha",
+    genres: ["Cooking", "Comedy", "Ecchi", "Drama"],
+    status: "live",
+    unit: "chapter",
+    year: 2012,
+    imageBase: FOOD_WARS_IMAGE_BASE,
+    tagline:
+      "Yuto Tsukuda's Food Wars — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Food Wars! online free — the complete manga in high-quality black & white. Diner cook Soma Yukihira enrolls in an elite culinary academy where students duel in high-stakes cooking battles, in Yuto Tsukuda and Shun Saeki's mouth-watering, over-the-top shonen about food. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["food wars manga online free", "read food wars manga", "food wars manga black and white", "food wars full manga", "food wars manga free"],
+    poster: "/covers/food-wars.jpg",
+    accent: "#e0a11a",
+    mark: "🍳",
+    totalChapters: 315,
+  },
+  {
+    slug: "seven-deadly-sins",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "The Seven Deadly Sins",
+    nativeTitle: "七つの大罪",
+    altTitles: ["Nanatsu no Taizai", "Seven Deadly Sins Manga"],
+    author: "Nakaba Suzuki",
+    publisher: "Kodansha",
+    genres: ["Action", "Adventure", "Fantasy"],
+    status: "live",
+    unit: "chapter",
+    year: 2012,
+    imageBase: SEVEN_DEADLY_SINS_IMAGE_BASE,
+    tagline:
+      "Nakaba Suzuki's The Seven Deadly Sins — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read The Seven Deadly Sins online free — the complete manga in high-quality black & white. Princess Elizabeth seeks out the Seven Deadly Sins, a disbanded band of legendary knights branded as traitors, to reclaim her kingdom from a corrupt order, in Nakaba Suzuki's action-packed fantasy. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["the seven deadly sins manga online free", "read the seven deadly sins manga", "the seven deadly sins manga black and white", "the seven deadly sins full manga", "the seven deadly sins manga free"],
+    poster: "/covers/seven-deadly-sins.jpg",
+    accent: "#6a2ea0",
+    mark: "🐗",
+    totalChapters: 346,
+  },
+  {
+    slug: "world-trigger",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "World Trigger",
+    nativeTitle: "ワールドトリガー",
+    altTitles: ["World Trigger Manga"],
+    author: "Daisuke Ashihara",
+    publisher: "Shueisha",
+    genres: ["Action", "Sci-Fi", "Strategy"],
+    status: "live",
+    unit: "chapter",
+    year: 2013,
+    imageBase: WORLD_TRIGGER_IMAGE_BASE,
+    tagline:
+      "Daisuke Ashihara's World Trigger — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read World Trigger online free — the complete manga in high-quality black & white. When gate-opening aliens called Neighbors invade, the elite Border defense agency fights back with Trigger weapons — and mild newcomer Osamu and mysterious transfer Yuma rise through the ranks, in Daisuke Ashihara's tactical sci-fi. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["world trigger manga online free", "read world trigger manga", "world trigger manga black and white", "world trigger full manga", "world trigger manga free"],
+    poster: "/covers/world-trigger.jpg",
+    accent: "#1a8ca0",
+    mark: "🛡️",
+    totalChapters: 262,
+  },
+  {
+    slug: "mashle",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Mashle: Magic and Muscles",
+    nativeTitle: "マッシュル",
+    altTitles: ["Mashle Manga", "Magic and Muscles"],
+    author: "Hajime Komoto",
+    publisher: "Shueisha",
+    genres: ["Action", "Comedy", "Fantasy", "Parody"],
+    status: "live",
+    unit: "chapter",
+    year: 2020,
+    imageBase: MASHLE_IMAGE_BASE,
+    tagline:
+      "Hajime Komoto's Mashle: Magic and Muscles — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Mashle: Magic and Muscles online free — the complete manga in high-quality black & white. In a world ruled by magic, muscle-bound Mash Burnedead has none — so he punches his way through a wizard academy that would expel (or kill) him for it, in Hajime Komoto's gut-busting action parody. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["mashle: magic and muscles manga online free", "read mashle: magic and muscles manga", "mashle: magic and muscles manga black and white", "mashle: magic and muscles full manga", "mashle: magic and muscles manga free"],
+    poster: "/covers/mashle.jpg",
+    accent: "#3a3a3a",
+    mark: "💪",
+    totalChapters: 162,
+  },
+  {
+    slug: "20th-century-boys",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "20th Century Boys",
+    nativeTitle: "20世紀少年",
+    altTitles: ["20th Century Boys Manga", "Nijusseiki Shonen"],
+    author: "Naoki Urasawa",
+    publisher: "Shogakukan",
+    genres: ["Mystery", "Thriller", "Sci-Fi", "Drama"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 1999,
+    imageBase: N20TH_CENTURY_BOYS_IMAGE_BASE,
+    tagline:
+      "Naoki Urasawa's 20th Century Boys — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read 20th Century Boys online free — the complete manga in high-quality black & white. A group of childhood friends realize a doomsday cult is enacting the fantasy apocalypse they scribbled as kids — and only they can stop it, in Naoki Urasawa's sprawling, masterful conspiracy thriller. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["20th century boys manga online free", "read 20th century boys manga", "20th century boys manga black and white", "20th century boys full manga", "20th century boys manga free"],
+    poster: "/covers/20th-century-boys.jpg",
+    accent: "#7a5a2e",
+    mark: "🎸",
+    totalChapters: 249,
+  },
+  {
+    slug: "solo-leveling",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Solo Leveling",
+    nativeTitle: "나 혼자만 레벨업",
+    altTitles: ["Na Honjaman Level Up", "Only I Level Up", "Solo Leveling Manhwa"],
+    author: "Chugong",
+    publisher: "D&C Media",
+    genres: ["Action", "Fantasy", "Adventure"],
+    status: "live",
+    unit: "chapter",
+    year: 2018,
+    imageBase: SOLO_LEVELING_IMAGE_BASE,
+    tagline:
+      "Chugong's Solo Leveling — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Solo Leveling online free — the complete manga in high-quality black & white. Weakest-hunter Sung Jinwoo gains a mysterious leveling system after a deadly dungeon and rises from the bottom to the most powerful hunter alive, in Chugong's record-breaking action fantasy. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["solo leveling manga online free", "read solo leveling manga", "solo leveling manga black and white", "solo leveling full manga", "solo leveling manga free"],
+    poster: "/covers/solo-leveling.jpg",
+    accent: "#5b21b6",
+    mark: "⚔️",
+    totalChapters: 201,
+  },
+  {
+    slug: "haikyu",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Haikyu!!",
+    nativeTitle: "ハイキュー!!",
+    altTitles: ["Haikyuu", "Haikyu Manga"],
+    author: "Haruichi Furudate",
+    publisher: "Shueisha",
+    genres: ["Sports", "Comedy", "Drama"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 2012,
+    imageBase: HAIKYU_IMAGE_BASE,
+    tagline:
+      "Haruichi Furudate's Haikyu — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Haikyu!! online free — the complete manga in high-quality black & white. Short but sky-hungry Shoyo Hinata joins Karasuno High's volleyball team and forms an explosive partnership with prodigy setter Kageyama, in Haruichi Furudate's beloved, heart-pounding sports manga. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["haikyu manga online free", "read haikyu manga", "haikyu manga black and white", "haikyu full manga", "haikyu manga free"],
+    poster: "/covers/haikyu.jpg",
+    accent: "#e07a1a",
+    mark: "🏐",
+    totalChapters: 402,
+  },
+  {
+    slug: "kingdom",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Kingdom",
+    nativeTitle: "キングダム",
+    altTitles: ["Kingudamu", "Kingdom Manga"],
+    author: "Yasuhisa Hara",
+    publisher: "Shueisha",
+    genres: ["Action", "Historical", "Military", "Drama"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 2006,
+    imageBase: KINGDOM_IMAGE_BASE,
+    tagline:
+      "Yasuhisa Hara's Kingdom — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Kingdom online free — the complete manga in high-quality black & white. War-orphan Xin fights to become the greatest general under heaven amid the chaos of China's Warring States period, in Yasuhisa Hara's sweeping, battle-hardened historical epic. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["kingdom manga online free", "read kingdom manga", "kingdom manga black and white", "kingdom full manga", "kingdom manga free"],
+    poster: "/covers/kingdom.jpg",
+    accent: "#8a1c1c",
+    mark: "🏇",
+    totalChapters: 883,
+  },
+  {
+    slug: "oshi-no-ko",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Oshi no Ko",
+    nativeTitle: "【推しの子】",
+    altTitles: ["My Star", "Oshi no Ko Manga"],
+    author: "Aka Akasaka",
+    publisher: "Shueisha",
+    genres: ["Drama", "Mystery", "Psychological"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 2020,
+    imageBase: OSHI_NO_KO_IMAGE_BASE,
+    tagline:
+      "Aka Akasaka's Oshi no Ko — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Oshi no Ko online free — the complete manga in high-quality black & white. A country doctor is reborn as the child of the idol he adored — and grows up chasing the dark truth behind her murder through the glittering, ruthless world of showbiz, in Aka Akasaka and Mengo Yokoyari's gripping drama. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["oshi no ko manga online free", "read oshi no ko manga", "oshi no ko manga black and white", "oshi no ko full manga", "oshi no ko manga free"],
+    poster: "/covers/oshi-no-ko.jpg",
+    accent: "#e11d74",
+    mark: "⭐",
+    totalChapters: 166,
+  },
+  {
+    slug: "black-butler",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Black Butler",
+    nativeTitle: "黒執事",
+    altTitles: ["Kuroshitsuji", "Black Butler Manga"],
+    author: "Yana Toboso",
+    publisher: "Square Enix",
+    genres: ["Dark Fantasy", "Mystery", "Historical", "Comedy"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 2006,
+    imageBase: BLACK_BUTLER_IMAGE_BASE,
+    tagline:
+      "Yana Toboso's Black Butler — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Black Butler online free — the complete manga in high-quality black & white. Twelve-year-old earl Ciel Phantomhive commands a demon butler bound by a Faustian contract to serve him and hunt his parents' killers in Victorian London, in Yana Toboso's elegant, macabre gothic tale. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["black butler manga online free", "read black butler manga", "black butler manga black and white", "black butler full manga", "black butler manga free"],
+    poster: "/covers/black-butler.jpg",
+    accent: "#1a1a2e",
+    mark: "🎩",
+    totalChapters: 215,
+  },
+  {
+    slug: "soul-eater",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Soul Eater",
+    nativeTitle: "ソウルイーター",
+    altTitles: ["Soul Eater Manga"],
+    author: "Atsushi Ohkubo",
+    publisher: "Square Enix",
+    genres: ["Action", "Supernatural", "Comedy", "Dark Fantasy"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 2004,
+    imageBase: SOUL_EATER_IMAGE_BASE,
+    tagline:
+      "Atsushi Ohkubo's Soul Eater — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Soul Eater online free — the complete manga in high-quality black & white. At Death Weapon Meister Academy, students pair as weapons and wielders to collect corrupt souls and prevent the resurrection of madness itself, in Atsushi Ohkubo's stylish, off-kilter action comedy. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["soul eater manga online free", "read soul eater manga", "soul eater manga black and white", "soul eater full manga", "soul eater manga free"],
+    poster: "/covers/soul-eater.jpg",
+    accent: "#2e2e5e",
+    mark: "💀",
+    totalChapters: 113,
+  },
+  {
+    slug: "noragami",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Noragami",
+    nativeTitle: "ノラガミ",
+    altTitles: ["Noragami Manga", "Stray God"],
+    author: "Adachitoka",
+    publisher: "Kodansha",
+    genres: ["Action", "Supernatural", "Comedy", "Drama"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 2010,
+    imageBase: NORAGAMI_IMAGE_BASE,
+    tagline:
+      "Adachitoka's Noragami — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Noragami online free — the complete manga in high-quality black & white. Minor, shrine-less god Yato does odd jobs for five yen apiece while dreaming of worshippers — until a schoolgirl's sacrifice ties their fates together, in Adachitoka's witty, soulful supernatural adventure. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["noragami manga online free", "read noragami manga", "noragami manga black and white", "noragami full manga", "noragami manga free"],
+    poster: "/covers/noragami.jpg",
+    accent: "#2a7a8c",
+    mark: "⛩️",
+    totalChapters: 110,
+  },
+  {
+    slug: "goblin-slayer",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Goblin Slayer",
+    nativeTitle: "ゴブリンスレイヤー",
+    altTitles: ["Goblin Slayer Manga"],
+    author: "Kumo Kagyu",
+    publisher: "Square Enix",
+    genres: ["Dark Fantasy", "Action", "Adventure"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 2016,
+    imageBase: GOBLIN_SLAYER_IMAGE_BASE,
+    tagline:
+      "Kumo Kagyu's Goblin Slayer — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Goblin Slayer online free — the complete manga in high-quality black & white. A grim, single-minded adventurer known only as Goblin Slayer takes only one kind of quest — exterminating the goblins everyone else ignores — in Kumo Kagyu and Kousuke Kurose's brutal dark-fantasy manga. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["goblin slayer manga online free", "read goblin slayer manga", "goblin slayer manga black and white", "goblin slayer full manga", "goblin slayer manga free"],
+    poster: "/covers/goblin-slayer.jpg",
+    accent: "#5a5a2e",
+    mark: "🗡️",
+    totalChapters: 100,
+  },
+  {
+    slug: "goodnight-punpun",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Goodnight Punpun",
+    nativeTitle: "おやすみプンプン",
+    altTitles: ["Oyasumi Punpun", "Goodnight Punpun Manga"],
+    author: "Inio Asano",
+    publisher: "Shogakukan",
+    genres: ["Drama", "Psychological", "Slice of Life", "Coming of Age"],
+    status: "coming-soon",
+    unit: "chapter",
+    year: 2007,
+    imageBase: GOODNIGHT_PUNPUN_IMAGE_BASE,
+    tagline:
+      "Inio Asano's Goodnight Punpun — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Goodnight Punpun online free — the complete manga in high-quality black & white. Punpun Onodera — drawn as a little bird — grows from a hopeful boy into a troubled young man across love, loss, and quiet despair, in Inio Asano's unflinching, unforgettable coming-of-age masterwork. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["goodnight punpun manga online free", "read goodnight punpun manga", "goodnight punpun manga black and white", "goodnight punpun full manga", "goodnight punpun manga free"],
+    poster: "/covers/goodnight-punpun.jpg",
+    accent: "#4a4a4a",
+    mark: "🐤",
+    totalChapters: 147,
   },
 ];
 
