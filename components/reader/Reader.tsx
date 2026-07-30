@@ -335,10 +335,14 @@ export default function Reader(props: ReaderProps) {
                 )}
                 {type === "bw" && (
                   <span
-                    title="Official color for Part 2 has not been released yet — shown in black & white"
+                    title={
+                      manga.color !== "none"
+                        ? "Read now in black & white — the colorized version is coming soon"
+                        : "Official color has not been released yet — shown in black & white"
+                    }
                     className="shrink-0 rounded bg-bone/20 px-1 py-0.5 text-[9px] font-bold text-bone ring-1 ring-white/10"
                   >
-                    B&amp;W
+                    {manga.color !== "none" ? "B&W · color soon" : "B&W"}
                   </span>
                 )}
               </div>

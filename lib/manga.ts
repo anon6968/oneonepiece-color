@@ -219,7 +219,7 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "demon-slayer",
     color: "partial",
-    colorNote: "Final arc only — chapters 140–205 (the only part colored in English)",
+    colorNote: "Later chapters colored; earlier ones in HD black & white — full color coming soon",
     title: "Demon Slayer",
     nativeTitle: "鬼滅の刃",
     altTitles: [
@@ -323,7 +323,7 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "attack-on-titan",
     color: "partial",
-    colorNote: "Fan-colored — a partial run of chapters in color",
+    colorNote: "Colored where available — remaining chapters in HD black & white, full color coming soon",
     title: "Attack on Titan",
     nativeTitle: "進撃の巨人",
     altTitles: [
