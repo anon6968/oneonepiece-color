@@ -26,6 +26,12 @@ html,
 body {
   background: var(--color-ink);
   color: var(--color-fg);
+  /* Guard against sideways drift on touch devices: clip any stray horizontal
+     overflow (decorative glows, full-bleed rows) so a vertical swipe can never
+     slide the page left/right. `clip` (not `hidden`) does NOT create a scroll
+     container, so `position: sticky` (the chapter filter bar, desktop sidebar)
+     keeps working. */
+  overflow-x: clip;
 }
 
 body {
@@ -136,17 +142,18 @@ body::before {
 
 /* ------------------------------------------------------------------ */
 /* Library Color / B&W view toggle. Pure CSS via :has() driven by two    */
-/* uncontrolled radios in #library — no JS, works before hydration, and   */
-/* BOTH grids ship in the server-rendered HTML (SEO intact); the switch   */
-/* only changes what's visible. Default = color.                          */
+/* uncontrolled radios at <body> scope (see layout.tsx) — no JS, works     */
+/* before hydration, drivable from BOTH the in-page toggle and the mobile  */
+/* bottom-nav. BOTH grids ship in the server-rendered HTML (SEO intact);   */
+/* the switch only changes what's visible. Default = color.                */
 /* ------------------------------------------------------------------ */
 .lib-bw-view {
   display: none;
 }
-#library:has(#lib-view-bw:checked) .lib-color-view {
+body:has(#lib-view-bw:checked) .lib-color-view {
   display: none;
 }
-#library:has(#lib-view-bw:checked) .lib-bw-view {
+body:has(#lib-view-bw:checked) .lib-bw-view {
   display: block;
 }
 
@@ -155,10 +162,10 @@ body::before {
 .lib-head-bw {
   display: none;
 }
-#library:has(#lib-view-bw:checked) .lib-head-color {
+body:has(#lib-view-bw:checked) .lib-head-color {
   display: none;
 }
-#library:has(#lib-view-bw:checked) .lib-head-bw {
+body:has(#lib-view-bw:checked) .lib-head-bw {
   display: block;
 }
 
@@ -178,14 +185,27 @@ body::before {
   color: var(--color-fg);
 }
 /* Active tab follows the checked radio — flat brand fill, no shadow. */
-#library:has(#lib-view-color:checked) .lib-toggle label[data-tab="color"],
-#library:has(#lib-view-bw:checked) .lib-toggle label[data-tab="bw"] {
+body:has(#lib-view-color:checked) .lib-toggle label[data-tab="color"],
+body:has(#lib-view-bw:checked) .lib-toggle label[data-tab="bw"] {
   background: var(--color-brand);
   color: #fff;
 }
 .lib-toggle label:focus-within {
   outline: 2px solid var(--color-brand);
   outline-offset: 2px;
+}
+
+/* Mobile bottom-nav Color / B&W segmented toggle — same body-scoped radios
+   as the in-page library toggle, so the two stay perfectly in sync. The
+   active segment fills brand red; the inactive one stays muted. */
+body:has(#lib-view-color:checked) .cmnav-seg[data-tab="color"],
+body:has(#lib-view-bw:checked) .cmnav-seg[data-tab="bw"] {
+  background: var(--color-brand);
+  color: #fff;
+}
+.cmnav-seg:focus-within {
+  outline: 2px solid var(--color-brand);
+  outline-offset: -2px;
 }
 
 /* Torn-parchment top edge used on section dividers. */

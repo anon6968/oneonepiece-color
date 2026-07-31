@@ -103,10 +103,17 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
       </head>
       <body className="min-h-full flex flex-col bg-ink text-fg">
+        {/* Library Color / B&W view state — uncontrolled radios driving a pure-
+            CSS view swap (see globals.css). Kept at <body> scope so BOTH the
+            in-page library toggle and the mobile bottom-nav toggle control the
+            same state. Default = color, so the colorized library is what SSR
+            and search engines see. */}
+        <input type="radio" name="lib-view" id="lib-view-color" className="sr-only" defaultChecked />
+        <input type="radio" name="lib-view" id="lib-view-bw" className="sr-only" />
         <HideOnHome>
           <Header />
         </HideOnHome>
-        <main className="flex-1 pb-14 sm:pb-0">{children}</main>
+        <main className="flex-1 pb-16 sm:pb-0">{children}</main>
         <Footer />
         <MobileNav />
       </body>

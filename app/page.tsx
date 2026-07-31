@@ -93,9 +93,13 @@ export default function Home() {
         <div className="relative animate-fadeUp">
           {/* Warm red glow sits behind the text, not the logo — behind the
               logo it haloed the art's square tile and looked cheap. */}
+          {/* Kept within the column's horizontal bounds (inset-x-0, not a
+              negative inset) so the box never extends past the viewport — the
+              blur alone gives the soft halo without adding scroll width, which
+              is what let a downward swipe drift the page sideways. */}
           <div
             aria-hidden
-            className="pointer-events-none absolute -inset-x-20 -inset-y-12 -z-10 rounded-full bg-brand/[.07] blur-3xl"
+            className="pointer-events-none absolute inset-x-0 -inset-y-12 -z-10 rounded-full bg-brand/[.07] blur-3xl"
           />
           {/* The logo still leads on small screens, where the right column is hidden. */}
           <AnimatedLogo
@@ -149,12 +153,12 @@ export default function Home() {
 
       {/* Library — the cards ARE the navigation. Only series we actually have. */}
       <section id="library" className="mx-auto max-w-6xl scroll-mt-20 px-4 pb-14 pt-6 2xl:max-w-7xl">
-        {/* Color / B&W view switch — uncontrolled radios so the toggle is pure
-            CSS (:has, see globals.css). No JS, works before hydration, and BOTH
+        {/* Color / B&W view switch — the driving radios live at <body> scope
+            (app/layout.tsx) so the mobile bottom-nav can toggle the same state;
+            the labels below (and in MobileNav) reference them by id. Pure CSS
+            (:has, see globals.css) — no JS, works before hydration, and BOTH
             grids stay in the server-rendered DOM, so the colorized-manga SEO is
             never gated behind a click — this is purely a visual filter. */}
-        <input type="radio" name="lib-view" id="lib-view-color" className="sr-only" defaultChecked />
-        <input type="radio" name="lib-view" id="lib-view-bw" className="sr-only" />
 
         <div className="text-center">
           {/* Heading swaps with the toggle. BOTH variants ship in the server-
