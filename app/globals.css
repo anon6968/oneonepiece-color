@@ -150,6 +150,18 @@ body::before {
   display: block;
 }
 
+/* Heading text swaps with the toggle. Both variants are in the DOM; color is  */
+/* the default so the "colorized manga library" heading stays crawlable + shown.*/
+.lib-head-bw {
+  display: none;
+}
+#library:has(#lib-view-bw:checked) .lib-head-color {
+  display: none;
+}
+#library:has(#lib-view-bw:checked) .lib-head-bw {
+  display: block;
+}
+
 .lib-toggle label {
   display: inline-flex;
   align-items: center;

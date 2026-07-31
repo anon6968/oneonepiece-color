@@ -156,20 +156,34 @@ export default function Home() {
         <input type="radio" name="lib-view" id="lib-view-color" className="sr-only" defaultChecked />
         <input type="radio" name="lib-view" id="lib-view-bw" className="sr-only" />
 
-        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
-          <div>
+        <div className="text-center">
+          {/* Heading swaps with the toggle. BOTH variants ship in the server-
+              rendered DOM, so the "colorized manga library" heading is always
+              crawlable; color is the default-visible one, keeping the primary
+              keyword front-and-center for SEO. */}
+          <div className="lib-head-color">
             <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
               The colorized manga library
             </h2>
-            <p className="mt-1.5 text-sm text-mute sm:text-base">
+            <p className="mx-auto mt-1.5 max-w-2xl text-sm text-mute sm:text-base">
               Every series we&apos;re coloring — live titles are fully readable now, the rest
               are on the way.
             </p>
           </div>
+          <div className="lib-head-bw">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              The black &amp; white manga library
+            </h2>
+            <p className="mx-auto mt-1.5 max-w-2xl text-sm text-mute sm:text-base">
+              The full manga, free in high-quality black &amp; white — every chapter clearly
+              labeled, and each flips to color the moment an official colored release exists.
+            </p>
+          </div>
 
-          {/* Color / Black & white segmented toggle. */}
+          {/* Color / Black & white segmented toggle — centered, directly below
+              the title so the switch is obvious. */}
           <div
-            className="lib-toggle inline-flex shrink-0 items-center gap-1 rounded-lg border border-line bg-panel/60 p-1"
+            className="lib-toggle mt-5 inline-flex items-center gap-1 rounded-lg border border-line bg-panel/60 p-1"
             role="tablist"
             aria-label="Filter library by color or black and white"
           >
