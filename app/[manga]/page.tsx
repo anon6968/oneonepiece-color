@@ -14,6 +14,7 @@ import {
 import ChapterBrowser from "@/components/ChapterBrowser";
 import MangaCard from "@/components/MangaCard";
 import MangaInfoPanel from "@/components/MangaInfoPanel";
+import ShareButton from "@/components/ShareButton";
 
 export const dynamicParams = false;
 
@@ -151,11 +152,14 @@ function PartsHub({ m }: { m: Manga }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8 2xl:max-w-7xl">
-        <nav className="mb-4 text-xs text-mute" aria-label="Breadcrumb">
-          <Link href="/" className="hover:text-brand">Home</Link>
-          <span className="px-1.5">/</span>
-          <span className="text-fg">{m.title}</span>
-        </nav>
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <nav className="text-xs text-mute" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-brand">Home</Link>
+            <span className="px-1.5">/</span>
+            <span className="text-fg">{m.title}</span>
+          </nav>
+          <ShareButton title={`${m.title} in color — Colorized Manga`} />
+        </div>
 
         <div className="grid gap-8 md:grid-cols-[minmax(200px,280px)_1fr] md:items-start md:gap-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -348,11 +352,14 @@ function LiveManga({ m }: { m: Manga }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8 2xl:max-w-[90rem]">
-        <nav className="mb-4 text-xs text-mute" aria-label="Breadcrumb">
-          <Link href="/" className="hover:text-brand">Home</Link>
-          <span className="px-1.5">/</span>
-          <span className="text-fg">{m.title}</span>
-        </nav>
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <nav className="text-xs text-mute" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-brand">Home</Link>
+            <span className="px-1.5">/</span>
+            <span className="text-fg">{m.title}</span>
+          </nav>
+          <ShareButton title={`${m.title} in color — Colorized Manga`} />
+        </div>
 
         <div className="grid gap-8 lg:grid-cols-[minmax(280px,36%)_1fr] lg:items-start lg:gap-10 xl:grid-cols-[minmax(300px,34%)_1fr]">
           <MangaInfoPanel manga={m} stats={s} firstChapter={firstCh} />
@@ -444,11 +451,14 @@ function ComingSoonManga({ m }: { m: Manga }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <section className="mx-auto max-w-3xl px-4 py-16 sm:py-24">
-        <nav className="mb-4 text-xs text-mute" aria-label="Breadcrumb">
-          <Link href="/" className="hover:text-brand">Home</Link>
-          <span className="px-1.5">/</span>
-          <span className="text-fg">{m.title}</span>
-        </nav>
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <nav className="text-xs text-mute" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-brand">Home</Link>
+            <span className="px-1.5">/</span>
+            <span className="text-fg">{m.title}</span>
+          </nav>
+          <ShareButton title={`${m.title} in color — Colorized Manga`} />
+        </div>
 
         <span className="inline-flex items-center gap-2 rounded-full bg-panel/70 px-3 py-1 text-xs text-mute">
           <span className="h-1.5 w-1.5 rounded-full bg-gold" />
