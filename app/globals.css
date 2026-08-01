@@ -1,0 +1,440 @@
+@import "tailwindcss";
+
+@theme {
+  /* Creepy pirate palette — pulled from the logo: ink black, blood crimson,
+     bone/parchment. Darker + bloodier than the old pinkish red. */
+  --color-ink: #050506;
+  --color-ink-2: #0b0b0f;
+  --color-panel: #121218;
+  --color-panel-2: #1a1a22;
+  --color-line: #24242f;
+  --color-mute: #8f8fa6;
+  --color-fg: #ece7dd; /* bone / parchment, not pure white */
+  --color-brand: #e01123; /* blood crimson (logo red) */
+  --color-brand-2: #ff3b3b; /* brighter blood highlight */
+  --color-blood: #7a0a12; /* deep dried-blood shadow */
+  --color-gold: #e6b649; /* aged brass */
+  --color-bone: #ded6c4;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--color-ink);
+  color: var(--color-fg);
+  /* Guard against sideways drift on touch devices: clip any stray horizontal
+     overflow (decorative glows, full-bleed rows) so a vertical swipe can never
+     slide the page left/right. `clip` (not `hidden`) does NOT create a scroll
+     container, so `position: sticky` (the chapter filter bar, desktop sidebar)
+     keeps working. */
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  /* Soft, restrained blood glow — subtle warmth from the top-left, kept away
+     from the right side so the hero logo sits on pure ink and its square
+     tile never shows. */
+  background-image:
+    radial-gradient(60rem 40rem at 22% -14%, rgba(224, 17, 35, 0.06), transparent 60%),
+    radial-gradient(46rem 38rem at 0% 4%, rgba(122, 10, 18, 0.045), transparent 55%);
+  background-attachment: fixed;
+}
+
+/* Barely-there film grain for an aged, printed feel. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(224, 17, 35, 0.4);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a36;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a1418;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-fadeUp {
+  animation: fadeUp 0.5s ease both;
+}
+
+/* Manga-page load shimmer. Sits behind each page while its image decodes so a
+   blank frame reads as "loading", not "broken". The opaque page fades in over
+   it (see PageImage), and the class is dropped once loaded so the animation
+   stops — no wasted compositor work under 50+ covered pages. */
+@keyframes pageShimmer {
+  0% {
+    background-position: 180% 0;
+  }
+  100% {
+    background-position: -80% 0;
+  }
+}
+.img-skeleton {
+  background-color: var(--color-ink-2);
+  background-image: linear-gradient(
+    100deg,
+    transparent 28%,
+    rgba(236, 231, 221, 0.05) 46%,
+    rgba(224, 17, 35, 0.05) 54%,
+    transparent 72%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  animation: pageShimmer 1.5s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .img-skeleton {
+    animation: none;
+  }
+}
+
+/* Slow blood-pulse for the "live" status dot. */
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(224, 17, 35, 0.5);
+  }
+  50% {
+    opacity: 0.65;
+    box-shadow: 0 0 0 4px rgba(224, 17, 35, 0);
+  }
+}
+.animate-pulseGlow {
+  animation: pulseGlow 2.2s ease-in-out infinite;
+}
+
+/* ------------------------------------------------------------------ */
+/* Library Color / B&W view toggle. Pure CSS via :has() driven by two    */
+/* uncontrolled radios at <body> scope (see layout.tsx) — no JS, works     */
+/* before hydration, drivable from BOTH the in-page toggle and the mobile  */
+/* bottom-nav. BOTH grids ship in the server-rendered HTML (SEO intact);   */
+/* the switch only changes what's visible. Default = color.                */
+/* ------------------------------------------------------------------ */
+.lib-bw-view {
+  display: none;
+}
+body:has(#lib-view-bw:checked) .lib-color-view {
+  display: none;
+}
+body:has(#lib-view-bw:checked) .lib-bw-view {
+  display: block;
+}
+
+/* Heading text swaps with the toggle. Both variants are in the DOM; color is  */
+/* the default so the "colorized manga library" heading stays crawlable + shown.*/
+.lib-head-bw {
+  display: none;
+}
+body:has(#lib-view-bw:checked) .lib-head-color {
+  display: none;
+}
+body:has(#lib-view-bw:checked) .lib-head-bw {
+  display: block;
+}
+
+.lib-toggle label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-mute);
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.lib-toggle label:hover {
+  color: var(--color-fg);
+}
+/* Active tab follows the checked radio — flat brand fill, no shadow. */
+body:has(#lib-view-color:checked) .lib-toggle label[data-tab="color"],
+body:has(#lib-view-bw:checked) .lib-toggle label[data-tab="bw"] {
+  background: var(--color-brand);
+  color: #fff;
+}
+.lib-toggle label:focus-within {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+/* Mobile bottom-nav Color / B&W segmented toggle — same body-scoped radios
+   as the in-page library toggle, so the two stay perfectly in sync. The
+   active segment fills brand red; the inactive one stays muted. */
+body:has(#lib-view-color:checked) .cmnav-seg[data-tab="color"],
+body:has(#lib-view-bw:checked) .cmnav-seg[data-tab="bw"] {
+  background: var(--color-brand);
+  color: #fff;
+}
+.cmnav-seg:focus-within {
+  outline: 2px solid var(--color-brand);
+  outline-offset: -2px;
+}
+
+/* Torn-parchment top edge used on section dividers. */
+.edge-blood {
+  border-top: 1px solid color-mix(in srgb, var(--color-brand) 30%, transparent);
+  box-shadow: 0 -1px 24px -8px rgba(224, 17, 35, 0.35);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Keep real content above the grain layer. Being unlayered, this rule beats
+   Tailwind's layered position utilities, so it must skip <nav> — the mobile
+   bottom nav positions itself (fixed) and already stacks above the grain. */
+body > :not(nav) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ------------------------------------------------------------------ */
+/* Animated brand logo — "colorized" reveal, then a restrained living idle. */
+/* Story-first: on load the engraving DEVELOPS from black-and-white into    */
+/* full colour (the brand promise), then it settles. In idle only the flag  */
+/* & pennants flutter at the masthead and the sea shimmers — the wordmark    */
+/* and hull stay rock-steady and legible. The whole stage breathes as ONE   */
+/* unit, so nothing slides against anything and the waterline can't tear.    */
+/* Moving layers blend with `screen` so their black areas stay invisible.    */
+/* ------------------------------------------------------------------ */
+.logo-anim {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  isolation: isolate;
+  /* the colourize reveal is one filter tween on the whole composite;
+     linear so the develop is even, not a front-loaded pop */
+  animation: logoReveal 1.8s linear both;
+}
+.logo-anim img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.logo-anim .l-stage,
+.logo-anim .l-ship {
+  position: absolute;
+  inset: 0;
+}
+/* Everything breathes together — a unified scale, no relative motion,
+   so the hull and the sea never separate at the waterline. */
+.logo-anim .l-stage {
+  transform-origin: 50% 62%;
+  animation: logoBreathe 7s ease-in-out infinite;
+}
+.logo-anim .l-water,
+.logo-anim .l-pennants,
+.logo-anim .l-flag {
+  mix-blend-mode: screen;
+  will-change: transform, filter;
+  backface-visibility: hidden;
+}
+.logo-anim .l-flag { transform-origin: 42% 15%; }
+.logo-anim .l-pennants { transform-origin: 24% 16%; }
+
+/* The reveal: black-and-white + dark + soft -> full colour, sharp, settled.
+   The engraving fades up from black, sharpens by ~60%, then the red sails
+   saturate in and the whole thing settles. Every keyframe declares the full
+   filter chain so each stage interpolates cleanly. */
+@keyframes logoReveal {
+  0% {
+    filter: grayscale(1) brightness(0.4) contrast(0.92) blur(4px);
+    transform: scale(1.04);
+    opacity: 0;
+  }
+  12% {
+    filter: grayscale(0.9) brightness(0.5) contrast(0.93) blur(3.4px);
+    opacity: 1;
+  }
+  60% {
+    filter: grayscale(0.28) brightness(0.9) contrast(1) blur(0);
+  }
+  88% {
+    filter: grayscale(0.04) brightness(1.06) contrast(1.02) saturate(1.12) blur(0);
+  }
+  100% {
+    filter: grayscale(0) brightness(1) contrast(1) saturate(1) blur(0);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* Gentle buoyancy — reads as "alive", never as "tilting". */
+@keyframes logoBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Masthead flutter — a real flap. Peripheral, so the wordmark stays put. */
+@keyframes flagWave {
+  0%, 100% { transform: rotate(-5deg) skewX(5deg); }
+  50% { transform: rotate(6deg) skewX(-6deg); }
+}
+@keyframes flagWaveStrong {
+  0%, 100% { transform: rotate(-10deg) skewX(10deg); }
+  25% { transform: rotate(4deg) skewX(-3deg); }
+  50% { transform: rotate(12deg) skewX(-13deg); }
+  75% { transform: rotate(2deg) skewX(3deg); }
+}
+@keyframes pennantWave {
+  0%, 100% { transform: rotate(-4deg) skewY(3deg); }
+  50% { transform: rotate(5deg) skewY(-4deg); }
+}
+@keyframes pennantWaveStrong {
+  0%, 100% { transform: rotate(-8deg) skewY(5deg) translateX(-1%); }
+  50% { transform: rotate(9deg) skewY(-6deg) translateX(1.6%); }
+}
+/* Sea shimmer — brightness/opacity only, NO vertical motion, so the deck the
+   water layer shares with the hull never slides and tears. */
+@keyframes waterShimmer {
+  0%, 100% { filter: brightness(0.78); opacity: 0.8; }
+  50% { filter: brightness(1.32); opacity: 1; }
+}
+
+/* Variant: calm — just a soft breeze in the rigging */
+.anim-calm .l-flag { animation: flagWave 4.6s ease-in-out infinite; }
+.anim-calm .l-pennants { animation: pennantWave 3.8s ease-in-out infinite; }
+
+/* Variant: wind — brisker flags, the sea starts to sparkle */
+.anim-wind .l-flag { animation: flagWaveStrong 2.7s ease-in-out infinite; }
+.anim-wind .l-pennants { animation: pennantWaveStrong 2.2s ease-in-out infinite; }
+.anim-wind .l-water { animation: waterShimmer 3.4s ease-in-out infinite; }
+
+/* Variant: rock — full living idle (the hero default) */
+.anim-rock .l-flag { animation: flagWave 3.8s ease-in-out infinite; }
+.anim-rock .l-pennants { animation: pennantWave 3.2s ease-in-out infinite; }
+.anim-rock .l-water { animation: waterShimmer 4.6s ease-in-out infinite; }
+
+/* Variant: storm — snapping flags, restless sea */
+.anim-storm .l-flag { animation: flagWaveStrong 1.9s ease-in-out infinite; }
+.anim-storm .l-pennants { animation: pennantWaveStrong 1.5s ease-in-out infinite; }
+.anim-storm .l-water { animation: waterShimmer 2.6s ease-in-out infinite; }
+.anim-storm .l-stage { animation-duration: 4.6s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-anim,
+  .logo-anim .l-stage,
+  .logo-anim img { animation: none !important; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Immersive manga reader — the fixed shell owns the whole viewport.   */
+/* Site chrome disappears and the document behind it stops scrolling.  */
+/* The :has() selectors work straight from the server-rendered HTML —  */
+/* no waiting on hydration — so the header/footer can never flash or   */
+/* paint over the pages; the .reader-mode class (added by the reader   */
+/* on mount) is kept as a fallback for browsers without :has().        */
+/* ------------------------------------------------------------------ */
+html.reader-mode header,
+html.reader-mode footer,
+html.reader-mode nav[aria-label="Mobile navigation"],
+html:has(.reader-shell) header,
+html:has(.reader-shell) footer,
+html:has(.reader-shell) nav[aria-label="Mobile navigation"] {
+  display: none;
+}
+
+html.reader-mode,
+html.reader-mode body,
+html:has(.reader-shell),
+html:has(.reader-shell) body {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Belt and braces: should site chrome ever still render (JS off in an
+   old browser), the reader's stacking context must beat the sticky
+   header (z-40) and footer — `body > *` pins siblings to z-index 1. */
+main:has(.reader-shell) {
+  z-index: 50;
+}
+
+/* Page scrubber — brand-filled track via --fill set inline from React. */
+.reader-scrub {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 22px;
+  background: transparent;
+  cursor: pointer;
+  touch-action: none;
+}
+.reader-scrub::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--color-brand) var(--fill, 0%),
+    #2a2a36 var(--fill, 0%)
+  );
+}
+.reader-scrub::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -6px;
+  height: 16px;
+  width: 16px;
+  border-radius: 999px;
+  background: var(--color-fg);
+  border: 2px solid var(--color-brand);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
+.reader-scrub::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: #2a2a36;
+}
+.reader-scrub::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-brand);
+}
+.reader-scrub::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 999px;
+  background: var(--color-fg);
+  border: 2px solid var(--color-brand);
+}

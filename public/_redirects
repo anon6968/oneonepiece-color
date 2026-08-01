@@ -1,0 +1,6 @@
+# Cloudflare Pages redirects — mirror of vercel.json "redirects".
+# Format: <source> <destination> <status>. :n captures one path segment.
+/read/:n            /one-piece/chapter/:n   301
+/chapters           /one-piece/chapters     301
+/naruto/chapter/:n  /naruto/volume/:n       301
+/naruto/chapters    /naruto/volumes         301
