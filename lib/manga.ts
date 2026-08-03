@@ -83,6 +83,12 @@ const CHAINSAW_MAN_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/chainsaw-man-color-pages@main/pages";
 const HUNTER_X_HUNTER_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/hunter-x-hunter-color-pages@main/pages";
+const DRAGON_BALL_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/dragon-ball-color-pages@main/pages";
+const GOLDEN_KAMUY_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/golden-kamuy-color-pages@main/pages";
+const HOSHIN_ENGI_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/hoshin-engi-color-pages@main/pages";
 const DEMON_SLAYER_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/demon-slayer-color-pages@main/pages";
 const DEATH_NOTE_IMAGE_BASE =
@@ -92,7 +98,7 @@ const RUROUNI_KENSHIN_IMAGE_BASE =
 const ATTACK_ON_TITAN_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/attack-on-titan-color-pages@main/pages";
 const JUJUTSU_KAISEN_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/jujutsu-kaisen-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/jujutsu-kaisen-color-pages@a830ecbb20b6ea5866cb9a32de833e6949fb1bf2/pages";
 const FULLMETAL_ALCHEMIST_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/fullmetal-alchemist-color-pages@main/pages";
 const BERSERK_IMAGE_BASE =
@@ -437,6 +443,114 @@ const HAND_MANGAS: Manga[] = [
     totalChapters: 400,
   },
   {
+    slug: "dragon-ball",
+    color: "full",
+    title: "Dragon Ball",
+    nativeTitle: "ドラゴンボール",
+    altTitles: [
+      "Dragon Ball Color",
+      "Colorized Dragon Ball",
+      "Dragon Ball Full Color",
+      "DB",
+    ],
+    author: "Akira Toriyama",
+    publisher: "Shueisha",
+    genres: ["Action", "Adventure", "Comedy", "Martial Arts"],
+    status: "live",
+    unit: "chapter",
+    year: 1984,
+    imageBase: DRAGON_BALL_IMAGE_BASE,
+    tagline:
+      "Akira Toriyama's legendary adventure — in official full color, HD.",
+    synopsis:
+      "Read the colorized Dragon Ball manga online for free — Akira Toriyama's world-defining adventure in official full color instead of black and white. Follow Goku from his childhood search for the Dragon Balls through the Tenkaichi Budokai, the Saiyan, Frieza, Cell and Majin Buu sagas, digitally colored in high definition. No signup, a fast mobile-friendly reader with zoom on every page.",
+    keywords: [
+      "colorized dragon ball manga",
+      "dragon ball color manga",
+      "dragon ball colored manga",
+      "read dragon ball in color",
+      "dragon ball full color",
+      "dragon ball manga online free",
+      "dragon ball colored chapters",
+    ],
+    poster: "/covers/dragon-ball.png",
+    posterPosition: "center",
+    accent: "#f0872b",
+    mark: "🐉",
+    totalChapters: 520,
+  },
+  {
+    slug: "golden-kamuy",
+    color: "full",
+    title: "Golden Kamuy",
+    nativeTitle: "ゴールデンカムイ",
+    altTitles: [
+      "Golden Kamuy Color",
+      "Colorized Golden Kamuy",
+      "Golden Kamuy Full Color",
+    ],
+    author: "Satoru Noda",
+    publisher: "Shueisha",
+    genres: ["Action", "Adventure", "Historical", "Seinen"],
+    status: "live",
+    unit: "chapter",
+    year: 2014,
+    imageBase: GOLDEN_KAMUY_IMAGE_BASE,
+    tagline:
+      "Satoru Noda's Hokkaido survival epic — in official full color, HD.",
+    synopsis:
+      "Read the colorized Golden Kamuy manga online for free — Satoru Noda's award-winning survival adventure in official full color instead of black and white. Ex-soldier Sugimoto and the Ainu girl Asirpa hunt a hidden cache of Ainu gold across a snowbound Hokkaido, digitally colored in high definition. No signup, a fast mobile-friendly reader with zoom on every page.",
+    keywords: [
+      "colorized golden kamuy manga",
+      "golden kamuy color manga",
+      "golden kamuy colored manga",
+      "read golden kamuy in color",
+      "golden kamuy full color",
+      "golden kamuy manga online free",
+      "golden kamuy colored chapters",
+    ],
+    poster: "/covers/golden-kamuy.png",
+    posterPosition: "center",
+    accent: "#c8a24a",
+    mark: "🐻",
+    totalChapters: 126,
+  },
+  {
+    slug: "hoshin-engi",
+    color: "full",
+    title: "Hoshin Engi",
+    nativeTitle: "封神演義",
+    altTitles: [
+      "Hoshin Engi Color",
+      "Colorized Hoshin Engi",
+      "Soul Hunter",
+      "Houshin Engi",
+    ],
+    author: "Ryu Fujisaki",
+    publisher: "Shueisha",
+    genres: ["Action", "Adventure", "Fantasy"],
+    status: "live",
+    unit: "chapter",
+    year: 1996,
+    imageBase: HOSHIN_ENGI_IMAGE_BASE,
+    tagline:
+      "Ryu Fujisaki's Chinese-mythology epic — in official full color, HD.",
+    synopsis:
+      "Read the colorized Hoshin Engi manga online for free — Ryu Fujisaki's retelling of the Chinese classic Investiture of the Gods in official full color instead of black and white. Taikobo and his paope battle the sorceress Dakki and her wicked immortals to reshape a corrupt dynasty, digitally colored in high definition. No signup, a fast mobile-friendly reader with zoom on every page.",
+    keywords: [
+      "colorized hoshin engi manga",
+      "hoshin engi color manga",
+      "hoshin engi colored manga",
+      "read hoshin engi in color",
+      "hoshin engi full color",
+      "soul hunter manga online free",
+      "hoshin engi colored chapters",
+    ],
+    accent: "#b5642e",
+    mark: "🏯",
+    totalChapters: 50,
+  },
+  {
     slug: "chainsaw-man",
     color: "full",
     title: "Chainsaw Man",
@@ -522,6 +636,8 @@ const HAND_MANGAS: Manga[] = [
       "read rurouni kenshin in color",
       "rurouni kenshin full color",
     ],
+    poster: "/covers/rurouni-kenshin.png",
+    posterPosition: "center",
     accent: "#c0392b",
     mark: "🗡️",
     totalChapters: 255,
@@ -550,11 +666,10 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "jujutsu-kaisen",
-    color: "partial",
-    colorNote: "Colored where available — remaining chapters in HD black & white, full color coming soon",
+    color: "full",
     title: "Jujutsu Kaisen",
     nativeTitle: "呪術廻戦",
-    altTitles: ["JJK", "Sorcery Fight"],
+    altTitles: ["JJK", "Sorcery Fight", "Jujutsu Kaisen Color", "Colorized Jujutsu Kaisen"],
     author: "Gege Akutami",
     publisher: "Shueisha",
     genres: ["Action", "Supernatural", "Dark Fantasy"],
@@ -562,15 +677,15 @@ const HAND_MANGAS: Manga[] = [
     unit: "chapter",
     year: 2018,
     imageBase: JUJUTSU_KAISEN_IMAGE_BASE,
-    tagline: "Gege Akutami's curse-hunter hit — a fan-colored run of chapters in full color.",
+    tagline: "Gege Akutami's curse-hunter epic — the full run, fan-colored in HD.",
     synopsis:
-      "Jujutsu Kaisen — Yuji Itadori and the Tokyo Jujutsu High sorcerers against cursed spirits and Sukuna. Read the fan-colored chapters in full color, HD, free — no official color edition exists, so this partial colorization is the closest thing to Jujutsu Kaisen in color.",
-    keywords: ["jujutsu kaisen colored", "jjk colored manga", "jujutsu kaisen color", "read jujutsu kaisen in color"],
-    poster: "/covers/jujutsu-kaisen-yuji.png",
+      "Read the colorized Jujutsu Kaisen manga online for free — Yuji Itadori and the Tokyo Jujutsu High sorcerers against cursed spirits and Sukuna, in a complete fan-colorization instead of black and white. The whole run digitally colored in high definition, no signup, a fast mobile-friendly reader with zoom on every page.",
+    keywords: ["colorized jujutsu kaisen manga", "jujutsu kaisen colored", "jjk colored manga", "jujutsu kaisen color", "read jujutsu kaisen in color", "jjk full color"],
+    poster: "/covers/jujutsu-kaisen-shrine.png",
     posterPosition: "center",
     accent: "#8e44ad",
     mark: "👊",
-    totalChapters: 271,
+    totalChapters: 270,
   },
   {
     slug: "spy-x-family",

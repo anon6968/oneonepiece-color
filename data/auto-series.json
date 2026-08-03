@@ -39,7 +39,8 @@
     "mark": "📖",
     "totalChapters": 38,
     "nativeTitle": "アキラ",
-    "poster": "/covers/akira.jpg"
+    "poster": "/covers/akira.png",
+    "posterPosition": "center"
   },
   {
     "slug": "battle-through-the-heavens",
