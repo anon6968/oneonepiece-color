@@ -1,11 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { MANGAS, comingSoonMangas, topLevelLiveMangas } from "@/lib/manga";
 import { SITE, mangaPath, readPath } from "@/lib/site";
 import { stats } from "@/lib/data";
 import MangaCard from "@/components/MangaCard";
-import AnimatedLogo from "@/components/AnimatedLogo";
 import ContinueReading from "@/components/ContinueReading";
+import SeriesSearch from "@/components/SeriesSearch";
 
 export const metadata: Metadata = {
   // `absolute` bypasses the layout's "%s | Colorized Manga" template so the
@@ -20,8 +21,40 @@ export default function Home() {
   const soon = comingSoonMangas();
   // Split live titles: genuinely colorized editions vs. black & white editions
   // (the full manga in B&W, hosted free — official color not out yet).
-  const liveColor = live.filter((m) => m.color !== "none");
-  const liveBW = live.filter((m) => m.color === "none");
+  // Homepage card order — curated most-popular-first, per grid. Edit this list to
+  // reorder the library. Color slugs first, then black-&-white slugs; each grid
+  // sorts its own subset by list position. Unlisted series fall back to the
+  // `popularity` field, then title. (Dragon Ball is demoted off the front row —
+  // weak cover art — so Bleach/Demon Slayer lead instead.)
+  const FAME_ORDER = [
+    // ── color, most-famous first ──
+    "one-piece", "naruto", "bleach", "demon-slayer", "chainsaw-man",
+    "jujutsu-kaisen", "attack-on-titan", "death-note", "hunter-x-hunter",
+    "dragon-ball", "one-punch-man", "solo-leveling", "jojos-bizarre-adventure",
+    "yu-gi-oh", "kaguya-sama", "rurouni-kenshin", "golden-kamuy", "akira",
+    "my-hero-academia", "fire-force", "hoshin-engi", "lookism", "shadows-house",
+    // ── black & white, most-popular first ──
+    "berserk", "vinland-saga", "vagabond", "fullmetal-alchemist", "tokyo-ghoul",
+    "slam-dunk", "monster", "detective-conan", "fairy-tail", "kingdom", "haikyu",
+    "dr-stone", "the-promised-neverland", "tokyo-revengers", "blue-lock",
+    "dandadan", "sakamoto-days", "frieren", "kaiju-no-8", "oshi-no-ko",
+    "mob-psycho-100", "gintama", "fist-of-the-north-star", "seven-deadly-sins",
+    "black-clover", "assassination-classroom", "yu-yu-hakusho", "20th-century-boys",
+    "sailor-moon", "inuyasha", "doraemon", "hells-paradise", "food-wars",
+    "blue-exorcist", "soul-eater", "black-butler", "noragami", "world-trigger",
+    "mashle", "goblin-slayer", "komi-cant-communicate", "goodnight-punpun",
+    "kagurabachi", "spy-x-family",
+  ];
+  const rankOf = (slug: string) => {
+    const i = FAME_ORDER.indexOf(slug);
+    return i < 0 ? 9999 : i;
+  };
+  const byFame = (a: (typeof live)[number], b: (typeof live)[number]) =>
+    rankOf(a.slug) - rankOf(b.slug) ||
+    (a.popularity ?? 9999) - (b.popularity ?? 9999) ||
+    a.title.localeCompare(b.title);
+  const liveColor = live.filter((m) => m.color !== "none").sort(byFame);
+  const liveBW = live.filter((m) => m.color === "none").sort(byFame);
   const featured = liveColor[0] ?? live[0];
   const totalPages = liveColor.reduce((sum, m) => sum + stats(m.slug).totalPages, 0);
 
@@ -87,12 +120,12 @@ export default function Home() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* Hero — two columns: headline + SEO copy + CTAs on the left, the
-          animated ship logo at resting size on the right. */}
-      <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:py-16 md:grid-cols-[1.05fr_.85fr] md:py-20 2xl:max-w-7xl">
-        <div className="relative animate-fadeUp">
-          {/* Warm red glow sits behind the text, not the logo — behind the
-              logo it haloed the art's square tile and looked cheap. */}
+      {/* Hero — the copy stays aligned to the site's content grid while the
+          crossover artwork runs full bleed to the viewport's right edge. */}
+      <section className="grid w-full items-center overflow-hidden py-14 sm:py-16 md:py-20 xl:grid-cols-[max(1rem,calc((100vw-70rem)/2))_minmax(0,32.5rem)_minmax(0,1fr)] 2xl:grid-cols-[max(1rem,calc((100vw-78rem)/2))_minmax(0,36rem)_minmax(0,1fr)]">
+        <div className="relative animate-fadeUp px-4 xl:col-start-2 xl:row-start-1 xl:px-0 xl:pr-8 2xl:pr-10">
+          {/* Warm red glow stays behind the copy, where it adds separation
+              without tinting or obscuring the artwork. */}
           {/* Kept within the column's horizontal bounds (inset-x-0, not a
               negative inset) so the box never extends past the viewport — the
               blur alone gives the soft halo without adding scroll width, which
@@ -100,12 +133,6 @@ export default function Home() {
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 -inset-y-12 -z-10 rounded-full bg-brand/[.07] blur-3xl"
-          />
-          {/* The logo still leads on small screens, where the right column is hidden. */}
-          <AnimatedLogo
-            motion="rock"
-            priority
-            className="mx-auto mb-8 w-36 [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_86%)] sm:mx-0 md:hidden"
           />
 
           <p className="inline-flex items-center gap-2 rounded-full bg-panel px-3.5 py-1.5 text-xs font-medium text-mute sm:text-sm">
@@ -142,11 +169,14 @@ export default function Home() {
           )}
         </div>
 
-        <div className="relative hidden animate-fadeUp md:flex md:justify-center">
-          <AnimatedLogo
-            motion="rock"
+        <div className="relative mt-10 aspect-[4/3] w-full animate-fadeUp overflow-hidden sm:aspect-[16/9] md:aspect-[2/1] xl:col-start-3 xl:row-start-1 xl:mt-0 xl:h-[clamp(34rem,42vw,42rem)] xl:aspect-auto">
+          <Image
+            src="/hero-legends-assemble.webp"
+            alt="Colorized Manga heroes assembled in full color"
+            fill
             priority
-            className="w-full max-w-[420px] [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_86%)]"
+            sizes="(min-width: 1536px) 55vw, (min-width: 1280px) 53vw, 100vw"
+            className="object-cover object-[72%_center] [mask-image:linear-gradient(to_bottom,transparent_0%,black_5%,black_93%,transparent_100%)] xl:[mask-image:linear-gradient(to_right,transparent_0%,black_12%,black_100%)]"
           />
         </div>
       </section>
@@ -197,6 +227,20 @@ export default function Home() {
             <label htmlFor="lib-view-bw" data-tab="bw">
               Black &amp; white
             </label>
+          </div>
+
+          {/* One search across BOTH libraries — the toggle filters the grid,
+              this finds any series regardless of which side it lives on. */}
+          <div className="mt-5">
+            <SeriesSearch
+              items={live.map((m) => ({
+                slug: m.slug,
+                title: m.title,
+                alt: m.altTitles ?? [],
+                color: m.color,
+                chapters: stats(m.slug).total,
+              }))}
+            />
           </div>
         </div>
 
