@@ -56,7 +56,7 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>${xmlEscape(SITE.name)} — latest colored chapters</title>
+    <title>${xmlEscape(SITE.name)} — latest manga chapters</title>
     <link>${SITE.url}</link>
     <atom:link href="${SITE.url}/feed.xml" rel="self" type="application/rss+xml" />
     <description>${xmlEscape(SITE.description)}</description>

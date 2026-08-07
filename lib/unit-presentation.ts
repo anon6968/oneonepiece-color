@@ -90,6 +90,8 @@ interface AggregatePresentationInput {
   aggregate: "full" | "partial" | "none";
   totalUnits: number;
   coloredUnits: number;
+  partialUnits: number;
+  bwUnits: number;
   lastUnit: number;
 }
 
@@ -97,8 +99,17 @@ function pluralUnit(unitLabel: string) {
   return `${unitLabel.toLowerCase()}s`;
 }
 
+function coverageBreakdown(input: AggregatePresentationInput, plural: string) {
+  const parts = [
+    input.coloredUnits ? `${input.coloredUnits} fully colored ${plural}` : "",
+    input.partialUnits ? `${input.partialUnits} partially colored ${plural}` : "",
+    input.bwUnits ? `${input.bwUnits} black & white ${plural}` : "",
+  ].filter(Boolean);
+  return parts.length > 1 ? `${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}` : parts[0];
+}
+
 export function listPresentation(input: AggregatePresentationInput) {
-  const { mangaTitle, unitLabel, aggregate, totalUnits, coloredUnits, lastUnit } = input;
+  const { mangaTitle, unitLabel, aggregate, totalUnits, lastUnit } = input;
   const plural = pluralUnit(unitLabel);
   if (aggregate === "full") {
     return {
@@ -118,17 +129,19 @@ export function listPresentation(input: AggregatePresentationInput) {
       keywords: [`${mangaTitle.toLowerCase()} ${plural}`, `${mangaTitle.toLowerCase()} manga black and white`],
     };
   }
+  const coverage = coverageBreakdown(input, plural);
+  const editionKinds = [input.coloredUnits && "Color", input.partialUnits && "Partial Color", input.bwUnits && "Black & White"].filter(Boolean).join(", ");
   return {
-    title: `All ${mangaTitle} Manga ${unitLabel}s — Color and Black & White List`,
-    description: `Complete list of ${totalUnits} ${mangaTitle} manga ${plural}: ${coloredUnits} in color and the remainder in high-quality black & white.`,
+    title: `All ${mangaTitle} Manga ${unitLabel}s — ${editionKinds} List`,
+    description: `Complete list of ${totalUnits} ${mangaTitle} manga ${plural}: ${coverage}.`,
     heading: `All ${mangaTitle} manga ${plural}`,
-    copy: `${coloredUnits} of ${totalUnits} available ${plural} are in color; the remainder are clearly labeled black & white. Updated through ${unitLabel.toLowerCase()} ${lastUnit}.`,
+    copy: `${coverage}. ${totalUnits} available ${plural}, updated through ${unitLabel.toLowerCase()} ${lastUnit}.`,
     keywords: [`${mangaTitle.toLowerCase()} ${plural}`, `${mangaTitle.toLowerCase()} colored ${plural}`],
   };
 }
 
 export function latestPresentation(input: AggregatePresentationInput) {
-  const { mangaTitle, unitLabel, aggregate, totalUnits, coloredUnits, lastUnit } = input;
+  const { mangaTitle, unitLabel, aggregate, totalUnits, lastUnit } = input;
   const plural = pluralUnit(unitLabel);
   if (aggregate === "full") {
     return {
@@ -148,11 +161,12 @@ export function latestPresentation(input: AggregatePresentationInput) {
       keywords: [`latest ${mangaTitle.toLowerCase()} ${unitLabel.toLowerCase()}`, `newest ${mangaTitle.toLowerCase()} manga ${unitLabel.toLowerCase()}`],
     };
   }
+  const coverage = coverageBreakdown(input, plural);
   return {
     title: `Latest ${mangaTitle} Manga ${unitLabel}s — Newest First`,
-    description: `The latest ${mangaTitle} manga ${plural}, newest first: ${coloredUnits} of ${totalUnits} available ${plural} in color and the remainder in black & white.`,
+    description: `The latest ${mangaTitle} manga ${plural}, newest first: ${coverage}.`,
     heading: `Latest ${mangaTitle} ${plural}`,
-    copy: `Newest first through ${unitLabel.toLowerCase()} ${lastUnit}. ${coloredUnits} of ${totalUnits} available ${plural} are in color; the remainder are clearly labeled black & white.`,
+    copy: `Newest first through ${unitLabel.toLowerCase()} ${lastUnit}. ${coverage} across ${totalUnits} available ${plural}.`,
     keywords: [`latest ${mangaTitle.toLowerCase()} ${unitLabel.toLowerCase()}`, `${mangaTitle.toLowerCase()} colored ${unitLabel.toLowerCase()} list`],
   };
 }

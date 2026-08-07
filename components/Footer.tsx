@@ -27,16 +27,21 @@ export default function Footer() {
 
           <nav aria-label="Browse manga">
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-mute">
-              Colorized manga
+              Manga library
             </h2>
             <ul className="grid gap-1.5 text-sm">
-              {live.map((m) => (
-                <li key={m.slug}>
+              {live.map((m) => {
+                const edition = m.color === "none"
+                  ? "black & white"
+                  : m.color === "partial"
+                    ? "color, partial & B&W"
+                    : "in color";
+                return <li key={m.slug}>
                   <Link href={mangaPath(m.slug)} prefetch={false} className="text-mute hover:text-brand">
-                    {m.title} in color
+                    {m.title} · {edition}
                   </Link>
-                </li>
-              ))}
+                </li>;
+              })}
             </ul>
           </nav>
 
@@ -51,7 +56,7 @@ export default function Footer() {
                   <li key={m.slug}>
                     <Link href={listPath(m)} prefetch={false} className="text-mute hover:text-brand">
                       All {m.title} {unitLabelPlural(m)}{" "}
-                      <span className="text-mute/60">({s.colored})</span>
+                      <span className="text-mute/60">({s.total} available)</span>
                     </Link>
                   </li>
                 );
@@ -96,7 +101,10 @@ export default function Footer() {
             {live[0] && (
               <>
                 {" "}
-                {stats(live[0].slug).colored} {live[0].title} chapters in full color.
+                {stats(live[0].slug).colored} {live[0].title} chapters in full color
+                {stats(live[0].slug).partial
+                  ? `, ${stats(live[0].slug).partial} partially colored.`
+                  : "."}
               </>
             )}
           </p>

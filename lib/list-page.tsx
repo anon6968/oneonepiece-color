@@ -36,6 +36,8 @@ export async function buildListMetadata(
     aggregate: m.color,
     totalUnits: s.total,
     coloredUnits: s.colored,
+    partialUnits: s.partial,
+    bwUnits: s.bw,
     lastUnit: s.last,
   });
   return {
@@ -67,6 +69,8 @@ export async function UnitListPage({
     aggregate: m.color,
     totalUnits: s.total,
     coloredUnits: s.colored,
+    partialUnits: s.partial,
+    bwUnits: s.bw,
     lastUnit: s.last,
   });
 

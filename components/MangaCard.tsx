@@ -19,7 +19,7 @@ export default function MangaCard({ manga, priority = false }: { manga: Manga; p
     sub =
       manga.color === "full"
         ? `${s.colored} ${unitLabelPlural(manga)} in full color`
-        : `${s.colored} colored ${unitLabelPlural(manga)}${manga.colorNote ? ` · ${manga.colorNote}` : ""}`;
+        : `${s.colored} colored${s.partial ? ` · ${s.partial} partial` : ""}${s.bw ? ` · ${s.bw} B&W` : ""} ${unitLabelPlural(manga)}${manga.colorNote ? ` · ${manga.colorNote}` : ""}`;
   } else if (manga.color === "none") {
     sub = manga.colorNote ?? "Black & white now · full color coming soon";
   } else if (manga.color === "partial") {
@@ -31,7 +31,9 @@ export default function MangaCard({ manga, priority = false }: { manga: Manga; p
   const cta = live
     ? manga.color === "none"
       ? "Read free →"
-      : "Read in full color"
+      : manga.color === "partial"
+        ? "Browse available editions →"
+        : "Read in full color"
     : manga.color === "none"
       ? "View details"
       : "Preview";
@@ -48,7 +50,7 @@ export default function MangaCard({ manga, priority = false }: { manga: Manga; p
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={manga.poster ?? pageUrl(manga, 1, 1)}
-            alt={`${manga.title} colored manga cover`}
+            alt={`${manga.title} manga cover`}
             loading={priority ? "eager" : "lazy"}
             decoding="async"
             style={{ objectPosition: manga.posterPosition ?? "top" }}

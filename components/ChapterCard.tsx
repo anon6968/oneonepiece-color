@@ -26,6 +26,11 @@ export default function ChapterCard({
   const label = unitLabel(manga);
   const range = chapterRange(c);
   const href = unavailable ? undefined : readPath(manga, c.chapter);
+  const coverEdition = c.type === "color"
+    ? "color manga"
+    : c.type === "partial"
+      ? "partially colored manga"
+      : "black & white manga";
 
   const inner = (
     <>
@@ -40,7 +45,7 @@ export default function ChapterCard({
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
             src={pageUrl(manga, c.chapter, 1)}
-            alt={`${manga.title} color manga ${label} ${c.chapter}${c.title ? ` — ${c.title}` : ` — ${c.arc}`}`}
+            alt={`${manga.title} ${coverEdition} ${label} ${c.chapter}${c.title ? ` — ${c.title}` : ` — ${c.arc}`}`}
             width={c.coverW}
             height={c.coverH}
             loading={priority ? "eager" : "lazy"}

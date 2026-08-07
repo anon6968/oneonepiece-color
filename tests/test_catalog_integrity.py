@@ -199,12 +199,12 @@ class CatalogIntegrityTests(unittest.TestCase):
         self.assertEqual("function", exports)
         actual = run_typescript(
             "lib/unit-presentation.ts",
-            "subject.listPresentation({mangaTitle: 'Attack on Titan', unitLabel: 'Chapter', aggregate: 'partial', totalUnits: 139, coloredUnits: 46, lastUnit: 139})",
+            "subject.listPresentation({mangaTitle: 'One Piece', unitLabel: 'Chapter', aggregate: 'partial', totalUnits: 1153, coloredUnits: 1139, partialUnits: 14, bwUnits: 0, lastUnit: 1171})",
         )
         text = json.dumps(actual).lower()
-        self.assertIn("46", text)
-        self.assertIn("139", text)
-        self.assertIn("black & white", text)
+        self.assertIn("1139", text)
+        self.assertIn("14 partially colored", text)
+        self.assertNotIn("black & white", text)
         self.assertNotIn("every colorized", text)
         self.assertNotIn("any chapter in full color", text)
 
@@ -215,11 +215,12 @@ class CatalogIntegrityTests(unittest.TestCase):
         self.assertEqual("function", exports)
         actual = run_typescript(
             "lib/unit-presentation.ts",
-            "subject.latestPresentation({mangaTitle: 'SPY x FAMILY', unitLabel: 'Chapter', aggregate: 'partial', totalUnits: 117, coloredUnits: 37, lastUnit: 117})",
+            "subject.latestPresentation({mangaTitle: 'SPY x FAMILY', unitLabel: 'Chapter', aggregate: 'partial', totalUnits: 117, coloredUnits: 37, partialUnits: 0, bwUnits: 80, lastUnit: 118})",
         )
         text = json.dumps(actual).lower()
         self.assertIn("37", text)
         self.assertIn("117", text)
+        self.assertIn("80", text)
         self.assertIn("black & white", text)
         self.assertNotIn("most recent chapters in full color", text)
 
@@ -266,6 +267,32 @@ class CatalogIntegrityTests(unittest.TestCase):
         self.assertNotIn("live in full color right now", home)
         self.assertNotIn("${s.total} colorized", llms)
         self.assertNotIn("Every page is digitally colored", llms)
+        self.assertIn("if (m.parts)", llms)
+        self.assertIn("mangaPath(m.slug)", llms)
+
+    def test_shared_cards_footer_feed_and_site_copy_are_type_honest(self):
+        footer = (WEB / "components/Footer.tsx").read_text()
+        chapter_card = (WEB / "components/ChapterCard.tsx").read_text()
+        manga_card = (WEB / "components/MangaCard.tsx").read_text()
+        site = (WEB / "lib/site.ts").read_text()
+        feed = (WEB / "app/feed.xml/route.ts").read_text()
+        self.assertIn('m.color === "none"', footer)
+        self.assertIn('c.type === "bw"', chapter_card)
+        self.assertIn('manga.color === "partial"', manga_card)
+        self.assertNotIn('alt={`${manga.title} colored manga cover`}', manga_card)
+        self.assertNotIn('every chapter digitally colored', site.lower())
+        self.assertNotIn('latest colored chapters</title>', feed)
+
+    def test_partial_faq_and_progress_report_exact_aggregate_counts(self):
+        faq_source = (WEB / "app/[manga]/page.tsx").read_text()
+        faq_body = faq_source[
+            faq_source.index("function seriesFaqs") : faq_source.index("function LiveManga")
+        ]
+        info = (WEB / "components/MangaInfoPanel.tsx").read_text()
+        self.assertIn("s.partial", faq_body)
+        self.assertIn("s.bw", faq_body)
+        self.assertNotIn("Those are in full color here; the rest", faq_body)
+        self.assertIn("{s.colored} of {totalExpected} colored", info)
 
     def test_docs_describe_the_multi_series_immutable_source_model(self):
         readme = (WEB / "README.md").read_text()

@@ -244,6 +244,12 @@ function seriesFaqs(m: Manga, s: MangaStats, firstCh: number) {
   const plural = unitLabelPlural(m);
   const fan = !!m.colorNote?.toLowerCase().includes("fan");
   const bw = m.color === "none";
+  const firstColored = getIndex(m.slug).find((unit) => unit.type === "color")?.chapter ?? firstCh;
+  const coverage = [
+    s.colored ? `${s.colored} fully colored ${plural}` : "",
+    s.partial ? `${s.partial} partially colored ${plural}` : "",
+    s.bw ? `${s.bw} black & white ${plural}` : "",
+  ].filter(Boolean).join(", ");
 
   if (bw) {
     return [
@@ -275,15 +281,15 @@ function seriesFaqs(m: Manga, s: MangaStats, firstCh: number) {
       ? `Yes. The ${m.title} manga is available in full color here — ${s.colored} ${plural} digitally colored in HD, free to read with no signup.`
       : `Partly. ${
           m.colorNote ?? `Only some ${plural} are colored so far`
-        }. Those are in full color here; the rest of ${m.title} isn't colored yet.`;
+        }. Current coverage: ${coverage}; every unit is labeled by edition.`;
 
   return [
     { q: `Is ${m.title} available in color?`, a: availability },
     {
       q: `How many colored ${plural} of ${m.title} are there?`,
-      a: `${s.colored} colored ${plural} — ${s.coloredPages.toLocaleString(
+      a: `${s.colored} fully colored ${plural} — ${s.coloredPages.toLocaleString(
         "en-US",
-      )} digitally colored pages — are live right now, with more added as they're finished.`,
+      )} digitally colored pages${s.partial ? ` — plus ${s.partial} partially colored ${plural}` : ""}${s.bw ? `; ${s.bw} other ${plural} are black & white` : ""}.`,
     },
     {
       q: `Is it free to read ${m.title} in color?`,
@@ -294,12 +300,12 @@ function seriesFaqs(m: Manga, s: MangaStats, firstCh: number) {
         ? `Is this an official colored ${m.title}?`
         : `Is this the official colored ${m.title}?`,
       a: fan
-        ? `These are high-quality fan-colored ${plural} — no official color edition of ${m.title} exists yet, so this is the closest way to read it in color.`
-        : `These are digitally colored HD editions of ${m.title}, faithfully colored page by page and read in a fast mobile-friendly reader.`,
+        ? `The fully colored units are high-quality fan-colored ${plural}. Overall coverage is ${coverage}, with every unit labeled by edition.`
+        : `The fully colored units are digitally colored HD editions of ${m.title}. Overall coverage is ${coverage}, with every unit labeled by edition.`,
     },
     {
       q: `Where should I start reading ${m.title} in color?`,
-      a: `Start with ${label} ${firstCh} and use the reader's next-page controls to keep going. You can jump to any ${lower} from the ${m.title} ${plural} list.`,
+      a: `Start with ${label} ${firstColored}, the first fully colored ${lower}, or browse the ${m.title} ${plural} list where every edition is labeled.`,
     },
   ];
 }

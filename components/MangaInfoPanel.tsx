@@ -27,6 +27,11 @@ export default function MangaInfoPanel({
     totalExpected && totalExpected > 0
       ? Math.min(100, Math.round((count / totalExpected) * 100))
       : null;
+  const statusText = bw
+    ? `${s.total} ${plural} · black & white`
+    : manga.color === "partial"
+      ? `${s.colored} of ${totalExpected ?? s.total} ${plural} fully colored`
+      : `${s.colored} ${plural} in full color`;
 
   return (
     <aside className="no-scrollbar lg:sticky lg:top-[4.5rem] lg:max-h-[calc(100vh-5.5rem)] lg:overflow-y-auto">
@@ -58,7 +63,7 @@ export default function MangaInfoPanel({
               className="h-1.5 w-1.5 rounded-full animate-pulseGlow"
               style={{ background: manga.accent }}
             />
-            {count} {plural} {bw ? "· black & white" : "in full color"}
+            {statusText}
             {totalExpected ? ` · ${progressPct}% of series` : ""}
           </span>
 
@@ -76,7 +81,7 @@ export default function MangaInfoPanel({
           <div className="mt-4">
             <div className="mb-1.5 flex justify-between text-[11px] text-mute">
               <span>
-                {label} {Math.min(s.last, totalExpected)} of {totalExpected}
+                {s.colored} of {totalExpected} colored
               </span>
               <span>{progressPct}%</span>
             </div>
@@ -87,7 +92,7 @@ export default function MangaInfoPanel({
               />
             </div>
             <p className="mt-2 text-xs text-mute">
-              {totalExpected - s.colored} more {plural} in progress.
+              {totalExpected - s.colored} {plural} are not fully colored yet.
             </p>
           </div>
         )}

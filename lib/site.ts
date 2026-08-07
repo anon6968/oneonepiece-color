@@ -6,9 +6,9 @@ export const SITE = {
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://colorizedmangas.com").replace(/\/$/, ""),
   name: "Colorized Manga",
   short: "Colorized Manga",
-  tagline: "Read manga in full color, online and free.",
+  tagline: "Read colorized manga with honest per-chapter edition labels, online and free.",
   description:
-    "Read colorized manga online free — One Piece, Naruto, Bleach & more, every chapter digitally colored in full HD. Fast mobile reader, no signup.",
+    "Read colorized manga online free — full-color editions plus clearly labeled partial and black & white chapters. Fast mobile reader, no signup.",
   keywords: [
     "colorized manga",
     "colored manga online",
