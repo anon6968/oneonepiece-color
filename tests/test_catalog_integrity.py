@@ -277,6 +277,8 @@ class CatalogIntegrityTests(unittest.TestCase):
         site = (WEB / "lib/site.ts").read_text()
         feed = (WEB / "app/feed.xml/route.ts").read_text()
         self.assertIn('m.color === "none"', footer)
+        self.assertIn("m.parts ? mangaPath(m.slug) : listPath(m)", footer)
+        self.assertIn("m.parts.length", footer)
         self.assertIn('c.type === "bw"', chapter_card)
         self.assertIn('manga.color === "partial"', manga_card)
         self.assertNotIn('alt={`${manga.title} colored manga cover`}', manga_card)
@@ -293,6 +295,40 @@ class CatalogIntegrityTests(unittest.TestCase):
         self.assertIn("s.bw", faq_body)
         self.assertNotIn("Those are in full color here; the rest", faq_body)
         self.assertIn("{s.colored} of {totalExpected} colored", info)
+
+    def test_partial_series_metadata_distinguishes_partial_from_bw_remainders(self):
+        exported = run_typescript(
+            "lib/unit-presentation.ts", "typeof subject.seriesMetadataPresentation"
+        )
+        self.assertEqual("function", exported)
+        actual = run_typescript(
+            "lib/unit-presentation.ts",
+            "({onePiece: subject.seriesMetadataPresentation({mangaTitle:'One Piece',author:'Eiichiro Oda',unitLabel:'Chapter',live:true,aggregate:'partial',totalUnits:1153,coloredUnits:1139,partialUnits:14,bwUnits:0}),spy: subject.seriesMetadataPresentation({mangaTitle:'SPY x FAMILY',author:'Tatsuya Endo',unitLabel:'Chapter',live:true,aggregate:'partial',totalUnits:117,coloredUnits:37,partialUnits:0,bwUnits:80})})",
+        )
+        one_piece = json.dumps(actual["onePiece"]).lower()
+        self.assertIn("14 partially colored", one_piece)
+        self.assertNotIn("black & white", one_piece)
+        self.assertNotIn("read in full color", one_piece)
+        spy = json.dumps(actual["spy"]).lower()
+        self.assertIn("80 black & white", spy)
+        self.assertNotIn("read in full color", spy)
+        landing = (WEB / "app/[manga]/page.tsx").read_text()
+        self.assertIn("seriesMetadataPresentation({", landing)
+
+    def test_one_piece_copy_and_black_clover_total_match_baked_coverage(self):
+        one_piece = next(row for row in _hand_entries() if row["slug"] == "one-piece")
+        black_clover = next(row for row in _hand_entries() if row["slug"] == "black-clover")
+        registry = REGISTRY.lower()
+        one_piece_block = registry[
+            registry.index('slug: "one-piece"') : registry.index('slug: "naruto"')
+        ]
+        self.assertNotIn("every chapter", one_piece_block)
+        self.assertIn("1,139", one_piece_block)
+        self.assertIn("14", one_piece_block)
+        black_clover_block = REGISTRY[
+            REGISTRY.index('slug: "black-clover"') : REGISTRY.index('slug: "blue-lock"')
+        ]
+        self.assertIn("totalChapters: 392", black_clover_block)
 
     def test_docs_describe_the_multi_series_immutable_source_model(self):
         readme = (WEB / "README.md").read_text()

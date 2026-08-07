@@ -224,9 +224,9 @@ const HAND_MANGAS: Manga[] = [
     year: 1997,
     imageBase: OP_IMAGE_BASE,
     tagline:
-      "Every chapter of Eiichiro Oda's pirate epic, digitally colorized in full HD.",
+      "Official digital color across 1,139 chapters, with 14 additional chapters carrying partial-color page sets.",
     synopsis:
-      "Read the colorized One Piece manga online for free — every chapter of Eiichiro Oda's legendary series digitally colored in high definition. Follow Monkey D. Luffy and the Straw Hat Pirates from Romance Dawn and the East Blue, through Alabasta, Enies Lobby, Marineford, Dressrosa and Wano, all the way to the latest arc, now in vivid full color instead of black and white. No signup, no paywall — the fastest way to read One Piece in color on phone or desktop with pinch-to-zoom on every page.",
+      "Read the colorized One Piece manga online for free — 1,139 chapters of Eiichiro Oda's legendary series fully colored in high definition, plus 14 chapters with clearly labeled partial-color page sets. Follow Monkey D. Luffy and the Straw Hat Pirates from Romance Dawn and the East Blue through Alabasta, Enies Lobby, Marineford, Dressrosa, Wano and the latest arc. No signup or paywall, with pinch-to-zoom on every page.",
     keywords: [
       "colorized one piece manga",
       "one piece color manga",
@@ -763,7 +763,7 @@ const HAND_MANGAS: Manga[] = [
     ],
     accent: "#3dbb6b",
     mark: "🍀",
-    totalChapters: 373,
+    totalChapters: 392,
   },
   {
     slug: "rurouni-kenshin",

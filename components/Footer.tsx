@@ -52,11 +52,14 @@ export default function Footer() {
             <ul className="grid gap-1.5 text-sm">
               {live.map((m) => {
                 const s = stats(m.slug);
+                const href = m.parts ? mangaPath(m.slug) : listPath(m);
                 return (
                   <li key={m.slug}>
-                    <Link href={listPath(m)} prefetch={false} className="text-mute hover:text-brand">
-                      All {m.title} {unitLabelPlural(m)}{" "}
-                      <span className="text-mute/60">({s.total} available)</span>
+                    <Link href={href} prefetch={false} className="text-mute hover:text-brand">
+                      {m.parts ? `${m.title} hub` : `All ${m.title} ${unitLabelPlural(m)}`} {" "}
+                      <span className="text-mute/60">
+                        ({m.parts ? `${m.parts.length} Parts` : `${s.total} available`})
+                      </span>
                     </Link>
                   </li>
                 );

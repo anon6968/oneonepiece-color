@@ -95,6 +95,11 @@ interface AggregatePresentationInput {
   lastUnit: number;
 }
 
+interface SeriesMetadataPresentationInput extends AggregatePresentationInput {
+  author: string;
+  live: boolean;
+}
+
 function pluralUnit(unitLabel: string) {
   return `${unitLabel.toLowerCase()}s`;
 }
@@ -106,6 +111,34 @@ function coverageBreakdown(input: AggregatePresentationInput, plural: string) {
     input.bwUnits ? `${input.bwUnits} black & white ${plural}` : "",
   ].filter(Boolean);
   return parts.length > 1 ? `${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}` : parts[0];
+}
+
+export function seriesMetadataPresentation(input: SeriesMetadataPresentationInput) {
+  const { mangaTitle, author, unitLabel, live, aggregate, totalUnits } = input;
+  const plural = pluralUnit(unitLabel);
+  if (!live) {
+    return {
+      title: `${mangaTitle} Colored Manga — Colorized ${mangaTitle} (Coming Soon)`,
+      description: `A colorized ${mangaTitle} manga edition is being prepared. Explore the live manga library while pages are added.`,
+    };
+  }
+  if (aggregate === "none") {
+    return {
+      title: `${mangaTitle} Manga — Read ${mangaTitle} Online Free (Black & White)`,
+      description: `Read the ${mangaTitle} manga online free in high-quality black & white — ${totalUnits} ${plural} by ${author} on a fast mobile reader.`,
+    };
+  }
+  if (aggregate === "full") {
+    return {
+      title: `${mangaTitle} Colored Manga — Read in Full Color Online Free`,
+      description: `Read the colorized ${mangaTitle} manga online free — the full-color edition by ${author}, on a fast mobile reader.`,
+    };
+  }
+  const coverage = coverageBreakdown(input, plural);
+  return {
+    title: `${mangaTitle} Colored Manga — Full and Partial Edition Coverage`,
+    description: `Read ${author}'s ${mangaTitle} manga online free: ${coverage}, all clearly labeled on a fast mobile reader.`,
+  };
 }
 
 export function listPresentation(input: AggregatePresentationInput) {
