@@ -46,7 +46,9 @@ export async function generateMetadata({
     ? `The colorized ${m.title} manga is coming soon — every chapter of ${m.author}'s ${m.title} is being digitally colored in full HD. Read our live colorized series in the meantime.`
     : bw
       ? `Read the ${m.title} manga online free in high-quality black & white — the full series by ${m.author}, every ${unitLabel(m).toLowerCase()} on a fast mobile reader.`
-      : `Read the colorized ${m.title} manga online free. Every ${unitLabel(m).toLowerCase()} of ${m.author}'s ${m.title} digitally colored in full HD, on a fast mobile reader.`;
+      : m.color === "partial"
+        ? `Read ${m.author}'s ${m.title} manga online free — colored ${plural} in full HD where available, the rest in high-quality black & white, on a fast mobile reader.`
+        : `Read the colorized ${m.title} manga online free. Every ${unitLabel(m).toLowerCase()} of ${m.author}'s ${m.title} digitally colored in full HD, on a fast mobile reader.`;
 
   const ogImages = m.parts
     ? [{ url: `${SITE.url}${m.poster}`, alt: `${m.title} colored manga` }]

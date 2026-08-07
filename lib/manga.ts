@@ -42,6 +42,8 @@ export interface Manga {
   /** CDN base that serves this manga's colored page images.
    *  pageUrl() builds `${imageBase}/${chapter}/${page}.webp`. */
   imageBase: string;
+  /** Global-fame rank (1 = most famous). Drives hub ordering; lower sorts first. */
+  popularity?: number;
   /** 1–2 sentence hook used on cards + meta descriptions. */
   tagline: string;
   /** Longer, keyword-rich synopsis for the manga landing page. */
@@ -85,6 +87,14 @@ const HUNTER_X_HUNTER_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/hunter-x-hunter-color-pages@main/pages";
 const DRAGON_BALL_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/dragon-ball-color-pages@main/pages";
+const KAGUYA_SAMA_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/kaguya-sama-color-pages@main/pages";
+const AKIRA_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/akira-color-pages@main/pages";
+const MY_HERO_ACADEMIA_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/my-hero-academia-color-pages@main/pages";
+const YU_GI_OH_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/yu-gi-oh-color-pages@main/pages";
 const GOLDEN_KAMUY_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/golden-kamuy-color-pages@main/pages";
 const HOSHIN_ENGI_IMAGE_BASE =
@@ -123,7 +133,7 @@ const TOKYO_GHOUL_IMAGE_BASE =
 const TOKYO_REVENGERS_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/tokyo-revengers-color-pages@main/pages";
 const FIRE_FORCE_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/fire-force-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/fire-force-color-pages@030a1faad9402701f27e8b7bebdbaa3585627427/pages";
 const VINLAND_SAGA_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/vinland-saga-color-pages@main/pages";
 const THE_PROMISED_NEVERLAND_IMAGE_BASE =
@@ -148,6 +158,38 @@ const SOLO_LEVELING_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/solo-leveling-color-pages@main/pages";
 const HAIKYU_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/haikyu-color-pages@main/pages";
+const ONE_PUNCH_MAN_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/one-punch-man-color-pages@main/pages";
+const SPY_X_FAMILY_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/spy-x-family-color-pages@main/pages";
+const FRIEREN_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/frieren-color-pages@main/pages";
+const GINTAMA_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/gintama-color-pages@main/pages";
+const MONSTER_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/monster-color-pages@main/pages";
+const VAGABOND_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/vagabond-color-pages@main/pages";
+const SLAM_DUNK_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/slam-dunk-color-pages@main/pages";
+const SAKAMOTO_DAYS_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/sakamoto-days-color-pages@main/pages";
+const KOMI_CANT_COMMUNICATE_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/komi-cant-communicate-color-pages@main/pages";
+const ASSASSINATION_CLASSROOM_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/assassination-classroom-color-pages@main/pages";
+const KAGURABACHI_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/kagurabachi-color-pages@main/pages";
+const DETECTIVE_CONAN_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/detective-conan-color-pages@main/pages";
+const DORAEMON_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/doraemon-color-pages@main/pages";
+const FIST_OF_THE_NORTH_STAR_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/fist-of-the-north-star-color-pages@main/pages";
+const SAILOR_MOON_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/sailor-moon-color-pages@main/pages";
+const INUYASHA_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/inuyasha-color-pages@main/pages";
 const KINGDOM_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/kingdom-color-pages@main/pages";
 const OSHI_NO_KO_IMAGE_BASE =
@@ -166,6 +208,7 @@ const GOODNIGHT_PUNPUN_IMAGE_BASE =
 const HAND_MANGAS: Manga[] = [
   {
     slug: "one-piece",
+    popularity: 1,
     color: "full",
     title: "One Piece",
     nativeTitle: "ワンピース",
@@ -197,10 +240,11 @@ const HAND_MANGAS: Manga[] = [
     posterPosition: "50% 20%",
     accent: "#ff3b4e",
     mark: "🏴‍☠️",
-    totalChapters: 1130,
+    totalChapters: 1153,
   },
   {
     slug: "naruto",
+    popularity: 2,
     color: "full",
     title: "Naruto",
     nativeTitle: "ナルト",
@@ -236,6 +280,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "bleach",
+    popularity: 7,
     color: "full",
     title: "Bleach",
     nativeTitle: "ブリーチ",
@@ -269,6 +314,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "demon-slayer",
+    popularity: 4,
     color: "partial",
     colorNote: "Colored where available — remaining chapters in HD black & white, full color coming soon",
     title: "Demon Slayer",
@@ -307,6 +353,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "death-note",
+    popularity: 8,
     color: "partial",
     colorNote: "Colored where available — remaining chapters in HD black & white, full color coming soon",
     title: "Death Note",
@@ -340,6 +387,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "fullmetal-alchemist",
+    popularity: 12,
     color: "none",
     colorNote: "Complete series in black & white — free to read",
     title: "Fullmetal Alchemist",
@@ -373,6 +421,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "attack-on-titan",
+    popularity: 5,
     color: "partial",
     colorNote: "Colored where available — remaining chapters in HD black & white, full color coming soon",
     title: "Attack on Titan",
@@ -409,6 +458,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "hunter-x-hunter",
+    popularity: 13,
     color: "full",
     title: "Hunter × Hunter",
     nativeTitle: "ハンター×ハンター",
@@ -440,10 +490,11 @@ const HAND_MANGAS: Manga[] = [
     ],
     accent: "#3fae7a",
     mark: "🎯",
-    totalChapters: 400,
+    totalChapters: 390,
   },
   {
     slug: "dragon-ball",
+    popularity: 3,
     color: "full",
     title: "Dragon Ball",
     nativeTitle: "ドラゴンボール",
@@ -477,10 +528,105 @@ const HAND_MANGAS: Manga[] = [
     posterPosition: "center",
     accent: "#f0872b",
     mark: "🐉",
-    totalChapters: 520,
+    totalChapters: 519,
+  },
+  {
+    slug: "kaguya-sama",
+    popularity: 39,
+    color: "full",
+    title: "Kaguya-sama: Love Is War",
+    nativeTitle: "かぐや様は告らせたい",
+    altTitles: [
+      "Kaguya-sama wa Kokurasetai",
+      "Kaguya-sama Color",
+      "Colorized Kaguya-sama",
+    ],
+    author: "Aka Akasaka",
+    publisher: "Shueisha",
+    genres: ["Romance", "Comedy", "Psychological"],
+    status: "live",
+    unit: "chapter",
+    year: 2015,
+    imageBase: KAGUYA_SAMA_IMAGE_BASE,
+    tagline:
+      "Aka Akasaka's battle-of-wits rom-com — in official full color, HD.",
+    synopsis:
+      "Read the colorized Kaguya-sama: Love Is War manga online for free — Aka Akasaka's genius rom-com in official full color instead of black and white. Student council president Miyuki Shirogane and vice-president Kaguya Shinomiya wage psychological warfare to make the other confess first, digitally colored in high definition. No signup, a fast mobile-friendly reader with zoom on every page.",
+    keywords: [
+      "colorized kaguya sama manga",
+      "kaguya sama color manga",
+      "kaguya sama colored manga",
+      "read kaguya sama in color",
+      "kaguya sama love is war full color",
+      "kaguya sama manga online free",
+    ],
+    accent: "#c2274e",
+    mark: "💘",
+    totalChapters: 44,
+  },
+  {
+    slug: "akira",
+    popularity: 48,
+    color: "full",
+    title: "Akira",
+    nativeTitle: "アキラ",
+    altTitles: ["Akira Color", "Colorized Akira", "Akira Full Color Edition"],
+    author: "Katsuhiro Otomo",
+    publisher: "Kodansha",
+    genres: ["Sci-Fi", "Action", "Cyberpunk", "Seinen"],
+    status: "live",
+    unit: "chapter",
+    year: 1982,
+    imageBase: AKIRA_IMAGE_BASE,
+    tagline:
+      "Katsuhiro Otomo's cyberpunk masterpiece — the official full-color edition, HD.",
+    synopsis:
+      "Read the colorized Akira manga online for free — Katsuhiro Otomo's legendary cyberpunk epic in the official full-color edition instead of black and white. Neo-Tokyo, Kaneda, Tetsuo and the psychic experiment that ends a city, digitally colored in high definition. No signup, a fast mobile-friendly reader with zoom on every page.",
+    keywords: [
+      "colorized akira manga",
+      "akira color manga",
+      "akira colored manga",
+      "read akira in color",
+      "akira full color edition",
+      "akira manga online free",
+    ],
+    accent: "#d02a2a",
+    mark: "🏍️",
+    totalChapters: 38,
+  },
+  {
+    slug: "yu-gi-oh",
+    popularity: 21,
+    color: "full",
+    title: "Yu-Gi-Oh!",
+    nativeTitle: "遊☆戯☆王",
+    altTitles: ["Yugioh", "Yu Gi Oh Color", "Colorized Yu-Gi-Oh!"],
+    author: "Kazuki Takahashi",
+    publisher: "Shueisha",
+    genres: ["Action", "Supernatural", "Games"],
+    status: "live",
+    unit: "chapter",
+    year: 1996,
+    imageBase: YU_GI_OH_IMAGE_BASE,
+    tagline:
+      "Kazuki Takahashi's dark game classic — in official full color, HD.",
+    synopsis:
+      "Read the colorized Yu-Gi-Oh! manga online for free — Kazuki Takahashi's classic in official full color instead of black and white. Yugi Mutou solves the Millennium Puzzle and the Pharaoh's dark games begin, digitally colored in high definition. No signup, a fast mobile-friendly reader with zoom on every page.",
+    keywords: [
+      "colorized yu gi oh manga",
+      "yu gi oh color manga",
+      "yu gi oh colored manga",
+      "read yu gi oh in color",
+      "yugioh full color",
+      "yu gi oh manga online free",
+    ],
+    accent: "#7a3fb8",
+    mark: "🎴",
+    totalChapters: 42,
   },
   {
     slug: "golden-kamuy",
+    popularity: 34,
     color: "full",
     title: "Golden Kamuy",
     nativeTitle: "ゴールデンカムイ",
@@ -513,10 +659,11 @@ const HAND_MANGAS: Manga[] = [
     posterPosition: "center",
     accent: "#c8a24a",
     mark: "🐻",
-    totalChapters: 126,
+    totalChapters: 10,
   },
   {
     slug: "hoshin-engi",
+    popularity: 65,
     color: "full",
     title: "Hoshin Engi",
     nativeTitle: "封神演義",
@@ -548,10 +695,11 @@ const HAND_MANGAS: Manga[] = [
     ],
     accent: "#b5642e",
     mark: "🏯",
-    totalChapters: 50,
+    totalChapters: 46,
   },
   {
     slug: "chainsaw-man",
+    popularity: 18,
     color: "full",
     title: "Chainsaw Man",
     nativeTitle: "チェンソーマン",
@@ -584,6 +732,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "black-clover",
+    popularity: 40,
     color: "none",
     colorNote: "Complete series in black & white — free to read",
     title: "Black Clover",
@@ -609,10 +758,11 @@ const HAND_MANGAS: Manga[] = [
     ],
     accent: "#3dbb6b",
     mark: "🍀",
-    totalChapters: 392,
+    totalChapters: 373,
   },
   {
     slug: "rurouni-kenshin",
+    popularity: 26,
     color: "partial",
     colorNote: "Colored where available — remaining chapters in HD black & white, full color coming soon",
     title: "Rurouni Kenshin",
@@ -644,28 +794,39 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "my-hero-academia",
-    color: "none",
-    colorNote: "Black & white now — full-color edition coming soon",
+    popularity: 11,
+    color: "full",
+    colorNote: "A curated collection of fan-colored chapters — more added as colorists release them",
     title: "My Hero Academia",
     nativeTitle: "僕のヒーローアカデミア",
-    altTitles: ["Boku no Hero Academia", "MHA", "BNHA"],
+    altTitles: ["Boku no Hero Academia", "MHA", "BNHA", "My Hero Academia Color"],
     author: "Kōhei Horikoshi",
     publisher: "Shueisha",
     genres: ["Action", "Superhero", "Adventure"],
-    status: "coming-soon",
+    status: "live",
     unit: "chapter",
     year: 2014,
-    imageBase: "",
-    tagline: "Kōhei Horikoshi's superhero epic — black & white only, no color edition.",
+    imageBase: MY_HERO_ACADEMIA_IMAGE_BASE,
+    tagline:
+      "Kōhei Horikoshi's superhero epic — a growing collection of fan-colored chapters in full color, HD.",
     synopsis:
-      "My Hero Academia — Izuku Midoriya's journey from Quirkless boy to hero at U.A. High. No genuine colorized edition of this series exists yet, so it is listed here in black & white only; we do not have a color version.",
-    keywords: ["my hero academia manga", "boku no hero academia", "mha manga online"],
+      "Read My Hero Academia in color online for free — a curated collection of fan-colored chapters in HD full color. Izuku Midoriya's journey from Quirkless boy to hero at U.A. High, with every hosted chapter fully colored by fan colorists (72 chapters and growing — the collection spans key arcs from the Overhaul era through the Final War). Clearly labeled, no signup, a fast mobile-friendly reader with zoom on every page.",
+    keywords: [
+      "my hero academia colored manga",
+      "mha colored manga",
+      "my hero academia color",
+      "read my hero academia in color",
+      "boku no hero academia colored",
+      "my hero academia manga online free",
+    ],
+    poster: "/covers/my-hero-academia.jpg",
     accent: "#2ecc71",
     mark: "💥",
-    totalChapters: 430,
+    totalChapters: 72,
   },
   {
     slug: "jujutsu-kaisen",
+    popularity: 10,
     color: "full",
     title: "Jujutsu Kaisen",
     nativeTitle: "呪術廻戦",
@@ -688,29 +849,8 @@ const HAND_MANGAS: Manga[] = [
     totalChapters: 270,
   },
   {
-    slug: "spy-x-family",
-    color: "none",
-    colorNote: "Black & white now — full-color edition coming soon",
-    title: "Spy × Family",
-    nativeTitle: "スパイファミリー",
-    altTitles: ["Spy Family", "SxF"],
-    author: "Tatsuya Endo",
-    publisher: "Shueisha",
-    genres: ["Action", "Comedy", "Slice of Life"],
-    status: "coming-soon",
-    unit: "chapter",
-    year: 2019,
-    imageBase: "",
-    tagline: "Tatsuya Endo's spy-family comedy — black & white only, no complete color edition.",
-    synopsis:
-      "Spy × Family — spy Twilight, assassin Yor and telepath Anya as an undercover family. No complete colorized English edition exists, so it is listed here in black & white only; we do not have a full color version.",
-    keywords: ["spy x family manga", "spy family manga online", "spy x family black and white"],
-    accent: "#e67e22",
-    mark: "🕶️",
-    totalChapters: 100,
-  },
-  {
     slug: "berserk",
+    popularity: 19,
     color: "none",
     colorNote: "Complete series in black & white — free to read",
     title: "Berserk",
@@ -736,10 +876,11 @@ const HAND_MANGAS: Manga[] = [
     ],
     accent: "#8b0000",
     mark: "⚔️",
-    totalChapters: 374,
+    totalChapters: 384,
   },
   {
     slug: "dr-stone",
+    popularity: 45,
     color: "none",
     colorNote: "Complete series in black & white — free to read",
     title: "Dr. Stone",
@@ -765,10 +906,11 @@ const HAND_MANGAS: Manga[] = [
     ],
     accent: "#27ae60",
     mark: "🧪",
-    totalChapters: 232,
+    totalChapters: 229,
   },
   {
     slug: "mob-psycho-100",
+    popularity: 53,
     color: "none",
     colorNote: "Complete series in black & white — free to read",
     title: "Mob Psycho 100",
@@ -798,6 +940,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "blue-lock",
+    popularity: 41,
     color: "none",
     colorNote: "Black & white — free to read",
     title: "Blue Lock",
@@ -823,10 +966,11 @@ const HAND_MANGAS: Manga[] = [
     ],
     accent: "#2d6cdf",
     mark: "⚽",
-    totalChapters: 290,
+    totalChapters: 204,
   },
   {
     slug: "kaiju-no-8",
+    popularity: 54,
     color: "none",
     colorNote: "Complete run in black & white — free to read",
     title: "Kaiju No. 8",
@@ -856,6 +1000,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "hells-paradise",
+    popularity: 55,
     color: "none",
     colorNote: "Complete series in black & white — free to read",
     title: "Hell's Paradise: Jigokuraku",
@@ -885,6 +1030,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "dandadan",
+    popularity: 47,
     color: "none",
     colorNote: "Black & white — free to read",
     title: "Dandadan",
@@ -917,6 +1063,7 @@ const HAND_MANGAS: Manga[] = [
     // card. Its page renders the Parts as sections; the Part pages stay live at
     // their own URLs (already indexed), so no SEO is lost.
     slug: "jojos-bizarre-adventure",
+    popularity: 14,
     color: "full",
     title: "JoJo's Bizarre Adventure",
     nativeTitle: "ジョジョの奇妙な冒険",
@@ -959,6 +1106,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "tokyo-ghoul",
+    popularity: 22,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Tokyo Ghoul",
@@ -983,6 +1131,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "tokyo-revengers",
+    popularity: 36,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Tokyo Revengers",
@@ -1007,11 +1156,12 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "fire-force",
-    color: "none",
-    colorNote: "Complete series in black & white — colorized version coming soon",
+    popularity: 51,
+    color: "partial",
+    colorNote: "Colored where available — remaining chapters in HD black & white, full color coming soon",
     title: "Fire Force",
     nativeTitle: "炎炎ノ消防隊",
-    altTitles: ["Enen no Shouboutai", "Fire Force Manga"],
+    altTitles: ["Enen no Shouboutai", "Fire Force Manga", "Fire Force Color"],
     author: "Atsushi Ohkubo",
     publisher: "Kodansha",
     genres: ["Action", "Supernatural", "Sci-Fi"],
@@ -1020,10 +1170,10 @@ const HAND_MANGAS: Manga[] = [
     year: 2015,
     imageBase: FIRE_FORCE_IMAGE_BASE,
     tagline:
-      "Atsushi Ohkubo's Fire Force — the complete manga in HD black & white, free.",
+      "Atsushi Ohkubo's Fire Force — with a fan-colored run of chapters in full color.",
     synopsis:
-      "Read Fire Force online free — the complete manga in high-quality black & white. In a world where people spontaneously combust into rampaging Infernals, third-generation pyrokinetic Shinra Kusakabe joins Special Fire Force Company 8 to burn away a burning conspiracy, in Atsushi Ohkubo's blazing action epic. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
-    keywords: ["fire force manga online free", "read fire force manga", "fire force manga black and white", "fire force full manga", "fire force manga free"],
+      "Read Fire Force online free — the complete manga, now with dozens of chapters in fan-made full color and the rest in high-quality black & white. In a world where people spontaneously combust into rampaging Infernals, third-generation pyrokinetic Shinra Kusakabe joins Special Fire Force Company 8 to burn away a burning conspiracy, in Atsushi Ohkubo's blazing action epic. Colored chapters are clearly marked; every page loads in a fast mobile reader with pinch-to-zoom. No signup, no paywall.",
+    keywords: ["fire force colored manga", "fire force color", "read fire force in color", "fire force manga online free", "read fire force manga", "fire force full manga"],
     poster: "/covers/fire-force.jpg",
     accent: "#d94f1a",
     mark: "🔥",
@@ -1031,6 +1181,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "vinland-saga",
+    popularity: 29,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Vinland Saga",
@@ -1055,6 +1206,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "the-promised-neverland",
+    popularity: 33,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "The Promised Neverland",
@@ -1079,6 +1231,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "fairy-tail",
+    popularity: 27,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Fairy Tail",
@@ -1103,6 +1256,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "yu-yu-hakusho",
+    popularity: 28,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Yu Yu Hakusho",
@@ -1127,6 +1281,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "blue-exorcist",
+    popularity: 58,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Blue Exorcist",
@@ -1151,6 +1306,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "food-wars",
+    popularity: 56,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Food Wars!",
@@ -1171,10 +1327,11 @@ const HAND_MANGAS: Manga[] = [
     poster: "/covers/food-wars.jpg",
     accent: "#e0a11a",
     mark: "🍳",
-    totalChapters: 315,
+    totalChapters: 240,
   },
   {
     slug: "seven-deadly-sins",
+    popularity: 37,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "The Seven Deadly Sins",
@@ -1199,6 +1356,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "world-trigger",
+    popularity: 59,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "World Trigger",
@@ -1223,6 +1381,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "mashle",
+    popularity: 61,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Mashle: Magic and Muscles",
@@ -1247,6 +1406,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "20th-century-boys",
+    popularity: 43,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "20th Century Boys",
@@ -1271,11 +1431,11 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "solo-leveling",
-    color: "none",
-    colorNote: "Complete series in black & white — colorized version coming soon",
+    popularity: 31,
+    color: "full",
     title: "Solo Leveling",
     nativeTitle: "나 혼자만 레벨업",
-    altTitles: ["Na Honjaman Level Up", "Only I Level Up", "Solo Leveling Manhwa"],
+    altTitles: ["Na Honjaman Level Up", "Only I Level Up", "Solo Leveling Manhwa", "Solo Leveling Color"],
     author: "Chugong",
     publisher: "D&C Media",
     genres: ["Action", "Fantasy", "Adventure"],
@@ -1284,17 +1444,18 @@ const HAND_MANGAS: Manga[] = [
     year: 2018,
     imageBase: SOLO_LEVELING_IMAGE_BASE,
     tagline:
-      "Chugong's Solo Leveling — the complete manga in HD black & white, free.",
+      "Chugong's record-breaking hunter epic — the complete webtoon in native full color, HD.",
     synopsis:
-      "Read Solo Leveling online free — the complete manga in high-quality black & white. Weakest-hunter Sung Jinwoo gains a mysterious leveling system after a deadly dungeon and rises from the bottom to the most powerful hunter alive, in Chugong's record-breaking action fantasy. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
-    keywords: ["solo leveling manga online free", "read solo leveling manga", "solo leveling manga black and white", "solo leveling full manga", "solo leveling manga free"],
+      "Read the Solo Leveling manhwa online for free in full color — the complete webtoon, natively produced in color on every page. Weakest-hunter Sung Jinwoo gains a mysterious leveling system after a deadly dungeon and rises from the bottom to the most powerful hunter alive, in Chugong's record-breaking action fantasy. All chapters in HD full color with a fast mobile-friendly reader and zoom on every page. No signup, no paywall.",
+    keywords: ["solo leveling colored", "solo leveling full color", "solo leveling manhwa color", "read solo leveling in color", "solo leveling manga online free", "solo leveling webtoon free"],
     poster: "/covers/solo-leveling.jpg",
     accent: "#5b21b6",
     mark: "⚔️",
-    totalChapters: 201,
+    totalChapters: 200,
   },
   {
     slug: "haikyu",
+    popularity: 35,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Haikyu!!",
@@ -1318,7 +1479,407 @@ const HAND_MANGAS: Manga[] = [
     totalChapters: 402,
   },
   {
+    slug: "one-punch-man",
+    popularity: 23,
+    color: "partial",
+    colorNote: "Chapters 100–221 in fan-made full color — earlier chapters in HD black & white",
+    title: "One Punch Man",
+    nativeTitle: "ワンパンマン",
+    altTitles: ["Onepunch-Man", "OPM", "One Punch Man Color"],
+    author: "ONE & Yusuke Murata",
+    publisher: "Shueisha",
+    genres: ["Action", "Comedy", "Superhero"],
+    status: "live",
+    unit: "chapter",
+    year: 2012,
+    imageBase: ONE_PUNCH_MAN_IMAGE_BASE,
+    tagline:
+      "ONE's One Punch Man — chapters 100–221 in full color, the rest in HD black & white.",
+    synopsis:
+      "Read One Punch Man online free — chapters 100–221 in fan-made full color and the earlier chapters in high-quality black & white. Saitama, the hero who ends every fight with a single punch, hunts for an opponent worth the effort in ONE and Yusuke Murata's gloriously drawn action-comedy. Colored chapters are clearly marked; every page loads in a fast mobile reader with pinch-to-zoom. No signup, no paywall.",
+    keywords: ["one punch man colored manga", "one punch man color", "read one punch man in color", "one punch man manga online free", "opm manga free"],
+    poster: "/covers/one-punch-man.jpg",
+    accent: "#e0b310",
+    mark: "👊",
+    totalChapters: 220,
+  },
+  {
+    slug: "spy-x-family",
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Spy x Family",
+    nativeTitle: "SPY×FAMILY",
+    altTitles: ["SpyFamily", "Spy Family Manga"],
+    author: "Tatsuya Endo",
+    publisher: "Shueisha",
+    genres: ["Action", "Comedy", "Slice of Life"],
+    status: "live",
+    unit: "chapter",
+    year: 2019,
+    imageBase: SPY_X_FAMILY_IMAGE_BASE,
+    tagline:
+      "Tatsuya Endo's Spy x Family — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Spy x Family online free — the complete manga in high-quality black & white. Master spy Twilight builds a fake family for a mission — not knowing his adopted daughter reads minds and his wife is an assassin — in Tatsuya Endo's charm-bomb hit. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["spy x family manga online free", "read spy x family manga", "spy x family manga black and white", "spy x family full manga", "spy x family manga free"],
+    poster: "/covers/spy-x-family.jpg",
+    accent: "#3f7d5c",
+    mark: "🕵️",
+    totalChapters: 117,
+  },
+  {
+    slug: "frieren",
+    popularity: 42,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Frieren: Beyond Journey's End",
+    nativeTitle: "葬送のフリーレン",
+    altTitles: ["Sousou no Frieren", "Frieren Manga"],
+    author: "Kanehito Yamada & Tsukasa Abe",
+    publisher: "Shogakukan",
+    genres: ["Fantasy", "Adventure", "Drama"],
+    status: "live",
+    unit: "chapter",
+    year: 2020,
+    imageBase: FRIEREN_IMAGE_BASE,
+    tagline:
+      "Kanehito Yamada & Tsukasa Abe's Frieren: Beyond Journey's End — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Frieren: Beyond Journey's End online free — the complete manga in high-quality black & white. Elf mage Frieren outlives the hero party that defeated the Demon King and walks the long road to understand the humans she lost, in the beloved, quietly devastating fantasy. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["frieren: beyond journey's end manga online free", "read frieren: beyond journey's end manga", "frieren: beyond journey's end manga black and white", "frieren: beyond journey's end full manga", "frieren: beyond journey's end manga free"],
+    poster: "/covers/frieren.jpg",
+    accent: "#7fa6c9",
+    mark: "🧝",
+    totalChapters: 147,
+  },
+  {
+    slug: "gintama",
+    popularity: 38,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Gintama",
+    nativeTitle: "銀魂",
+    altTitles: ["Gin Tama", "Silver Soul"],
+    author: "Hideaki Sorachi",
+    publisher: "Shueisha",
+    genres: ["Action", "Comedy", "Sci-Fi"],
+    status: "live",
+    unit: "chapter",
+    year: 2003,
+    imageBase: GINTAMA_IMAGE_BASE,
+    tagline:
+      "Hideaki Sorachi's Gintama — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Gintama online free — the complete manga in high-quality black & white. Odd-jobs samurai Gintoki takes any gig in an alien-occupied Edo, in Hideaki Sorachi's legendary genre-demolishing comedy that can turn heartbreaking on a page. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["gintama manga online free", "read gintama manga", "gintama manga black and white", "gintama full manga", "gintama manga free"],
+    poster: "/covers/gintama.jpg",
+    accent: "#b7c3d0",
+    mark: "🍡",
+    totalChapters: 697,
+  },
+  {
+    slug: "monster",
+    popularity: 32,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Monster",
+    nativeTitle: "MONSTER",
+    altTitles: ["Naoki Urasawa's Monster"],
+    author: "Naoki Urasawa",
+    publisher: "Shogakukan",
+    genres: ["Thriller", "Mystery", "Psychological", "Seinen"],
+    status: "live",
+    unit: "chapter",
+    year: 1994,
+    imageBase: MONSTER_IMAGE_BASE,
+    tagline:
+      "Naoki Urasawa's Monster — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Monster online free — the complete manga in high-quality black & white. Brilliant surgeon Kenzo Tenma saves a boy's life and spends the rest of his own hunting the monster that boy becomes, in Naoki Urasawa's masterpiece of suspense. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["monster manga online free", "read monster manga", "monster manga black and white", "monster full manga", "monster manga free"],
+    poster: "/covers/monster.jpg",
+    accent: "#5c5c66",
+    mark: "🕯️",
+    totalChapters: 162,
+  },
+  {
+    slug: "vagabond",
+    popularity: 20,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Vagabond",
+    nativeTitle: "バガボンド",
+    altTitles: ["Vagabond Manga", "Musashi"],
+    author: "Takehiko Inoue",
+    publisher: "Kodansha",
+    genres: ["Action", "Historical", "Seinen"],
+    status: "live",
+    unit: "chapter",
+    year: 1998,
+    imageBase: VAGABOND_IMAGE_BASE,
+    tagline:
+      "Takehiko Inoue's Vagabond — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Vagabond online free — the complete manga in high-quality black & white. Takezo becomes Miyamoto Musashi, sword saint, one duel at a time — Takehiko Inoue's ink-brushed epic of violence and enlightenment. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["vagabond manga online free", "read vagabond manga", "vagabond manga black and white", "vagabond full manga", "vagabond manga free"],
+    poster: "/covers/vagabond.jpg",
+    accent: "#4a3527",
+    mark: "⚔️",
+    totalChapters: 327,
+  },
+  {
+    slug: "slam-dunk",
+    popularity: 9,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Slam Dunk",
+    nativeTitle: "SLAM DUNK",
+    altTitles: ["Slam Dunk Manga"],
+    author: "Takehiko Inoue",
+    publisher: "Shueisha",
+    genres: ["Sports", "Comedy", "Drama"],
+    status: "live",
+    unit: "chapter",
+    year: 1990,
+    imageBase: SLAM_DUNK_IMAGE_BASE,
+    tagline:
+      "Takehiko Inoue's Slam Dunk — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Slam Dunk online free — the complete manga in high-quality black & white. Delinquent Hanamichi Sakuragi joins the basketball team for a girl and falls for the game itself, in Takehiko Inoue's all-time sports classic. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["slam dunk manga online free", "read slam dunk manga", "slam dunk manga black and white", "slam dunk full manga", "slam dunk manga free"],
+    poster: "/covers/slam-dunk.jpg",
+    accent: "#c4372c",
+    mark: "🏀",
+    totalChapters: 276,
+  },
+  {
+    slug: "sakamoto-days",
+    popularity: 52,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Sakamoto Days",
+    nativeTitle: "サカモトデイズ",
+    altTitles: ["Sakamoto Days Manga"],
+    author: "Yuto Suzuki",
+    publisher: "Shueisha",
+    genres: ["Action", "Comedy"],
+    status: "live",
+    unit: "chapter",
+    year: 2020,
+    imageBase: SAKAMOTO_DAYS_IMAGE_BASE,
+    tagline:
+      "Yuto Suzuki's Sakamoto Days — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Sakamoto Days online free — the complete manga in high-quality black & white. Legendary hitman Taro Sakamoto retired for love, got fat, and runs a corner store — until the underworld comes calling, in Yuto Suzuki's inventive action hit. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["sakamoto days manga online free", "read sakamoto days manga", "sakamoto days manga black and white", "sakamoto days full manga", "sakamoto days manga free"],
+    poster: "/covers/sakamoto-days.jpg",
+    accent: "#d97b29",
+    mark: "🏪",
+    totalChapters: 270,
+  },
+  {
+    slug: "komi-cant-communicate",
+    popularity: 49,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Komi Can't Communicate",
+    nativeTitle: "古見さんは、コミュ症です。",
+    altTitles: ["Komi-san wa Comyushou desu", "Komi San"],
+    author: "Tomohito Oda",
+    publisher: "Shogakukan",
+    genres: ["Comedy", "Romance", "Slice of Life"],
+    status: "live",
+    unit: "chapter",
+    year: 2016,
+    imageBase: KOMI_CANT_COMMUNICATE_IMAGE_BASE,
+    tagline:
+      "Tomohito Oda's Komi Can't Communicate — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Komi Can't Communicate online free — the complete manga in high-quality black & white. School goddess Komi can't speak to anyone — classmate Tadano becomes her interpreter on a mission to make 100 friends, in Tomohito Oda's warm-hearted comedy. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["komi can't communicate manga online free", "read komi can't communicate manga", "komi can't communicate manga black and white", "komi can't communicate full manga", "komi can't communicate manga free"],
+    poster: "/covers/komi-cant-communicate.jpg",
+    accent: "#c9679a",
+    mark: "💬",
+    totalChapters: 496,
+  },
+  {
+    slug: "assassination-classroom",
+    popularity: 44,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Assassination Classroom",
+    nativeTitle: "暗殺教室",
+    altTitles: ["Ansatsu Kyoushitsu", "AssClass"],
+    author: "Yusei Matsui",
+    publisher: "Shueisha",
+    genres: ["Action", "Comedy", "School"],
+    status: "live",
+    unit: "chapter",
+    year: 2012,
+    imageBase: ASSASSINATION_CLASSROOM_IMAGE_BASE,
+    tagline:
+      "Yusei Matsui's Assassination Classroom — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Assassination Classroom online free — the complete manga in high-quality black & white. Class 3-E must assassinate their tentacled, Mach-20 teacher before graduation — the same teacher saving their lives, in Yusei Matsui's ingenious classroom thriller. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["assassination classroom manga online free", "read assassination classroom manga", "assassination classroom manga black and white", "assassination classroom full manga", "assassination classroom manga free"],
+    poster: "/covers/assassination-classroom.jpg",
+    accent: "#e8c832",
+    mark: "🐙",
+    totalChapters: 180,
+  },
+  {
+    slug: "kagurabachi",
+    popularity: 64,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Kagurabachi",
+    nativeTitle: "カグラバチ",
+    altTitles: ["Kagura Bachi"],
+    author: "Takeru Hokazono",
+    publisher: "Shueisha",
+    genres: ["Action", "Fantasy"],
+    status: "live",
+    unit: "chapter",
+    year: 2023,
+    imageBase: KAGURABACHI_IMAGE_BASE,
+    tagline:
+      "Takeru Hokazono's Kagurabachi — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Kagurabachi online free — the complete manga in high-quality black & white. Chihiro carries his murdered father's last enchanted blade toward revenge, in Takeru Hokazono's breakout dark-sorcery action hit. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["kagurabachi manga online free", "read kagurabachi manga", "kagurabachi manga black and white", "kagurabachi full manga", "kagurabachi manga free"],
+    poster: "/covers/kagurabachi.jpg",
+    accent: "#2d3a8c",
+    mark: "🗡️",
+    totalChapters: 124,
+  },
+  {
+    slug: "detective-conan",
+    popularity: 6,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Detective Conan",
+    nativeTitle: "名探偵コナン",
+    altTitles: ["Case Closed", "Meitantei Conan"],
+    author: "Gosho Aoyama",
+    publisher: "Shogakukan",
+    genres: ["Mystery", "Detective", "Comedy"],
+    status: "live",
+    unit: "chapter",
+    year: 1994,
+    imageBase: DETECTIVE_CONAN_IMAGE_BASE,
+    tagline:
+      "Gosho Aoyama's Detective Conan — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Detective Conan online free — the complete manga in high-quality black & white. High-school detective Shinichi Kudo is shrunk to a child by a poison and solves murders as Conan Edogawa while hunting the Black Organization, in the best-selling mystery manga of all time. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["detective conan manga online free", "read detective conan manga", "detective conan manga black and white", "detective conan full manga", "detective conan manga free"],
+    poster: "/covers/detective-conan.jpg",
+    accent: "#1f4fa3",
+    mark: "🔍",
+    totalChapters: 1166,
+  },
+  {
+    slug: "doraemon",
+    popularity: 17,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Doraemon",
+    nativeTitle: "ドラえもん",
+    altTitles: ["Doraemon Manga"],
+    author: "Fujiko F. Fujio",
+    publisher: "Shogakukan",
+    genres: ["Comedy", "Sci-Fi", "Slice of Life"],
+    status: "live",
+    unit: "chapter",
+    year: 1969,
+    imageBase: DORAEMON_IMAGE_BASE,
+    tagline:
+      "Fujiko F. Fujio's Doraemon — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Doraemon online free — the complete manga in high-quality black & white. A robotic cat from the 22nd century and his gadget-filled pocket look after hapless Nobita, in the beloved classic that defined childhood across Asia. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["doraemon manga online free", "read doraemon manga", "doraemon manga black and white", "doraemon full manga", "doraemon manga free"],
+    poster: "/covers/doraemon.jpg",
+    accent: "#2f9fd0",
+    mark: "🐱",
+    totalChapters: 17,
+  },
+  {
+    slug: "fist-of-the-north-star",
+    popularity: 16,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Fist of the North Star",
+    nativeTitle: "北斗の拳",
+    altTitles: ["Hokuto no Ken", "Ken il guerriero"],
+    author: "Buronson & Tetsuo Hara",
+    publisher: "Shueisha",
+    genres: ["Action", "Post-Apocalyptic", "Martial Arts"],
+    status: "live",
+    unit: "chapter",
+    year: 1983,
+    imageBase: FIST_OF_THE_NORTH_STAR_IMAGE_BASE,
+    tagline:
+      "Buronson & Tetsuo Hara's Fist of the North Star — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Fist of the North Star online free — the complete manga in high-quality black & white. Kenshiro walks a nuclear wasteland dealing death with the assassin art of Hokuto Shinken, in the manga that set the template for shonen action. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["fist of the north star manga online free", "read fist of the north star manga", "fist of the north star manga black and white", "fist of the north star full manga", "fist of the north star manga free"],
+    poster: "/covers/fist-of-the-north-star.jpg",
+    accent: "#8b1e1e",
+    mark: "💥",
+    totalChapters: 245,
+  },
+  {
+    slug: "sailor-moon",
+    popularity: 24,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Sailor Moon",
+    nativeTitle: "美少女戦士セーラームーン",
+    altTitles: ["Bishoujo Senshi Sailor Moon", "Pretty Guardian Sailor Moon"],
+    author: "Naoko Takeuchi",
+    publisher: "Kodansha",
+    genres: ["Magical Girl", "Romance", "Fantasy"],
+    status: "live",
+    unit: "chapter",
+    year: 1991,
+    imageBase: SAILOR_MOON_IMAGE_BASE,
+    tagline:
+      "Naoko Takeuchi's Sailor Moon — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Sailor Moon online free — the complete manga in high-quality black & white. Usagi Tsukino transforms into Sailor Moon and leads the Sailor Guardians against the forces threatening Earth, in the series that created the modern magical-girl genre. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["sailor moon manga online free", "read sailor moon manga", "sailor moon manga black and white", "sailor moon full manga", "sailor moon manga free"],
+    poster: "/covers/sailor-moon.jpg",
+    accent: "#d05a9c",
+    mark: "🌙",
+    totalChapters: 59,
+  },
+  {
+    slug: "inuyasha",
+    popularity: 25,
+    color: "none",
+    colorNote: "Complete series in black & white — colorized version coming soon",
+    title: "Inuyasha",
+    nativeTitle: "犬夜叉",
+    altTitles: ["InuYasha", "Inu Yasha"],
+    author: "Rumiko Takahashi",
+    publisher: "Shogakukan",
+    genres: ["Adventure", "Fantasy", "Romance"],
+    status: "live",
+    unit: "chapter",
+    year: 1996,
+    imageBase: INUYASHA_IMAGE_BASE,
+    tagline:
+      "Rumiko Takahashi's Inuyasha — the complete manga in HD black & white, free.",
+    synopsis:
+      "Read Inuyasha online free — the complete manga in high-quality black & white. Modern schoolgirl Kagome falls through a well into the Sengoku era and joins half-demon Inuyasha to gather the shards of the Shikon Jewel, in Rumiko Takahashi's global classic. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+    keywords: ["inuyasha manga online free", "read inuyasha manga", "inuyasha manga black and white", "inuyasha full manga", "inuyasha manga free"],
+    poster: "/covers/inuyasha.jpg",
+    accent: "#b04a2a",
+    mark: "🐺",
+    totalChapters: 558,
+  },
+  {
     slug: "kingdom",
+    popularity: 15,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Kingdom",
@@ -1343,6 +1904,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "oshi-no-ko",
+    popularity: 46,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Oshi no Ko",
@@ -1367,6 +1929,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "black-butler",
+    popularity: 50,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Black Butler",
@@ -1391,6 +1954,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "soul-eater",
+    popularity: 60,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Soul Eater",
@@ -1415,6 +1979,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "noragami",
+    popularity: 62,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Noragami",
@@ -1439,6 +2004,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "goblin-slayer",
+    popularity: 63,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Goblin Slayer",
@@ -1463,6 +2029,7 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "goodnight-punpun",
+    popularity: 57,
     color: "none",
     colorNote: "Complete series in black & white — colorized version coming soon",
     title: "Goodnight Punpun",
