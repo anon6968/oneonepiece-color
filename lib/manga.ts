@@ -72,144 +72,147 @@ export interface Manga {
   parts?: { slug: string; title: string }[];
 }
 
-const OP_IMAGE_BASE = (
-  process.env.NEXT_PUBLIC_IMAGE_BASE ||
-  "https://cdn.jsdelivr.net/gh/anon6968/op-color-pages@main/pages"
-).replace(/\/$/, "");
+const OP_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/op-color-pages@adfcd0edba976af3e1e6da6d3d1ece5919b429be/pages";
 
 const BLEACH_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/bleach-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/bleach-color-pages@96ecf918579e1628ebcf1930bcc41e974f037bec/pages";
 const NARUTO_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/naruto-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/naruto-color-pages@c73b899122fa02a02fe4912ec7b3dcc52bf6ae2f/pages";
 const CHAINSAW_MAN_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/chainsaw-man-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/chainsaw-man-color-pages@6eb27077c6e16c9426f1f034dc3d97b31a25d0eb/pages";
 const HUNTER_X_HUNTER_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/hunter-x-hunter-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/hunter-x-hunter-color-pages@c5573ed36aef1ba6ca54a3399c9602bb886defaf/pages";
 const DRAGON_BALL_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/dragon-ball-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/dragon-ball-color-pages@73303cc360da3f338a7175fc954dadd9530f8926/pages";
 const KAGUYA_SAMA_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/kaguya-sama-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/kaguya-sama-color-pages@01ab0fcff6ba764a192809f0e07b7668074d6f1f/pages";
 const AKIRA_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/akira-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/akira-color-pages@e1a39f64cc309af0d63a3974e72a84e8276fa9ad/pages";
 const MY_HERO_ACADEMIA_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/my-hero-academia-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/my-hero-academia-color-pages@099535ebeea799cd517ae47dac3c4b690fd9dfb6/pages";
 const YU_GI_OH_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/yu-gi-oh-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/yu-gi-oh-color-pages@e457545b3a9480c7b34eabf5c21fbf928a468d85/pages";
 const GOLDEN_KAMUY_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/golden-kamuy-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/golden-kamuy-color-pages@b81c5602f678638c1811504277d52c460d7e87e8/pages";
 const HOSHIN_ENGI_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/hoshin-engi-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/hoshin-engi-color-pages@902761c9550208afb1de1743e8f91546d163ebd0/pages";
 const DEMON_SLAYER_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/demon-slayer-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/demon-slayer-color-pages@734bd93a91dd6b5cd8322632b8e6fe2a24495ee2/pages";
 const DEATH_NOTE_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/death-note-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/death-note-color-pages@eeec1f92d5edca9662420784e79b06c75031b54d/pages";
 const RUROUNI_KENSHIN_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/rurouni-kenshin-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/rurouni-kenshin-color-pages@ee8e87314e75cdf123b2cc9b1271804e5e4f68f0/pages";
 const ATTACK_ON_TITAN_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/attack-on-titan-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/attack-on-titan-color-pages@75af8ad37fc0e0a5335f7a565422165216421b57/pages";
 const JUJUTSU_KAISEN_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/jujutsu-kaisen-color-pages@a830ecbb20b6ea5866cb9a32de833e6949fb1bf2/pages";
 const FULLMETAL_ALCHEMIST_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/fullmetal-alchemist-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/fullmetal-alchemist-color-pages@66b055f5792eb0445d4a1399bcc0b91d957c62d2/pages";
 const BERSERK_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/berserk-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/berserk-color-pages@507133bdbf774b16ee44030c34eb3c6dc69dcfe7/pages";
 const MOB_PSYCHO_100_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/mob-psycho-100-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/mob-psycho-100-color-pages@bb8e841fa93c34127a64be8f9e5e750a94fc4207/pages";
 const DR_STONE_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/dr-stone-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/dr-stone-color-pages@60069ceec68740fce3c4cf930972c93d3a0ae461/pages";
 const BLACK_CLOVER_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/black-clover-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/black-clover-color-pages@704f558d49750d19fa73eb3c937ba7022ff60a08/pages";
 const BLUE_LOCK_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/blue-lock-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/blue-lock-color-pages@b5ec6fdbfb04e8a6a0e45c3d11d505e051a23b02/pages";
 const KAIJU_NO_8_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/kaiju-no-8-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/kaiju-no-8-color-pages@40d409dd29495fed3e0398c6fbbafb616b9384b3/pages";
 const HELLS_PARADISE_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/hells-paradise-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/hells-paradise-color-pages@1e7c33b2ca36ba2d0e8098db25ef93ec24eb170d/pages";
 const DANDADAN_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/dandadan-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/dandadan-color-pages@ccba2e79d0d826b565a34b1a91a915acadb5f1f4/pages";
 
 const TOKYO_GHOUL_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/tokyo-ghoul-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/tokyo-ghoul-color-pages@757c6b882385b52e02e9c154fdbf0f3fa9e6c067/pages";
 const TOKYO_REVENGERS_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/tokyo-revengers-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/tokyo-revengers-color-pages@c4eddf52c09ad7e6cc8d0be0cbdd54dbfeba8435/pages";
 const FIRE_FORCE_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/fire-force-color-pages@030a1faad9402701f27e8b7bebdbaa3585627427/pages";
 const VINLAND_SAGA_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/vinland-saga-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/vinland-saga-color-pages@d899886b3219258d31806e21ea75725b2f0ba36e/pages";
 const THE_PROMISED_NEVERLAND_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/the-promised-neverland-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/the-promised-neverland-color-pages@d3f6755aaa62a3166bed0185e42956a0d5b134b9/pages";
 const FAIRY_TAIL_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/fairy-tail-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/fairy-tail-color-pages@3a64b6a62e80d3d7956459dc6d272fad93d980a3/pages";
 const YU_YU_HAKUSHO_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/yu-yu-hakusho-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/yu-yu-hakusho-color-pages@b94b9a48b5989ccb81d8e2a1a3cdd7751fbad5a0/pages";
 const BLUE_EXORCIST_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/blue-exorcist-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/blue-exorcist-color-pages@3297345d746cbcda9abb9ee5e3c90b913a98531c/pages";
 const FOOD_WARS_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/food-wars-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/food-wars-color-pages@45d20d977eb776a26b06946e755d578dfbf594b7/pages";
 const SEVEN_DEADLY_SINS_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/seven-deadly-sins-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/seven-deadly-sins-color-pages@0992684cbe0796ff6b40b80168821e1d78085c6e/pages";
 const WORLD_TRIGGER_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/world-trigger-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/world-trigger-color-pages@e8fe27d49f84bdeff71eba7ee5d659964f0755c3/pages";
 const MASHLE_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/mashle-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/mashle-color-pages@26f43424412d7fd2c1d60c86e4daee48b378688e/pages";
 const N20TH_CENTURY_BOYS_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/20th-century-boys-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/20th-century-boys-color-pages@c0d92493afcfcd1df2fa6c1827dbfd0cc3cbe489/pages";
 const SOLO_LEVELING_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/solo-leveling-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/solo-leveling-color-pages@8fbdf1ff66b1c50277d96640ab9f23863e94616d/pages";
 const HAIKYU_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/haikyu-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/haikyu-official-color-archive-color-pages@1dbcbb09bee5fe46ea9d52cf028760ca9f1ac6be/pages";
 const ONE_PUNCH_MAN_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/one-punch-man-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/one-punch-man-color-pages@8e09f612651d27c0eb26faff84691062b72fa0f5/pages";
 const SPY_X_FAMILY_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/spy-x-family-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/spy-x-family-color-pages@11634d21f66a2e851e687eeaaafb54eb69116694/pages";
+const PARASYTE_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/parasyte-full-color-archive-color-pages@fe1545cb03508ddb66b0133e0f65101474a3f002/pages";
+const DARLING_IN_THE_FRANXX_IMAGE_BASE =
+  "https://cdn.jsdelivr.net/gh/anon6968/darling-in-the-franxx-fan-color-archive-color-pages@a9620dc3bd59c8cc6d5a47a26e2beaa4fc58cc54/pages";
 const FRIEREN_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/frieren-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/frieren-color-pages@91c9a48e3fab0df74217f0095d96374b98074ce2/pages";
 const GINTAMA_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/gintama-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/gintama-color-pages@9e16bb9b8f70f5b34349f3d604d38c04fe03826c/pages";
 const MONSTER_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/monster-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/monster-color-pages@ac795cbca48c239b759ed874f47df1aa9ba59d76/pages";
 const VAGABOND_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/vagabond-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/vagabond-color-pages@8ce29de974b139eea00b00acad19cfa636e10dcc/pages";
 const SLAM_DUNK_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/slam-dunk-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/slam-dunk-color-pages@ac6a1e2653f7821717891516db079b2d9f80f405/pages";
 const SAKAMOTO_DAYS_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/sakamoto-days-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/sakamoto-days-color-pages@889883565be752774059cfb218f83c20f096ed69/pages";
 const KOMI_CANT_COMMUNICATE_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/komi-cant-communicate-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/komi-cant-communicate-color-pages@4bc0fb37e1ed738457d0c5cea382c7ad6f873547/pages";
 const ASSASSINATION_CLASSROOM_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/assassination-classroom-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/assassination-classroom-color-pages@d2b1c5150a442026371f42f97d4d9bd99195ecf5/pages";
 const KAGURABACHI_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/kagurabachi-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/kagurabachi-color-pages@e73408e0939095aef330c4cbad5365e02ba9ed73/pages";
 const DETECTIVE_CONAN_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/detective-conan-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/detective-conan-color-pages@34ac20595d25dcb188bb5c937be19d10e206d836/pages";
 const DORAEMON_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/doraemon-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/doraemon-color-pages@cb43647077cdb9f789f17bcb83f300a01d08ac53/pages";
 const FIST_OF_THE_NORTH_STAR_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/fist-of-the-north-star-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/fist-of-the-north-star-color-pages@5fd4a41865dbc8d5bf4e39277d985f8788b244a9/pages";
 const SAILOR_MOON_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/sailor-moon-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/sailor-moon-color-pages@ed7bd2cc8da95575a3268ff6d25c6090e8a3116a/pages";
 const INUYASHA_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/inuyasha-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/inuyasha-color-pages@fa56b5dee016d43fdc41a6b0a68577923e65ba0d/pages";
 const KINGDOM_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/kingdom-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/kingdom-color-pages@0811fba98f13b187718412aa5484d9d37fc0e75e/pages";
 const OSHI_NO_KO_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/oshi-no-ko-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/oshi-no-ko-color-pages@5f5f0c1a1fa6b990e437046cb20b84cb4cebf8fb/pages";
 const BLACK_BUTLER_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/black-butler-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/black-butler-color-pages@c72c4a0a42d81c7ed7b13aedb2aae2d65a0c3c35/pages";
 const SOUL_EATER_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/soul-eater-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/soul-eater-color-pages@ff26fc746624f84475f2b6299ed623589e2ac878/pages";
 const NORAGAMI_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/noragami-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/noragami-color-pages@c6bc3223ce04da16eb275c29968fab3ab89ed5c9/pages";
 const GOBLIN_SLAYER_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/goblin-slayer-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/goblin-slayer-color-pages@7441dac6ac217f5a14122d1b12c861ed53ec9b45/pages";
 const GOODNIGHT_PUNPUN_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/goodnight-punpun-color-pages@main/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/goodnight-punpun-color-pages@00438ef8f228c86b8be132f4e82b1ae38e961731/pages";
 
 const HAND_MANGAS: Manga[] = [
   {
     slug: "one-piece",
     popularity: 1,
-    color: "full",
+    color: "partial",
+    colorNote: "Official color throughout, with partial-color page sets in chapters 1024, 1031, 1040, 1043–1045, 1049–1050, 1053, 1055, 1057, 1066, 1091, and 1129",
     title: "One Piece",
     nativeTitle: "ワンピース",
     altTitles: ["One Piece Color", "One Piece Colored", "Colorized One Piece"],
@@ -423,7 +426,7 @@ const HAND_MANGAS: Manga[] = [
     slug: "attack-on-titan",
     popularity: 5,
     color: "partial",
-    colorNote: "Colored where available — remaining chapters in HD black & white, full color coming soon",
+    colorNote: "Fan-colored chapters 63, 82, 91–93, 97–135, and 138–139 (including SCNK chapter 93); all other chapters remain HD black & white",
     title: "Attack on Titan",
     nativeTitle: "進撃の巨人",
     altTitles: [
@@ -440,9 +443,9 @@ const HAND_MANGAS: Manga[] = [
     year: 2009,
     imageBase: ATTACK_ON_TITAN_IMAGE_BASE,
     tagline:
-      "Hajime Isayama's titan epic, being digitally colorized in full HD.",
+      "Hajime Isayama's titan epic with 46 verified fan-colored chapters in HD.",
     synopsis:
-      "The colorized Attack on Titan (Shingeki no Kyojin) manga is coming soon. Every chapter of Hajime Isayama's dark fantasy epic — Eren Yeager, Mikasa and Armin's war against the man-eating Titans beyond the walls, and the truths of the basement, Marley and the Rumbling — is being digitally colored in high definition. Read Attack on Titan in vivid full color online, free.",
+      "Read Attack on Titan (Shingeki no Kyojin) online free, with 46 verified fan-colored chapters — including SCNK's chapter 93 — and the complete 139-chapter story preserved in HD black & white everywhere color is not yet available. Follow Eren, Mikasa and Armin from the fall of Wall Maria through Marley and the Rumbling in a fast mobile reader with every chapter honestly labeled.",
     keywords: [
       "colorized attack on titan manga",
       "attack on titan color manga",
@@ -459,7 +462,8 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "hunter-x-hunter",
     popularity: 13,
-    color: "full",
+    color: "partial",
+    colorNote: "Official-color chapters 2 and 16–362; chapters 1, 3–15, and 363–390 remain HD black & white",
     title: "Hunter × Hunter",
     nativeTitle: "ハンター×ハンター",
     altTitles: [
@@ -476,9 +480,9 @@ const HAND_MANGAS: Manga[] = [
     year: 1998,
     imageBase: HUNTER_X_HUNTER_IMAGE_BASE,
     tagline:
-      "Yoshihiro Togashi's adventure epic — in official full color, HD.",
+      "Yoshihiro Togashi's adventure epic with chapters 2 and 16–362 in official full color.",
     synopsis:
-      "Read the colorized Hunter × Hunter manga online for free — Yoshihiro Togashi's adventure epic in official full color instead of black and white. Follow Gon Freecss's search for his father Ging through the Hunter Exam, Yorknew City, Greed Island and the Chimera Ant war, digitally colored in high definition. No signup, a fast mobile-friendly reader with zoom on every page.",
+      "Read Hunter × Hunter online free, with official-color chapter 2 and chapters 16–362, while chapters 1, 3–15, and 363–390 remain honestly labeled HD black & white. Follow Gon Freecss through the Hunter Exam, Yorknew City, Greed Island and the Chimera Ant war in a fast mobile reader with zoom on every page.",
     keywords: [
       "colorized hunter x hunter manga",
       "hunter x hunter color manga",
@@ -700,7 +704,8 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "chainsaw-man",
     popularity: 18,
-    color: "full",
+    color: "partial",
+    colorNote: "Official-color chapters 1–97; chapters 98–232 remain HD black & white",
     title: "Chainsaw Man",
     nativeTitle: "チェンソーマン",
     altTitles: ["Chainsawman", "Chainsaw Man Color", "Colorized Chainsaw Man"],
@@ -733,8 +738,8 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "black-clover",
     popularity: 40,
-    color: "none",
-    colorNote: "Complete series in black & white — free to read",
+    color: "partial",
+    colorNote: "Fan-colored chapters 202–228; chapters 1–201 and 229–392 remain HD black & white",
     title: "Black Clover",
     nativeTitle: "ブラッククローバー",
     altTitles: ["Black Clover Manga", "Bulakku Kurōbā"],
@@ -746,9 +751,9 @@ const HAND_MANGAS: Manga[] = [
     year: 2015,
     imageBase: BLACK_CLOVER_IMAGE_BASE,
     tagline:
-      "Yūki Tabata's magic-knight shonen — the manga in HD black & white, free.",
+      "Yūki Tabata's magic-knight shonen with chapters 202–228 fan-colored in HD.",
     synopsis:
-      "Read Black Clover online free — the manga in high-quality black & white. Asta, born with no magic in a world where it's everything, and his rival Yuno chase the same dream: to become the Wizard King. No official full-color edition exists, so every chapter of Yūki Tabata's magic-knight epic is hosted here in black & white, clearly labeled — a fast, mobile-friendly reader with pinch-to-zoom on every page. No signup, no paywall.",
+      "Read Black Clover online free, with fan-colored chapters 202–228 and the complete chapter set through 392 preserved in HD black & white everywhere else. Asta, born with no magic in a world where it is everything, and his rival Yuno chase the same dream: to become the Wizard King. Every chapter is honestly labeled in a fast mobile reader with pinch-to-zoom.",
     keywords: [
       "black clover manga online free",
       "read black clover manga",
@@ -1182,8 +1187,8 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "vinland-saga",
     popularity: 29,
-    color: "none",
-    colorNote: "Complete series in black & white — colorized version coming soon",
+    color: "partial",
+    colorNote: "Fan-colored chapters 71 and 180; all other available chapters remain HD black & white",
     title: "Vinland Saga",
     nativeTitle: "ヴィンランド・サガ",
     altTitles: ["Vinland Saga Manga"],
@@ -1195,9 +1200,9 @@ const HAND_MANGAS: Manga[] = [
     year: 2005,
     imageBase: VINLAND_SAGA_IMAGE_BASE,
     tagline:
-      "Makoto Yukimura's Vinland Saga — the complete manga in HD black & white, free.",
+      "Makoto Yukimura's Viking epic with chapters 71 and 180 fan-colored in HD.",
     synopsis:
-      "Read Vinland Saga online free — the complete manga in high-quality black & white. Young Thorfinn joins a band of Viking mercenaries to avenge his father, then must learn what it means to be a true warrior in a land beyond war, in Makoto Yukimura's sweeping historical epic of Vikings and vengeance. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+      "Read Vinland Saga online free, including verified fan-colored chapters 71 and 180 while all other available chapters remain honestly labeled HD black & white. Young Thorfinn joins Viking mercenaries to avenge his father, then must learn what it means to be a true warrior in Makoto Yukimura's sweeping historical epic. No signup, no paywall, with a fast mobile reader and pinch-to-zoom.",
     keywords: ["vinland saga manga online free", "read vinland saga manga", "vinland saga manga black and white", "vinland saga full manga", "vinland saga manga free"],
     poster: "/covers/vinland-saga.jpg",
     accent: "#3a5a40",
@@ -1282,8 +1287,8 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "blue-exorcist",
     popularity: 58,
-    color: "none",
-    colorNote: "Complete series in black & white — colorized version coming soon",
+    color: "partial",
+    colorNote: "Official-color chapters 1–7; chapters 8–150 remain HD black & white",
     title: "Blue Exorcist",
     nativeTitle: "青の祓魔師",
     altTitles: ["Ao no Exorcist", "Blue Exorcist Manga"],
@@ -1295,14 +1300,14 @@ const HAND_MANGAS: Manga[] = [
     year: 2009,
     imageBase: BLUE_EXORCIST_IMAGE_BASE,
     tagline:
-      "Kazue Kato's Blue Exorcist — the complete manga in HD black & white, free.",
+      "Kazue Kato's demon-hunting adventure with chapters 1–7 in official full color.",
     synopsis:
-      "Read Blue Exorcist online free — the complete manga in high-quality black & white. Rin Okumura learns he is the son of Satan and enrolls at True Cross Academy to become an exorcist strong enough to defeat his own father, in Kazue Kato's stylish demon-hunting adventure. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+      "Read Blue Exorcist online free, with official-color English chapters 1–7 and chapters 8–150 preserved in honestly labeled HD black & white. Rin Okumura learns he is the son of Satan and enters True Cross Academy to become an exorcist strong enough to defeat his own father. No signup, no paywall, with a fast mobile reader and pinch-to-zoom.",
     keywords: ["blue exorcist manga online free", "read blue exorcist manga", "blue exorcist manga black and white", "blue exorcist full manga", "blue exorcist manga free"],
     poster: "/covers/blue-exorcist.jpg",
     accent: "#1e5fd8",
     mark: "🔵",
-    totalChapters: 149,
+    totalChapters: 150,
   },
   {
     slug: "food-wars",
@@ -1332,8 +1337,8 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "seven-deadly-sins",
     popularity: 37,
-    color: "none",
-    colorNote: "Complete series in black & white — colorized version coming soon",
+    color: "partial",
+    colorNote: "Fan-colored chapter 324; all other chapters remain HD black & white",
     title: "The Seven Deadly Sins",
     nativeTitle: "七つの大罪",
     altTitles: ["Nanatsu no Taizai", "Seven Deadly Sins Manga"],
@@ -1345,9 +1350,9 @@ const HAND_MANGAS: Manga[] = [
     year: 2012,
     imageBase: SEVEN_DEADLY_SINS_IMAGE_BASE,
     tagline:
-      "Nakaba Suzuki's The Seven Deadly Sins — the complete manga in HD black & white, free.",
+      "Nakaba Suzuki's complete fantasy adventure with chapter 324 fan-colored in HD.",
     synopsis:
-      "Read The Seven Deadly Sins online free — the complete manga in high-quality black & white. Princess Elizabeth seeks out the Seven Deadly Sins, a disbanded band of legendary knights branded as traitors, to reclaim her kingdom from a corrupt order, in Nakaba Suzuki's action-packed fantasy. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+      "Read The Seven Deadly Sins online free, with chapter 324 in verified English fan color and the rest of Nakaba Suzuki's complete 346-chapter fantasy preserved in honestly labeled HD black & white. Princess Elizabeth seeks out the legendary knights branded as traitors to reclaim her kingdom. No signup, no paywall, with a fast mobile reader and pinch-to-zoom.",
     keywords: ["the seven deadly sins manga online free", "read the seven deadly sins manga", "the seven deadly sins manga black and white", "the seven deadly sins full manga", "the seven deadly sins manga free"],
     poster: "/covers/seven-deadly-sins.jpg",
     accent: "#6a2ea0",
@@ -1456,8 +1461,8 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "haikyu",
     popularity: 35,
-    color: "none",
-    colorNote: "Complete series in black & white — colorized version coming soon",
+    color: "full",
+    colorNote: "Complete official-color English edition: chapters 1–402",
     title: "Haikyu!!",
     nativeTitle: "ハイキュー!!",
     altTitles: ["Haikyuu", "Haikyu Manga"],
@@ -1469,9 +1474,9 @@ const HAND_MANGAS: Manga[] = [
     year: 2012,
     imageBase: HAIKYU_IMAGE_BASE,
     tagline:
-      "Haruichi Furudate's Haikyu — the complete manga in HD black & white, free.",
+      "Haruichi Furudate's complete volleyball epic — all 402 chapters in official full color.",
     synopsis:
-      "Read Haikyu!! online free — the complete manga in high-quality black & white. Short but sky-hungry Shoyo Hinata joins Karasuno High's volleyball team and forms an explosive partnership with prodigy setter Kageyama, in Haruichi Furudate's beloved, heart-pounding sports manga. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+      "Read the complete Haikyu!! manga in official full color online free — all 402 English chapters of Haruichi Furudate's beloved volleyball epic. Short but sky-hungry Shoyo Hinata joins Karasuno High and forms an explosive partnership with prodigy setter Kageyama. Every available chapter is genuinely colorized in a fast mobile reader with pinch-to-zoom, no signup or paywall.",
     keywords: ["haikyu manga online free", "read haikyu manga", "haikyu manga black and white", "haikyu full manga", "haikyu manga free"],
     poster: "/covers/haikyu.jpg",
     accent: "#e07a1a",
@@ -1505,8 +1510,8 @@ const HAND_MANGAS: Manga[] = [
   },
   {
     slug: "spy-x-family",
-    color: "none",
-    colorNote: "Complete series in black & white — colorized version coming soon",
+    color: "partial",
+    colorNote: "Official-color chapters 1–37; all other available chapters remain HD black & white (chapter 112 is not available upstream)",
     title: "Spy x Family",
     nativeTitle: "SPY×FAMILY",
     altTitles: ["SpyFamily", "Spy Family Manga"],
@@ -1518,14 +1523,78 @@ const HAND_MANGAS: Manga[] = [
     year: 2019,
     imageBase: SPY_X_FAMILY_IMAGE_BASE,
     tagline:
-      "Tatsuya Endo's Spy x Family — the complete manga in HD black & white, free.",
+      "Tatsuya Endo's hit spy comedy with chapters 1–37 in official full color.",
     synopsis:
-      "Read Spy x Family online free — the complete manga in high-quality black & white. Master spy Twilight builds a fake family for a mission — not knowing his adopted daughter reads minds and his wife is an assassin — in Tatsuya Endo's charm-bomb hit. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
+      "Read Spy x Family online free, with official-color English chapters 1–37 and every other available chapter preserved in honestly labeled HD black & white. Master spy Twilight builds a fake family for a mission, unaware his adopted daughter reads minds and his wife is an assassin. Chapter 112 is absent from the original public sources, so no fake route is generated. No signup or paywall.",
     keywords: ["spy x family manga online free", "read spy x family manga", "spy x family manga black and white", "spy x family full manga", "spy x family manga free"],
     poster: "/covers/spy-x-family.jpg",
     accent: "#3f7d5c",
     mark: "🕵️",
     totalChapters: 117,
+  },
+  {
+    slug: "parasyte",
+    popularity: 36,
+    color: "full",
+    colorNote: "Complete official-color English edition: chapters 1–64",
+    title: "Parasyte",
+    nativeTitle: "寄生獣",
+    altTitles: ["Kiseijū", "Kiseiju", "Parasyte Full Color Collection"],
+    author: "Hitoshi Iwaaki",
+    publisher: "Kodansha",
+    genres: ["Horror", "Science Fiction", "Action", "Psychological"],
+    status: "live",
+    unit: "chapter",
+    year: 1988,
+    imageBase: PARASYTE_IMAGE_BASE,
+    tagline:
+      "Hitoshi Iwaaki's complete sci-fi horror classic — all 64 chapters in official full color.",
+    synopsis:
+      "Read Parasyte in official full color online free — all 64 chapters of Hitoshi Iwaaki's complete sci-fi horror classic in English. After an alien parasite fails to take over Shinichi Izumi's brain and becomes trapped in his right hand, the unlikely pair must survive other parasites hiding behind human faces. Every available chapter is genuinely colorized and clearly labeled, with a fast mobile reader and pinch-to-zoom.",
+    keywords: [
+      "parasyte full color manga",
+      "parasyte colored manga",
+      "read parasyte in color",
+      "kiseiju full color",
+      "parasyte manga online free",
+    ],
+    poster: "/covers/parasyte.jpg",
+    posterPosition: "50% 18%",
+    accent: "#cf2d24",
+    mark: "🖐️",
+    totalChapters: 64,
+  },
+  {
+    slug: "darling-in-the-franxx",
+    popularity: 49,
+    color: "full",
+    colorNote: "Fan-colored chapters 54–57; these are the only chapters currently served",
+    title: "DARLING in the FRANXX",
+    nativeTitle: "ダーリン・イン・ザ・フランキス",
+    altTitles: ["Darling in the Franxx Manga", "DarliFra", "DITF"],
+    author: "Code:000 & Kentaro Yabuki",
+    publisher: "Shueisha",
+    genres: ["Science Fiction", "Romance", "Action", "Drama"],
+    status: "live",
+    unit: "chapter",
+    year: 2018,
+    imageBase: DARLING_IN_THE_FRANXX_IMAGE_BASE,
+    tagline:
+      "Kentaro Yabuki's divergent manga adaptation — chapters 54–57 fan-colored in HD.",
+    synopsis:
+      "Read DARLING in the FRANXX manga chapters 54–57 in verified English fan color. Hiro, Zero Two and Squad 13 pilot FRANXX against the Klaxosaurs in Kentaro Yabuki and Code:000's manga adaptation, whose story diverges from the anime. Only the four genuinely colored chapters are published here — no fabricated gap routes — and the reader moves directly through the real available chapter set.",
+    keywords: [
+      "darling in the franxx colored manga",
+      "darling in the franxx manga color",
+      "read darling in the franxx manga",
+      "zero two colored manga",
+      "darling in the franxx chapter 54",
+    ],
+    poster: "/covers/darling-in-the-franxx.jpg",
+    posterPosition: "50% 16%",
+    accent: "#e83f5b",
+    mark: "🌸",
+    totalChapters: 60,
   },
   {
     slug: "frieren",

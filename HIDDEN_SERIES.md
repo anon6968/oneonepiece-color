@@ -1,6 +1,6 @@
 # Landing-page catalog — visibility status
 
-_Last updated: 2026-07-29_
+_Last updated: 2026-08-07_
 
 The site's live catalog is trimmed to widely recognizable (big + medium) series. Less-popular long-tail titles are **hidden** — still in the repo (`web/data/auto-series.json`, images on their CDNs / GitHub), but flagged `"hidden": true` so they're filtered out of `MANGAS` and disappear from the grid, schema, sitemap, feed, and their routes 404.
 
@@ -46,6 +46,6 @@ These stayed because they're globally recognizable classics/franchises:
 - Oemo Jisangjuui (`lookism`)
 - Shadows House (`shadows-house`)
 
-_Note: all 22 hand-picked HAND_MANGAS (One Piece, Naruto, Bleach, JJK, Berserk, Dr. Stone, Blue Lock, Dandadan, etc.) are unchanged and remain live._
+_Note: the hand-authored catalog remains live. The 2026-08-07 release adds Parasyte and DARLING in the FRANXX and upgrades eight existing popular franchises to verified color coverage. No B&W title or production URL was removed: the removal-evidence audit approved none, so preserving indexed routes took priority over estimated file savings._
 
 The 9 JoJo part entries were kept (major franchise) but are flagged internally as a cleanup candidate — they clutter the grid with long romaji names and could be consolidated later.
