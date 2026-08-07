@@ -4,10 +4,12 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { readPath, unitAbbrev, unitLabelPlural } from "@/lib/site";
 import type { Manga } from "@/lib/manga";
+import type { ChapterType } from "@/lib/data";
 
 interface Props {
   manga: Manga;
   units: number[];
+  unitTypes: Record<number, ChapterType>;
   unitTitles?: Record<number, string>;
   current: number;
   onClose: () => void;
@@ -15,10 +17,20 @@ interface Props {
 
 /** Unit picker — bottom sheet on phones, floating panel on desktop. Chip
  *  grid for numbered chapters, titled rows for volume series. */
-export default function ChapterMenu({ manga, units, unitTitles, current, onClose }: Props) {
+export default function ChapterMenu({ manga, units, unitTypes, unitTitles, current, onClose }: Props) {
   const currentRef = useRef<HTMLAnchorElement>(null);
   const hasTitles = !!unitTitles && Object.keys(unitTitles).length > 0;
   const abbrev = unitAbbrev(manga);
+  const colored = units.filter((unit) => unitTypes[unit] === "color").length;
+  const summary = colored === units.length
+    ? `${units.length} colorized`
+    : `${units.length} available · ${colored} colorized`;
+  const typeLabel = (unit: number) =>
+    unitTypes[unit] === "color"
+      ? "Color"
+      : unitTypes[unit] === "partial"
+        ? "Partial color"
+        : "B&W";
 
   useEffect(() => {
     currentRef.current?.scrollIntoView({ block: "center" });
@@ -34,7 +46,7 @@ export default function ChapterMenu({ manga, units, unitTitles, current, onClose
       >
         <div className="flex items-center justify-between border-b border-line px-4 py-3">
           <p className="text-sm font-bold">
-            {manga.title} <span className="text-mute">· {units.length} colorized</span>
+            {manga.title} <span className="text-mute">· {summary}</span>
           </p>
           <button
             type="button"
@@ -61,6 +73,7 @@ export default function ChapterMenu({ manga, units, unitTitles, current, onClose
                       ? "bg-brand font-bold text-white"
                       : "bg-panel-2/60 text-fg hover:bg-panel-2"
                   }`}
+                  aria-label={`${abbrev} ${n} — ${typeLabel(n)}`}
                 >
                   <span className="shrink-0 tabular-nums">
                     {abbrev} {n}
@@ -70,6 +83,9 @@ export default function ChapterMenu({ manga, units, unitTitles, current, onClose
                       {unitTitles[n]}
                     </span>
                   )}
+                  <span className={`ml-auto shrink-0 text-[10px] ${n === current ? "text-white/80" : "text-mute"}`}>
+                    {typeLabel(n)}
+                  </span>
                 </Link>
               ))}
             </div>
@@ -87,6 +103,8 @@ export default function ChapterMenu({ manga, units, unitTitles, current, onClose
                       ? "bg-brand font-bold text-white"
                       : "bg-panel-2/60 text-fg hover:bg-panel-2"
                   }`}
+                  aria-label={`${abbrev} ${n} — ${typeLabel(n)}`}
+                  title={typeLabel(n)}
                 >
                   {n}
                 </Link>

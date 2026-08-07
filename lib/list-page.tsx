@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import { getManga, getMangaSlugs, isLive, type MangaUnit } from "@/lib/manga";
 import { getIndex, stats } from "@/lib/data";
 import { SITE, listPath, mangaPath, unitLabel, unitLabelPlural } from "@/lib/site";
+import { listPresentation } from "@/lib/unit-presentation";
 import ChapterBrowser from "@/components/ChapterBrowser";
 
 export function listStaticParams(unit: MangaUnit) {
@@ -28,18 +29,19 @@ export async function buildListMetadata(
   const { manga: slug } = await params;
   const m = getManga(slug);
   if (!m || m.unit !== unit) return { title: "Not found", robots: { index: false } };
-  const plural = unitLabelPlural(m);
-  const title = `All ${m.title} Color Manga ${unitLabel(m)}s — Full ${unitLabel(m)} List`;
-  const description = `Complete list of every colorized ${m.title} manga ${unitLabel(m).toLowerCase()}, organized by arc. Jump to any ${unitLabel(m).toLowerCase()} of ${m.title} in full color.`;
+  const s = stats(slug);
+  const presentation = listPresentation({
+    mangaTitle: m.title,
+    unitLabel: unitLabel(m),
+    aggregate: m.color,
+    totalUnits: s.total,
+    coloredUnits: s.colored,
+    lastUnit: s.last,
+  });
   return {
-    title,
-    description,
-    keywords: [
-      `${m.title.toLowerCase()} color manga ${plural}`,
-      `${m.title.toLowerCase()} colored ${unitLabel(m).toLowerCase()} list`,
-      `all ${m.title.toLowerCase()} ${plural} color`,
-      `colorized ${m.title.toLowerCase()} manga`,
-    ],
+    title: presentation.title,
+    description: presentation.description,
+    keywords: presentation.keywords,
     alternates: { canonical: listPath(m) },
     robots: isLive(m) ? undefined : { index: false },
   };
@@ -59,6 +61,14 @@ export async function UnitListPage({
   const index = getIndex(slug);
   const s = stats(slug);
   const plural = unitLabelPlural(m);
+  const presentation = listPresentation({
+    mangaTitle: m.title,
+    unitLabel: unitLabel(m),
+    aggregate: m.color,
+    totalUnits: s.total,
+    coloredUnits: s.colored,
+    lastUnit: s.last,
+  });
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -80,14 +90,13 @@ export async function UnitListPage({
         <span className="px-1">/</span> {unitLabel(m)}s
       </nav>
       <h1 className="text-2xl font-black tracking-tight sm:text-3xl">
-        All {m.title} color manga {plural}
+        {presentation.heading}
       </h1>
 
       {isLive(m) && index.length > 0 ? (
         <>
           <p className="mt-2 max-w-2xl text-sm text-mute">
-            Every colorized {unitLabel(m).toLowerCase()} we host — {s.colored} {plural} in color, up
-            to {unitLabel(m).toLowerCase()} {s.last}, grouped by arc. Tap any cover to start reading.
+            {presentation.copy} Units are grouped by arc.
           </p>
           <div className="mt-6">
             <ChapterBrowser manga={m} chapters={index} />

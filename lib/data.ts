@@ -132,6 +132,8 @@ export interface MangaStats {
   bw: number;
   last: number;
   totalPages: number;
+  /** Pages belonging to fully colored units; mixed/partial units are excluded. */
+  coloredPages: number;
 }
 
 export function stats(slug: string): MangaStats {
@@ -141,7 +143,11 @@ export function stats(slug: string): MangaStats {
   const bw = index.filter((c) => c.type === "bw").length;
   const last = index.length ? index[index.length - 1].chapter : 0;
   const totalPages = index.reduce((s, c) => s + c.pageCount, 0);
-  return { total: index.length, colored, partial, bw, last, totalPages };
+  const coloredPages = index.reduce(
+    (sum, chapter) => sum + (chapter.type === "color" ? chapter.pageCount : 0),
+    0,
+  );
+  return { total: index.length, colored, partial, bw, last, totalPages, coloredPages };
 }
 
 export function sagaSlug(s: string) {

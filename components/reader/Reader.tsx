@@ -257,7 +257,14 @@ export default function Reader(props: ReaderProps) {
   /* -------------------------------- render ------------------------------- */
 
   const endCard = (
-    <EndCard manga={manga} chapter={chapter} next={next} total={total} totalUnits={totalUnits} />
+    <EndCard
+      manga={manga}
+      chapter={chapter}
+      next={next}
+      total={total}
+      totalUnits={totalUnits}
+      type={type}
+    />
   );
 
   const stripTail = (
@@ -457,6 +464,7 @@ export default function Reader(props: ReaderProps) {
         <ChapterMenu
           manga={manga}
           units={props.units}
+          unitTypes={props.unitTypes}
           unitTitles={props.unitTitles}
           current={chapter}
           onClose={() => setMenu("none")}

@@ -8,10 +8,12 @@ export default function MangaInfoPanel({
   manga,
   stats: s,
   firstChapter,
+  units,
 }: {
   manga: Manga;
   stats: MangaStats;
   firstChapter: number;
+  units: number[];
 }) {
   const label = unitLabel(manga);
   const plural = unitLabelPlural(manga);
@@ -127,7 +129,7 @@ export default function MangaInfoPanel({
               Latest · {label} {s.last}
             </Link>
           )}
-          <ChapterJump manga={manga} max={s.last} />
+          <ChapterJump manga={manga} units={units} />
         </div>
 
         <p className="mt-6 border-t border-line/50 pt-5 text-xs leading-relaxed text-mute">

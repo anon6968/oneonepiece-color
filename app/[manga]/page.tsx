@@ -281,7 +281,7 @@ function seriesFaqs(m: Manga, s: MangaStats, firstCh: number) {
     { q: `Is ${m.title} available in color?`, a: availability },
     {
       q: `How many colored ${plural} of ${m.title} are there?`,
-      a: `${s.colored} colored ${plural} — ${s.totalPages.toLocaleString(
+      a: `${s.colored} colored ${plural} — ${s.coloredPages.toLocaleString(
         "en-US",
       )} digitally colored pages — are live right now, with more added as they're finished.`,
     },
@@ -364,7 +364,12 @@ function LiveManga({ m }: { m: Manga }) {
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[minmax(280px,36%)_1fr] lg:items-start lg:gap-10 xl:grid-cols-[minmax(300px,34%)_1fr]">
-          <MangaInfoPanel manga={m} stats={s} firstChapter={firstCh} />
+          <MangaInfoPanel
+            manga={m}
+            stats={s}
+            firstChapter={firstCh}
+            units={index.map((chapter) => chapter.chapter)}
+          />
 
           <div className="min-w-0 lg:max-h-[calc(100vh-5.5rem)] lg:overflow-y-auto lg:pr-1">
             <h2 className="sr-only">Browse all {m.title} {plural}</h2>

@@ -1,5 +1,5 @@
 import type { Manga } from "@/lib/manga";
-import type { PageMeta } from "@/lib/data";
+import type { ChapterType, PageMeta } from "@/lib/data";
 
 export interface ReaderProps {
   manga: Manga;
@@ -15,6 +15,8 @@ export interface ReaderProps {
   totalUnits: number;
   /** Every available unit number, ascending — powers the chapter picker. */
   units: number[];
+  /** Manifest type keyed by unit number, for honest picker/end-card labels. */
+  unitTypes: Record<number, ChapterType>;
   /** Unit titles keyed by number (volume series only). */
   unitTitles?: Record<number, string>;
 }

@@ -4,18 +4,19 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { readPath, unitAbbrev } from "@/lib/site";
 import type { Manga } from "@/lib/manga";
+import { availableUnit, availableUnitHint } from "@/lib/unit-availability";
 
-export default function ChapterJump({ manga, max }: { manga: Manga; max: number }) {
+export default function ChapterJump({ manga, units }: { manga: Manga; units: number[] }) {
   const router = useRouter();
   const [v, setV] = useState("");
   const abbrev = unitAbbrev(manga).replace(".", "").toLowerCase();
 
   function go(e: React.FormEvent) {
     e.preventDefault();
-    const n = parseInt(v, 10);
-    // Routes are statically generated (dynamicParams = false), so an
-    // out-of-range chapter would hard-404. Only navigate within 1..max.
-    if (!Number.isNaN(n) && n >= 1 && (!max || n <= max)) {
+    // Routes are statically generated (dynamicParams = false). A number inside
+    // the overall range can still be absent, so require exact membership.
+    const n = availableUnit(v, units);
+    if (n !== null) {
       router.push(readPath(manga, n));
     }
   }
@@ -26,7 +27,7 @@ export default function ChapterJump({ manga, max }: { manga: Manga; max: number 
         inputMode="numeric"
         value={v}
         onChange={(e) => setV(e.target.value.replace(/[^0-9]/g, ""))}
-        placeholder={max ? `Go to ${abbrev}… (1–${max})` : `Go to ${abbrev}…`}
+        placeholder={`Go to ${abbrev}…${units.length ? ` (${availableUnitHint(units)})` : ""}`}
         aria-label={`Jump to ${abbrev}`}
         className="w-36 rounded-lg bg-panel px-3 py-1.5 text-sm text-fg placeholder:text-mute/70 outline-none transition focus:ring-2 focus:ring-brand/40 sm:w-44"
       />

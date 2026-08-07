@@ -13,6 +13,7 @@ import {
   unitLabel,
   unitLabelPlural,
 } from "@/lib/site";
+import { latestPresentation, unitPresentation } from "@/lib/unit-presentation";
 
 export const dynamicParams = false;
 
@@ -32,18 +33,19 @@ export async function generateMetadata({
   const { manga: slug } = await params;
   const m = getManga(slug);
   if (!m) return { title: "Not found" };
-  const plural = unitLabelPlural(m);
-  const title = `Latest ${m.title} Colored ${unitLabel(m)}s — Newest ${m.title} in Color`;
-  const description = `The latest colorized ${m.title} manga ${plural}, newest first. Read the most recent ${m.title} ${plural} in full color online free.`;
+  const s = stats(slug);
+  const presentation = latestPresentation({
+    mangaTitle: m.title,
+    unitLabel: unitLabel(m),
+    aggregate: m.color,
+    totalUnits: s.total,
+    coloredUnits: s.colored,
+    lastUnit: s.last,
+  });
   return {
-    title,
-    description,
-    keywords: [
-      `latest ${m.title.toLowerCase()} colored ${unitLabel(m).toLowerCase()}`,
-      `newest ${m.title.toLowerCase()} color ${unitLabel(m).toLowerCase()}`,
-      `${m.title.toLowerCase()} latest ${unitLabel(m).toLowerCase()} color`,
-      `new ${m.title.toLowerCase()} colored manga`,
-    ],
+    title: presentation.title,
+    description: presentation.description,
+    keywords: presentation.keywords,
     alternates: { canonical: latestPath(slug) },
     robots: isLive(m) ? undefined : { index: false },
   };
@@ -63,6 +65,14 @@ export default async function LatestPage({
   const latest = [...index].reverse();
   const label = unitLabel(m);
   const plural = unitLabelPlural(m);
+  const presentation = latestPresentation({
+    mangaTitle: m.title,
+    unitLabel: label,
+    aggregate: m.color,
+    totalUnits: s.total,
+    coloredUnits: s.colored,
+    lastUnit: s.last,
+  });
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -84,21 +94,30 @@ export default async function LatestPage({
         <span className="px-1">/</span> Latest
       </nav>
       <h1 className="text-2xl font-black tracking-tight sm:text-3xl">
-        Latest {m.title} colored {plural}
+        {presentation.heading}
       </h1>
 
       {isLive(m) && latest.length > 0 ? (
         <>
           <p className="mt-2 text-sm text-mute">
-            The newest colorized {m.title} {plural}, most recent first — updated through{" "}
-            {label.toLowerCase()} {s.last}.{" "}
+            {presentation.copy}{" "}
             <Link href={listPath(m)} className="text-brand hover:underline">
               Browse the full list by arc →
             </Link>
           </p>
           <ol className="mt-6 divide-y divide-line/40 overflow-hidden rounded-xl bg-panel/40">
-            {latest.map((c) => (
-              <li key={c.chapter}>
+            {latest.map((c) => {
+              const item = unitPresentation({
+                mangaTitle: m.title,
+                unitLabel: label,
+                unitNumber: c.chapter,
+                pageCount: c.pageCount,
+                type: c.type,
+                chapterTitle: c.title,
+                arc: c.arc,
+                saga: c.saga,
+              });
+              return <li key={c.chapter}>
                 <Link
                   href={readPath(m, c.chapter)}
                   prefetch={false}
@@ -107,7 +126,7 @@ export default async function LatestPage({
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={pageUrl(m, c.chapter, 1)}
-                    alt={`${m.title} colored ${label.toLowerCase()} ${c.chapter} — ${c.title ?? c.arc}`}
+                    alt={item.imageAlt}
                     loading="lazy"
                     decoding="async"
                     className="h-14 w-10 flex-none rounded object-cover object-top bg-ink-2"
@@ -133,8 +152,8 @@ export default async function LatestPage({
                   </div>
                   <span className="flex-none text-xs font-semibold text-brand">Read →</span>
                 </Link>
-              </li>
-            ))}
+              </li>;
+            })}
           </ol>
         </>
       ) : (

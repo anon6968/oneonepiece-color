@@ -1,6 +1,7 @@
 import { liveMangas } from "@/lib/manga";
 import { getIndex } from "@/lib/data";
 import { SITE, mangaPath, readPath, unitLabel } from "@/lib/site";
+import { unitPresentation } from "@/lib/unit-presentation";
 
 // A lightweight "latest colored chapters" feed. Feeds are still crawled by
 // search engines and aggregators as a freshness + discovery signal, and this
@@ -28,8 +29,18 @@ export async function GET() {
     for (const c of latest) {
       const label = unitLabel(m);
       const url = `${SITE.url}${readPath(m, c.chapter)}`;
-      const title = `${m.title} ${label} ${c.chapter}${c.title ? `: ${c.title}` : ""} — in full color`;
-      const desc = `Read ${m.title} ${label.toLowerCase()} ${c.chapter} colorized in full HD — ${c.pageCount} pages, free online.`;
+      const presentation = unitPresentation({
+        mangaTitle: m.title,
+        unitLabel: label,
+        unitNumber: c.chapter,
+        pageCount: c.pageCount,
+        type: c.type,
+        chapterTitle: c.title,
+        arc: c.arc,
+        saga: c.saga,
+      });
+      const title = presentation.feedTitle;
+      const desc = presentation.feedDescription;
       items.push(
         `    <item>
       <title>${xmlEscape(title)}</title>

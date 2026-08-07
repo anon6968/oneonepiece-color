@@ -11,7 +11,7 @@ export const dynamic = "force-static";
 export async function GET() {
   const live = liveMangas();
   const soon = comingSoonMangas();
-  const totalPages = live.reduce((s, m) => s + stats(m.slug).totalPages, 0);
+  const totalPages = live.reduce((s, m) => s + stats(m.slug).coloredPages, 0);
 
   const lines: string[] = [
     `# ${SITE.name}`,
@@ -22,12 +22,17 @@ export async function GET() {
     `black-and-white manga digitally recolored in full HD. No signup, no paywall.`,
     `${totalPages.toLocaleString("en-US")} pages colorized across ${live.length} live series.`,
     "",
-    "## Live colorized series (fully readable now)",
+    "## Live series (color coverage is stated per title)",
     "",
     ...live.map((m) => {
       const s = stats(m.slug);
       const plural = unitLabelPlural(m);
-      return `- [${m.title} in color](${SITE.url}${mangaPath(m.slug)}): ${s.total} colorized ${plural} by ${m.author}. ${m.tagline} Read: ${SITE.url}${latestPath(m.slug)} (latest) · ${SITE.url}${listPath(m)} (all ${plural}).`;
+      const coverage = m.color === "full"
+        ? `${s.colored} of ${s.total} ${plural} in color`
+        : m.color === "partial"
+          ? `${s.colored} of ${s.total} ${plural} in color; remaining units are labeled black & white or partial`
+          : `${s.total} ${plural} in black & white`;
+      return `- [${m.title}](${SITE.url}${mangaPath(m.slug)}): ${coverage} by ${m.author}. ${m.tagline} Read: ${SITE.url}${latestPath(m.slug)} (latest) · ${SITE.url}${listPath(m)} (all ${plural}).`;
     }),
   ];
 
@@ -50,8 +55,8 @@ export async function GET() {
     "",
     "## About",
     "",
-    "Every page is digitally colored in full HD and served through a fast,",
-    "mobile-friendly reader with pinch-to-zoom. All content is free to read.",
+    "Color availability is recorded per chapter or volume; black & white and mixed units",
+    "are explicitly labeled. Pages use a mobile-friendly reader with pinch-to-zoom.",
     `Content-removal requests: ${SITE.contact}.`,
     "",
   );

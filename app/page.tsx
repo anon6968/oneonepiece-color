@@ -56,7 +56,9 @@ export default function Home() {
   const liveColor = live.filter((m) => m.color !== "none").sort(byFame);
   const liveBW = live.filter((m) => m.color === "none").sort(byFame);
   const featured = liveColor[0] ?? live[0];
-  const totalPages = liveColor.reduce((sum, m) => sum + stats(m.slug).totalPages, 0);
+  const totalPages = liveColor.reduce((sum, m) => sum + stats(m.slug).coloredPages, 0);
+  const fullColor = liveColor.filter((m) => m.color === "full");
+  const partialColor = liveColor.filter((m) => m.color === "partial");
 
   const faqs = [
     {
@@ -76,10 +78,10 @@ export default function Home() {
     },
     {
       q: "Which manga are available in color?",
-      a: `${liveColor.length} series are live in full color right now — including ${liveColor
+      a: `${liveColor.length} series have color chapters available right now — including ${liveColor
         .slice(0, 5)
         .map((m) => m.title)
-        .join(", ")} — with ${soon.length} more being colorized. New color chapters are added as they are finished.`,
+        .join(", ")}. ${fullColor.length} are fully colored and ${partialColor.length} have mixed color and black & white coverage, with ${soon.length} more being prepared.`,
     },
     {
       q: "How often are new colorized chapters added?",
@@ -150,8 +152,8 @@ export default function Home() {
           </h1>
 
           <p className="mt-5 max-w-xl text-base leading-relaxed text-mute sm:text-lg">
-            Every page digitally colored in HD. No signup, no paywall — just pick a
-            series and start reading.
+            Full-color and partially colored editions, with every black &amp; white unit clearly
+            labeled. No signup or paywall — just pick a series and start reading.
           </p>
 
           {featured && (
@@ -200,8 +202,8 @@ export default function Home() {
               The colorized manga library
             </h2>
             <p className="mx-auto mt-1.5 max-w-2xl text-sm text-mute sm:text-base">
-              Every series we&apos;re coloring — live titles are fully readable now, the rest
-              are on the way.
+              Every series with color pages available — complete color editions and mixed
+              catalogs are clearly labeled.
             </p>
           </div>
           <div className="lib-head-bw">
@@ -339,18 +341,18 @@ export default function Home() {
           <p>
             <strong className="text-mute">{SITE.name}</strong> is where you read the{" "}
             <strong className="text-mute">colorized manga</strong>{" "}
-            versions of the world&apos;s
-            biggest series online for free — every page digitally colored in HD.{" "}
-            {live.map((m, i) => (
+            versions of the world&apos;s biggest series online for free. Color coverage is
+            recorded per chapter, and black &amp; white units are clearly labeled.{" "}
+            {liveColor.map((m, i) => (
               <span key={m.slug}>
-                {i > 0 && (i === live.length - 1 ? " and " : ", ")}
+                {i > 0 && (i === liveColor.length - 1 ? " and " : ", ")}
                 <Link href={mangaPath(m.slug)} prefetch={false} className="text-brand/80 hover:underline">
                   colorized {m.title}
                 </Link>
               </span>
             ))}{" "}
-            {live.length === 1 ? "is" : "are"} live now, each with a fast, mobile-friendly reader
-            and pinch-to-zoom on every page. No signup, just the color manga.
+            {liveColor.length === 1 ? "has" : "have"} color pages live now, each with a fast,
+            mobile-friendly reader and pinch-to-zoom. No signup required.
           </p>
           <p>
             However you spell it — <strong className="text-mute">colourised manga</strong>,{" "}

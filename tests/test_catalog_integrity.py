@@ -63,6 +63,15 @@ def _constants():
 
 
 def catalog():
+    rows = raw_catalog()
+    # Hand entries win slug conflicts, matching lib/manga.ts.
+    result = {}
+    for row in rows:
+        result.setdefault(row["slug"], row)
+    return result
+
+
+def raw_catalog():
     constants = _constants()
     rows = []
     for row in _hand_entries():
@@ -70,6 +79,7 @@ def catalog():
         row["imageBase"] = (
             token[1:-1] if token and token.startswith('"') else constants.get(token)
         )
+        row["source"] = "hand"
         rows.append(row)
     for raw in json.loads((WEB / "data/auto-series.json").read_text()):
         rows.append(
@@ -82,13 +92,30 @@ def catalog():
                 "imageBase": raw["imageBase"],
                 "hidden": raw.get("hidden", False),
                 "parts": bool(raw.get("parts")),
+                "source": "auto",
             }
         )
-    # Hand entries win slug conflicts, matching lib/manga.ts.
-    result = {}
-    for row in rows:
-        result.setdefault(row["slug"], row)
-    return result
+    return rows
+
+
+def run_typescript(module, expression):
+    result = subprocess.run(
+        [
+            "node",
+            "--experimental-strip-types",
+            "--input-type=module",
+            "--eval",
+            (
+                f'import * as subject from "./{module}"; '
+                f"console.log(JSON.stringify({expression}));"
+            ),
+        ],
+        cwd=WEB,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return json.loads(result.stdout)
 
 
 def manifest(slug):
@@ -124,10 +151,130 @@ class CatalogIntegrityTests(unittest.TestCase):
         }
 
     def test_live_slugs_and_derived_canonicals_are_unique(self):
+        raw_live = [
+            row for row in raw_catalog() if row["status"] == "live" and not row["hidden"]
+        ]
+        # Inspect both raw registries before the documented hand-entry override.
+        # A hand row may intentionally replace an auto row (currently Dragon Ball
+        # and Akira), but neither source may contain an internal duplicate.
+        for source in ("hand", "auto"):
+            source_slugs = [row["slug"] for row in raw_live if row["source"] == source]
+            self.assertEqual(len(source_slugs), len(set(source_slugs)), source)
+
         slugs = list(self.live)
         self.assertEqual(len(slugs), len(set(slugs)))
         canonicals = [f"https://colorizedmangas.com/{slug}" for slug in slugs]
         self.assertEqual(len(canonicals), len(set(canonicals)))
+
+    def test_sparse_unit_jump_accepts_only_exact_available_units(self):
+        helper = WEB / "lib/unit-availability.ts"
+        self.assertTrue(helper.exists(), "unit availability behavior helper is missing")
+        actual = run_typescript(
+            "lib/unit-availability.ts",
+            "({ darling: ['1', '54', '57', '58'].map(v => subject.availableUnit(v, [54, 55, 56, 57])), spy: ['111', '112', '113'].map(v => subject.availableUnit(v, [...Array.from({length: 111}, (_, i) => i + 1), 113, 114, 115, 116, 117])), labels: [subject.availableUnitHint([54, 55, 56, 57]), subject.availableUnitHint([...Array.from({length: 111}, (_, i) => i + 1), 113, 114, 115, 116, 117])]})",
+        )
+        self.assertEqual([None, 54, 57, None], actual["darling"])
+        self.assertEqual([111, None, 113], actual["spy"])
+        self.assertEqual(["54–57", "available chapters only"], actual["labels"])
+
+    def test_bw_unit_presentation_never_uses_color_claims(self):
+        helper = WEB / "lib/unit-presentation.ts"
+        self.assertTrue(helper.exists(), "unit SEO presentation behavior helper is missing")
+        actual = run_typescript(
+            "lib/unit-presentation.ts",
+            "({ bw: subject.unitPresentation({mangaTitle: 'SPY x FAMILY', unitLabel: 'Chapter', unitNumber: 38, pageCount: 24, type: 'bw'}), color: subject.unitPresentation({mangaTitle: 'SPY x FAMILY', unitLabel: 'Chapter', unitNumber: 19, pageCount: 24, type: 'color'}), attackBw: subject.unitPresentation({mangaTitle: 'Attack on Titan', unitLabel: 'Chapter', unitNumber: 1, pageCount: 50, type: 'bw'}), attackColor: subject.unitPresentation({mangaTitle: 'Attack on Titan', unitLabel: 'Chapter', unitNumber: 93, pageCount: 45, type: 'color'}) })",
+        )
+        bw_text = json.dumps(actual["bw"]).lower()
+        self.assertNotRegex(bw_text, r"color(?:ed|ized)?|full color")
+        self.assertIn("black & white", bw_text)
+        color_text = json.dumps(actual["color"]).lower()
+        self.assertRegex(color_text, r"color(?:ed|ized)?|full color")
+        self.assertNotRegex(json.dumps(actual["attackBw"]).lower(), r"color(?:ed|ized)?|full color")
+        self.assertRegex(json.dumps(actual["attackColor"]).lower(), r"color(?:ed|ized)?|full color")
+
+    def test_partial_list_presentation_is_honest_about_mixed_units(self):
+        exports = run_typescript(
+            "lib/unit-presentation.ts", "typeof subject.listPresentation"
+        )
+        self.assertEqual("function", exports)
+        actual = run_typescript(
+            "lib/unit-presentation.ts",
+            "subject.listPresentation({mangaTitle: 'Attack on Titan', unitLabel: 'Chapter', aggregate: 'partial', totalUnits: 139, coloredUnits: 46, lastUnit: 139})",
+        )
+        text = json.dumps(actual).lower()
+        self.assertIn("46", text)
+        self.assertIn("139", text)
+        self.assertIn("black & white", text)
+        self.assertNotIn("every colorized", text)
+        self.assertNotIn("any chapter in full color", text)
+
+    def test_partial_latest_presentation_is_honest_about_mixed_units(self):
+        exports = run_typescript(
+            "lib/unit-presentation.ts", "typeof subject.latestPresentation"
+        )
+        self.assertEqual("function", exports)
+        actual = run_typescript(
+            "lib/unit-presentation.ts",
+            "subject.latestPresentation({mangaTitle: 'SPY x FAMILY', unitLabel: 'Chapter', aggregate: 'partial', totalUnits: 117, coloredUnits: 37, lastUnit: 117})",
+        )
+        text = json.dumps(actual).lower()
+        self.assertIn("37", text)
+        self.assertIn("117", text)
+        self.assertIn("black & white", text)
+        self.assertNotIn("most recent chapters in full color", text)
+
+    def test_stats_and_partial_faq_report_actual_colored_pages(self):
+        expected = sum(
+            chapter["pageCount"]
+            for chapter in manifest("spy-x-family")["chapters"]
+            if chapter["type"] == "color"
+        )
+        actual = run_typescript("lib/data.ts", "subject.stats('spy-x-family')")
+        self.assertEqual(expected, actual.get("coloredPages"))
+        self.assertLess(actual["coloredPages"], actual["totalPages"])
+        faq_source = (WEB / "app/[manga]/page.tsx").read_text()
+        faq_body = faq_source[
+            faq_source.index("function seriesFaqs") : faq_source.index("function LiveManga")
+        ]
+        self.assertIn("s.coloredPages.toLocaleString", faq_body)
+
+    def test_reader_surfaces_are_wired_to_manifest_unit_types(self):
+        unit_page = (WEB / "lib/unit-page.tsx").read_text()
+        feed = (WEB / "app/feed.xml/route.ts").read_text()
+        list_page = (WEB / "lib/list-page.tsx").read_text()
+        latest_page = (WEB / "app/[manga]/latest/page.tsx").read_text()
+        reader = (WEB / "components/reader/Reader.tsx").read_text()
+        menu = (WEB / "components/reader/ChapterMenu.tsx").read_text()
+        end_card = (WEB / "components/reader/EndCard.tsx").read_text()
+        self.assertIn("unitPresentation({", unit_page)
+        self.assertIn("type: ch.type", unit_page)
+        self.assertIn("unitPresentation({", feed)
+        self.assertIn("type: c.type", feed)
+        self.assertIn("listPresentation({", list_page)
+        self.assertIn("latestPresentation({", latest_page)
+        self.assertIn("unitTypes", reader)
+        self.assertIn("unitTypes", menu)
+        self.assertIn("available", menu)
+        self.assertIn("type={type}", reader)
+        self.assertIn("type:", end_card)
+
+    def test_hub_and_machine_readable_totals_use_colored_pages(self):
+        home = (WEB / "app/page.tsx").read_text()
+        llms = (WEB / "app/llms.txt/route.ts").read_text()
+        self.assertIn("stats(m.slug).coloredPages", home)
+        self.assertIn("stats(m.slug).coloredPages", llms)
+        self.assertNotIn("live in full color right now", home)
+        self.assertNotIn("${s.total} colorized", llms)
+        self.assertNotIn("Every page is digitally colored", llms)
+
+    def test_docs_describe_the_multi_series_immutable_source_model(self):
+        readme = (WEB / "README.md").read_text()
+        env_example = (WEB / ".env.example").read_text()
+        self.assertNotIn("Currently only `one-piece` is populated", readme)
+        self.assertNotIn("NEXT_PUBLIC_IMAGE_BASE", readme)
+        self.assertNotIn("NEXT_PUBLIC_IMAGE_BASE", env_example)
+        self.assertIn("immutable", readme.lower())
+        self.assertRegex(readme.lower(), r"provenance[^.]*not[^.]*licen[cs]")
 
     def test_every_public_live_image_base_is_immutable(self):
         invalid = {

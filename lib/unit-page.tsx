@@ -16,12 +16,10 @@ import {
   pageUrl,
   readPath,
   unitLabel,
-  unitLabelLower,
   unitLabelPlural,
-  unitMetaTitle,
-  unitTitle,
 } from "@/lib/site";
 import Reader from "@/components/reader/Reader";
+import { unitPresentation } from "@/lib/unit-presentation";
 
 export function unitStaticParams(unit: MangaUnit) {
   const params: { manga: string; n: string }[] = [];
@@ -60,36 +58,37 @@ export async function buildUnitMetadata(
   const ch = getChapter(slug, n);
   if (!ch) return { title: `${m.title} ${unitLabel(m)} ${n}`, robots: { index: false } };
 
-  const u = unitLabelLower(m);
-  const title = unitMetaTitle(m, n, ch.arc, ch.title);
-  const description = `Read ${m.title} ${unitLabel(m)} ${n}${
-    ch.title ? ` (${ch.title})` : ""
-  } in full color online free${
-    ch.arc && ch.arc !== m.title ? ` — ${ch.arc}${ch.saga !== ch.arc ? `, ${ch.saga}` : ""}` : ""
-  }. ${ch.pageCount} digitally colored HD pages with zoom — the colorized ${m.title} manga.`;
+  const presentation = unitPresentation({
+    mangaTitle: m.title,
+    unitLabel: unitLabel(m),
+    unitNumber: n,
+    pageCount: ch.pageCount,
+    type: ch.type,
+    chapterTitle: ch.title,
+    arc: ch.arc,
+    saga: ch.saga,
+  });
   const cover = pageUrl(m, n, 1);
 
   return {
-    title,
-    description,
-    keywords: [
-      `${m.title.toLowerCase()} ${u} ${n} colored`,
-      `${m.title.toLowerCase()} color ${u} ${n}`,
-      `read ${m.title.toLowerCase()} ${u} ${n} color`,
-      ...(ch.title ? [`${m.title.toLowerCase()} ${ch.title.toLowerCase()} colored`] : []),
-      `${m.title.toLowerCase()} ${ch.arc} colored`.toLowerCase(),
-      `colorized ${m.title.toLowerCase()} manga`,
-    ],
+    title: presentation.title,
+    description: presentation.description,
+    keywords: presentation.keywords,
     alternates: { canonical: readPath(m, n) },
     openGraph: {
       type: "article",
       url: `${SITE.url}${readPath(m, n)}`,
       siteName: SITE.name,
-      title,
-      description,
-      images: [{ url: cover, alt: `${m.title} ${unitLabel(m)} ${n} colored cover` }],
+      title: presentation.title,
+      description: presentation.description,
+      images: [{ url: cover, alt: presentation.imageAlt }],
     },
-    twitter: { card: "summary_large_image", title, description, images: [cover] },
+    twitter: {
+      card: "summary_large_image",
+      title: presentation.title,
+      description: presentation.description,
+      images: [cover],
+    },
   };
 }
 
@@ -112,10 +111,21 @@ export async function UnitReaderPage({
   const idx = getIndex(slug);
   const total = idx.length ? idx[idx.length - 1].chapter : n;
   const units = idx.map((e) => e.chapter);
+  const unitTypes = Object.fromEntries(idx.map((e) => [e.chapter, e.type]));
   const unitTitles =
     m.unit === "volume"
       ? Object.fromEntries(idx.filter((e) => e.title).map((e) => [e.chapter, e.title!]))
       : undefined;
+  const presentation = unitPresentation({
+    mangaTitle: m.title,
+    unitLabel: unitLabel(m),
+    unitNumber: n,
+    pageCount: ch.pageCount,
+    type: ch.type,
+    chapterTitle: ch.title,
+    arc: ch.arc,
+    saga: ch.saga,
+  });
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -123,7 +133,7 @@ export async function UnitReaderPage({
       unit === "volume"
         ? {
             "@type": "PublicationVolume",
-            name: unitTitle(m, n, ch.arc, ch.title),
+            name: presentation.heading,
             volumeNumber: n,
             url: `${SITE.url}${readPath(m, n)}`,
             inLanguage: "en",
@@ -131,7 +141,7 @@ export async function UnitReaderPage({
             image: pageUrl(m, n, 1),
             isPartOf: {
               "@type": "ComicSeries",
-              name: `${m.title} (Colored Edition)`,
+              name: presentation.seriesName,
               url: `${SITE.url}${mangaPath(slug)}`,
             },
             author: { "@type": "Person", name: m.author },
@@ -139,7 +149,7 @@ export async function UnitReaderPage({
           }
         : {
             "@type": "ComicIssue",
-            name: unitTitle(m, n, ch.arc, ch.title),
+            name: presentation.heading,
             issueNumber: n,
             url: `${SITE.url}${readPath(m, n)}`,
             inLanguage: "en",
@@ -147,7 +157,7 @@ export async function UnitReaderPage({
             image: pageUrl(m, n, 1),
             isPartOf: {
               "@type": "ComicSeries",
-              name: `${m.title} (Colored Edition)`,
+              name: presentation.seriesName,
               url: `${SITE.url}${mangaPath(slug)}`,
             },
             author: { "@type": "Person", name: m.author },
@@ -185,15 +195,8 @@ export async function UnitReaderPage({
           <Link href="/">Home</Link> / <Link href={mangaPath(slug)}>{m.title}</Link> /{" "}
           <Link href={listPath(m)}>{unitLabel(m)}s</Link> / {unitLabel(m)} {n}
         </nav>
-        <h1>
-          {m.title} Color Manga — {unitLabel(m)} {n}
-          {ch.title ? `: ${ch.title}` : ch.arc && ch.arc !== m.title ? `: ${ch.arc}` : ""}
-          {ch.saga && ch.saga !== ch.arc ? ` (${ch.saga})` : ""}
-        </h1>
-        <p>
-          Read {m.title} {unitLabelLower(m)} {n} in full color online free. {ch.pageCount}{" "}
-          colorized pages.
-        </p>
+        <h1>{presentation.heading}</h1>
+        <p>{presentation.copy}</p>
       </div>
 
       <Reader
@@ -209,6 +212,7 @@ export async function UnitReaderPage({
         total={total}
         totalUnits={idx.length}
         units={units}
+        unitTypes={unitTypes}
         unitTitles={unitTitles}
       />
     </>
