@@ -23,6 +23,17 @@ class HomeHeroTest(unittest.TestCase):
         self.assertNotIn('import AnimatedLogo from "@/components/AnimatedLogo"', source)
         self.assertTrue((ROOT / "public/hero-legends-assemble.webp").is_file())
 
+    def test_black_and_white_card_posters_are_not_forced_grayscale(self):
+        source = (ROOT / "components/MangaCard.tsx").read_text(encoding="utf-8")
+        poster_source = "manga.poster ?? pageUrl(manga, 1, 1)"
+        source_position = source.index(poster_source)
+        image_start = source.rindex("<img", 0, source_position)
+        poster_image = source[image_start : source.index("/>", image_start)]
+
+        self.assertIn(poster_source, poster_image)
+        self.assertNotIn('manga.color === "none"', poster_image)
+        self.assertNotIn('"grayscale"', poster_image)
+
 
 if __name__ == "__main__":
     unittest.main()

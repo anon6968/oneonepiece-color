@@ -1,5 +1,8 @@
+import hashlib
 import json
 import re
+import shutil
+import struct
 import subprocess
 import unittest
 from pathlib import Path
@@ -9,6 +12,8 @@ WEB = Path(__file__).resolve().parents[1]
 ROOT = WEB.parent
 REGISTRY = (WEB / "lib/manga.ts").read_text()
 BASELINE_URLS = ROOT / "research/colorized-manga/2026-08-07/production-urls-before.txt"
+CURRENT_BASELINE_URLS = ROOT / "research/colorized-manga/2026-08-08/production-urls-before.txt"
+CURRENT_BASELINE_SHA256 = "0347633ea2d5602441095aa45c03947d53c644713ebd27e56d57bfd83587530f"
 BASELINE_SHA = "a84ecad24e6f0250a892e3dfddbc887787d308c3"
 
 SHA_BASE = re.compile(
@@ -45,9 +50,14 @@ def _hand_entries():
                 "color": value("color"),
                 "colorNote": value("colorNote"),
                 "unit": value("unit"),
+                "poster": value("poster"),
                 "imageToken": base.group(1) if base else None,
                 "hidden": "\n    hidden: true" in block,
                 "parts": "\n    parts:" in block,
+                "partSlugs": re.findall(
+                    r'\{ slug: "([^"]+)", title:',
+                    block[block.index("\n    parts:") :] if "\n    parts:" in block else "",
+                ),
             }
         )
     return entries
@@ -89,9 +99,11 @@ def raw_catalog():
                 "color": raw["color"],
                 "colorNote": raw.get("colorNote"),
                 "unit": raw["unit"],
+                "poster": raw.get("poster"),
                 "imageBase": raw["imageBase"],
                 "hidden": raw.get("hidden", False),
                 "parts": bool(raw.get("parts")),
+                "partSlugs": [part["slug"] for part in raw.get("parts", [])],
                 "source": "auto",
             }
         )
@@ -122,6 +134,57 @@ def manifest(slug):
     return json.loads((WEB / "data/manga" / slug / "index.json").read_text())
 
 
+def image_dimensions(path):
+    data = path.read_bytes()
+    if data.startswith(b"\x89PNG\r\n\x1a\n") and len(data) >= 24:
+        return struct.unpack(">II", data[16:24])
+
+    if data.startswith(b"\xff\xd8"):
+        offset = 2
+        sof_markers = {
+            0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7,
+            0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF,
+        }
+        while offset < len(data):
+            while offset < len(data) and data[offset] == 0xFF:
+                offset += 1
+            if offset >= len(data):
+                break
+            marker = data[offset]
+            offset += 1
+            if marker in {0x01, *range(0xD0, 0xDA)}:
+                continue
+            if offset + 2 > len(data):
+                break
+            segment_length = struct.unpack(">H", data[offset : offset + 2])[0]
+            if segment_length < 2 or offset + segment_length > len(data):
+                break
+            if marker in sof_markers and segment_length >= 7:
+                height, width = struct.unpack(">HH", data[offset + 3 : offset + 7])
+                return width, height
+            offset += segment_length
+
+    if data.startswith(b"RIFF") and data[8:12] == b"WEBP":
+        offset = 12
+        while offset + 8 <= len(data):
+            chunk = data[offset : offset + 4]
+            size = struct.unpack("<I", data[offset + 4 : offset + 8])[0]
+            payload = data[offset + 8 : offset + 8 + size]
+            if chunk == b"VP8X" and len(payload) >= 10:
+                width = 1 + int.from_bytes(payload[4:7], "little")
+                height = 1 + int.from_bytes(payload[7:10], "little")
+                return width, height
+            if chunk == b"VP8 " and len(payload) >= 10 and payload[3:6] == b"\x9d\x01\x2a":
+                width, height = struct.unpack("<HH", payload[6:10])
+                return width & 0x3FFF, height & 0x3FFF
+            if chunk == b"VP8L" and len(payload) >= 5 and payload[0] == 0x2F:
+                bits = int.from_bytes(payload[1:5], "little")
+                return (bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1
+            offset += 8 + size + (size % 2)
+
+    raise ValueError("unsupported or malformed JPEG/PNG/WebP image")
+
+
 def candidate_urls(rows):
     site = "https://colorizedmangas.com"
     urls = {site + p for p in ("", "/contact", "/dmca", "/terms", "/privacy")}
@@ -138,6 +201,21 @@ def candidate_urls(rows):
         for chapter in manifest(slug)["chapters"]:
             urls.add(f"{site}/{slug}/{singular}/{chapter['chapter']}")
     return urls
+
+
+def top_level_live(rows):
+    part_slugs = {
+        part_slug
+        for row in rows.values()
+        for part_slug in row["partSlugs"]
+    }
+    # Mirrors the duplicate romaji Part 9 exclusion in lib/manga.ts.
+    part_slugs.add("jojo-no-kimyou-na-bouken-dai-9-bu-the-jo")
+    return {
+        slug: row
+        for slug, row in rows.items()
+        if row["status"] == "live" and not row["hidden"] and slug not in part_slugs
+    }
 
 
 class CatalogIntegrityTests(unittest.TestCase):
@@ -347,6 +425,71 @@ class CatalogIntegrityTests(unittest.TestCase):
         }
         self.assertEqual({}, invalid)
 
+    def test_every_public_top_level_live_title_has_a_local_poster(self):
+        problems = {}
+        for slug, row in top_level_live(self.rows).items():
+            poster = row["poster"]
+            if not poster:
+                problems[slug] = "poster is not declared"
+            elif not re.fullmatch(r"/covers/[^/]+\.(?:jpe?g|png|webp)", poster):
+                problems[slug] = f"poster is not a local /covers image: {poster}"
+            elif not (WEB / "public" / poster.removeprefix("/")).is_file():
+                problems[slug] = f"poster file does not exist: {poster}"
+        self.assertEqual({}, problems)
+
+    def test_declared_public_top_level_posters_meet_quality_contract(self):
+        magick = shutil.which("magick")
+        self.assertIsNotNone(
+            magick,
+            "ImageMagick 'magick' is required to fully decode poster pixels",
+        )
+        problems = {}
+        hashes = {}
+        for slug, row in top_level_live(self.rows).items():
+            poster = row["poster"]
+            if not poster or not re.fullmatch(r"/covers/[^/]+\.(?:jpe?g|png|webp)", poster):
+                continue
+            path = WEB / "public" / poster.removeprefix("/")
+            if not path.is_file():
+                continue
+
+            issues = []
+            decoded = subprocess.run(
+                [magick, "-regard-warnings", str(path), "null:"],
+                capture_output=True,
+                text=True,
+            )
+            if decoded.returncode:
+                detail = decoded.stderr.strip() or decoded.stdout.strip() or "no diagnostic"
+                issues.append(
+                    f"does not fully decode (ImageMagick exit {decoded.returncode}): {detail}"
+                )
+            try:
+                width, height = image_dimensions(path)
+            except (OSError, ValueError, struct.error) as error:
+                issues.append(f"does not decode: {error}")
+            else:
+                if width < 600 or height < 800:
+                    issues.append(f"dimensions {width}x{height} are below 600x800")
+                ratio = width / height
+                if not 0.70 <= ratio <= 0.80:
+                    issues.append(f"aspect ratio {ratio:.3f} is outside 0.70-0.80")
+            size = path.stat().st_size
+            if size > 400 * 1024:
+                issues.append(f"size {size} bytes exceeds 400KB")
+            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            hashes.setdefault(digest, []).append(slug)
+            if issues:
+                problems[slug] = issues
+
+        for digest, slugs in hashes.items():
+            if len(slugs) > 1:
+                for slug in slugs:
+                    problems.setdefault(slug, []).append(
+                        f"SHA-256 {digest} is shared by {', '.join(slugs)}"
+                    )
+        self.assertEqual({}, problems)
+
     def test_aggregate_color_claim_matches_baked_manifest_types(self):
         mismatches = {}
         for slug, row in self.live.items():
@@ -475,6 +618,23 @@ class CatalogIntegrityTests(unittest.TestCase):
 
     def test_every_old_production_url_is_preserved(self):
         before = {line.strip().rstrip("/") for line in BASELINE_URLS.read_text().splitlines() if line.strip()}
+        after = {url.rstrip("/") for url in candidate_urls(self.rows)}
+        self.assertEqual(set(), before - after)
+
+    def test_every_current_production_url_is_preserved(self):
+        baseline_bytes = CURRENT_BASELINE_URLS.read_bytes()
+        self.assertEqual(
+            CURRENT_BASELINE_SHA256,
+            hashlib.sha256(baseline_bytes).hexdigest(),
+        )
+        lines = [
+            line.strip()
+            for line in baseline_bytes.decode().splitlines()
+            if line.strip()
+        ]
+        self.assertEqual(18_406, len(lines))
+        self.assertEqual(18_406, len(set(lines)))
+        before = {line.rstrip("/") for line in lines}
         after = {url.rstrip("/") for url in candidate_urls(self.rows)}
         self.assertEqual(set(), before - after)
 
