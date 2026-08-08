@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/StaticLink";
 import { pageUrl, readPath, unitLabel } from "@/lib/site";
 import type { Manga } from "@/lib/manga";
 import type { IndexEntry } from "@/lib/data";

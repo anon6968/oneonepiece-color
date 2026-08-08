@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/StaticLink";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 /** One searchable series — the minimum the hub needs to render a result row. */

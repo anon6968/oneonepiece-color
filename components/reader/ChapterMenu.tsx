@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/StaticLink";
 import { useEffect, useRef } from "react";
 import { readPath, unitAbbrev, unitLabelPlural } from "@/lib/site";
 import type { Manga } from "@/lib/manga";

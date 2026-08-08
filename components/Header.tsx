@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/StaticLink";
 import { liveMangas } from "@/lib/manga";
 import { pageUrl } from "@/lib/site";
 import HeaderResume from "./HeaderResume";

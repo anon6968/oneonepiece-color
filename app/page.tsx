@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/StaticLink";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { MANGAS, comingSoonMangas, topLevelLiveMangas } from "@/lib/manga";

@@ -4,3 +4,11 @@
 /chapters           /one-piece/chapters     301
 /naruto/chapter/:n  /naruto/volume/:n       301
 /naruto/chapters    /naruto/volumes         301
+
+# Legacy iOS icon probes seen in Cloudflare analytics. The canonical icon
+# already exists, so aliases remove asset 404s without adding deployed files.
+/apple-touch-icon-precomposed.png /apple-touch-icon.png 301
+/apple-touch-icon-120x120.png /apple-touch-icon.png 301
+/apple-touch-icon-120x120-precomposed.png /apple-touch-icon.png 301
+/apple-touch-icon-152x152.png /apple-touch-icon.png 301
+/apple-touch-icon-152x152-precomposed.png /apple-touch-icon.png 301

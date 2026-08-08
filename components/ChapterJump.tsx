@@ -1,13 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { readPath, unitAbbrev } from "@/lib/site";
 import type { Manga } from "@/lib/manga";
 import { availableUnit, availableUnitHint } from "@/lib/unit-availability";
 
 export default function ChapterJump({ manga, units }: { manga: Manga; units: number[] }) {
-  const router = useRouter();
   const [v, setV] = useState("");
   const abbrev = unitAbbrev(manga).replace(".", "").toLowerCase();
 
@@ -17,7 +15,7 @@ export default function ChapterJump({ manga, units }: { manga: Manga; units: num
     // the overall range can still be absent, so require exact membership.
     const n = availableUnit(v, units);
     if (n !== null) {
-      router.push(readPath(manga, n));
+      window.location.assign(readPath(manga, n));
     }
   }
 

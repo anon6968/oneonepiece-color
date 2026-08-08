@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/StaticLink";
 import { topLevelLiveMangas } from "@/lib/manga";
 import { groupBySaga, sagaSlug, stats } from "@/lib/data";
 import { listPath, mangaPath, unitLabelPlural, SITE } from "@/lib/site";

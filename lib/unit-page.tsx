@@ -5,7 +5,7 @@
 // identical behavior with unit-correct URLs, labels and structured data.
 
 import type { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/StaticLink";
 import { notFound } from "next/navigation";
 import { getManga, getMangaSlugs, isLive, type Manga, type MangaUnit } from "@/lib/manga";
 import { getChapter, getChapterNumbers, getIndex, neighbours } from "@/lib/data";

@@ -23,10 +23,16 @@ SHA_BASE = re.compile(
 # These archives contain only colored units, but are intentionally partial at
 # series level because their exact metadata discloses unhosted source chapters.
 COLOR_ONLY_PARTIAL_SLUGS = {
-    "undead-unluck",
-    "made-in-abyss",
-    "miss-kobayashis-dragon-maid",
-    "dragon-ball-sd",
+    "quintessential-quintuplets",
+    "that-time-i-got-reincarnated-as-a-slime",
+    "danmachi",
+    "beastars",
+    "teasing-master-takagi-san",
+    "kuroko-no-basket",
+    "tsuredure-children",
+    "way-of-the-househusband",
+    "hajime-no-ippo",
+    "baki-dou",
 }
 
 
@@ -602,34 +608,32 @@ class CatalogIntegrityTests(unittest.TestCase):
         self.assertEqual(155, len(golden["chapters"]))
         self.assertIn(36, {c["chapter"] for c in golden["chapters"]})
 
-    def test_ten_famous_2026_08_08_additions_are_exact(self):
+    def test_fame_first_2026_08_08_replacement_is_exact(self):
         expected = {
             "dragon-ball-super": (set(range(1, 105)), "chapter", "full"),
-            "undead-unluck": (set(range(1, 71)), "chapter", "partial"),
-            "made-in-abyss": ({*range(1, 10), *range(47, 53)}, "chapter", "partial"),
-            "highschool-of-the-dead": (set(range(1, 8)), "volume", "full"),
-            "miss-kobayashis-dragon-maid": (
-                {2, 30, 31, 33, 43, 46, 54, 55, 62, 63, 81, 91},
-                "chapter",
-                "partial",
-            ),
-            "tomo-chan-is-a-girl": (set(range(1, 23)), "chapter", "full"),
-            "sand-land": (set(range(1, 11)), "chapter", "full"),
-            "thus-spoke-rohan-kishibe": (set(range(1, 13)), "chapter", "full"),
-            "to-love-ru-darkness": (set(range(0, 78)), "chapter", "full"),
-            "dragon-ball-sd": (set(range(1, 45)), "chapter", "partial"),
+            "quintessential-quintuplets": ({37, 44, 52, 53, 56, 58, 60, 61, 65, 66, 67, 69, 70, 71, 72, 74, 75, 83, 84, 86, 87, 88, 89, 90, 92, 114}, "chapter", "partial"),
+            "that-time-i-got-reincarnated-as-a-slime": (set(range(87, 91)), "chapter", "partial"),
+            "danmachi": (set(range(83, 87)), "chapter", "partial"),
+            "beastars": ({*range(1, 8), 174}, "chapter", "partial"),
+            "teasing-master-takagi-san": (set(range(1, 5)), "chapter", "partial"),
+            "kuroko-no-basket": (set(range(1, 13)), "chapter", "partial"),
+            "tsuredure-children": (set(range(1, 5)), "chapter", "partial"),
+            "way-of-the-househusband": (set(range(1, 11)), "chapter", "partial"),
+            "hajime-no-ippo": (set(range(1, 7)), "chapter", "partial"),
+            "baki-dou": ({1}, "chapter", "partial"),
         }
         expected_image_bases = {
             "dragon-ball-super": "https://cdn.jsdelivr.net/gh/anon6968/dragon-ball-super-official-color-archive-color-pages@1764c88f609eadfb50c1ef4a997df1ab62defaaa/pages",
-            "undead-unluck": "https://cdn.jsdelivr.net/gh/anon6968/undead-unluck-official-color-archive-color-pages@77aeaa15a2129102915454b43e75904c826fa8f0/pages",
-            "made-in-abyss": "https://cdn.jsdelivr.net/gh/anon6968/made-in-abyss-color-pages@3269e2b2eca011c810801dc522e306e589ab571a/pages",
-            "highschool-of-the-dead": "https://cdn.jsdelivr.net/gh/anon6968/high-school-of-the-dead-full-color-archive-color-pages@39fe3e674ab043c4663be8e49cc41005d022ed08/pages",
-            "miss-kobayashis-dragon-maid": "https://cdn.jsdelivr.net/gh/anon6968/miss-kobayashis-dragon-maid-color-archive-color-pages@8a7db94b795cda39c813c6a0eef434e9c0a86e3c/pages",
-            "tomo-chan-is-a-girl": "https://cdn.jsdelivr.net/gh/anon6968/tomo-chan-is-a-girl-color-pages@9dc2d14ac73cc1f0b206185d9933d471da904db9/pages",
-            "sand-land": "https://cdn.jsdelivr.net/gh/anon6968/sand-land-official-color-archive-color-pages@472a40e2991a91b6491029a6bffa3cd536cbfa9b/pages",
-            "thus-spoke-rohan-kishibe": "https://cdn.jsdelivr.net/gh/anon6968/thus-spoke-rohan-kishibe-color-pages@5d205a2b50a61d1e7764460d456d56f3373c242e/pages",
-            "to-love-ru-darkness": "https://cdn.jsdelivr.net/gh/anon6968/to-love-ru-darkness-color-pages@85d4761d91e590ca93590f57a784ad4e1d56e76b/pages",
-            "dragon-ball-sd": "https://cdn.jsdelivr.net/gh/anon6968/dragon-ball-sd-color-pages@3ebe0bbd45005ac510ea63264e678e1524ad8869/pages",
+            "quintessential-quintuplets": "https://cdn.jsdelivr.net/gh/anon6968/quintessential-quintuplets-color-pages@857cf790354e44298b155a6ceb64f0a23d53bd1c/pages",
+            "that-time-i-got-reincarnated-as-a-slime": "https://cdn.jsdelivr.net/gh/anon6968/slime-color-color-pages@55e6ebe84faad2e61efeaa2e460658e6ea7ff88d/pages",
+            "danmachi": "https://cdn.jsdelivr.net/gh/anon6968/danmachi-color-pages@25ab1df4f764e32e314527e0d67a9f55e927b7d7/pages",
+            "beastars": "https://cdn.jsdelivr.net/gh/anon6968/beastars-colored-color-pages@11dcce6e4cbec09f589c0779c24bcf45d286680e/pages",
+            "teasing-master-takagi-san": "https://cdn.jsdelivr.net/gh/anon6968/teasing-master-takagi-san-color-pages@abcc31a1d5c9fddb9510097a76c1f993b6e33707/pages",
+            "kuroko-no-basket": "https://cdn.jsdelivr.net/gh/anon6968/kuroko-no-basket-color-pages@72313e24c35b9c8ddd8565670dfcece529f1b0b0/pages",
+            "tsuredure-children": "https://cdn.jsdelivr.net/gh/anon6968/tsuredure-children-color-pages@30b42705ad1529d4f3a0f27aa98ff53f603d6929/pages",
+            "way-of-the-househusband": "https://cdn.jsdelivr.net/gh/anon6968/way-of-the-househusband-color-pages@53394e26826b0ad189c20c25f244407c74718c6d/pages",
+            "hajime-no-ippo": "https://cdn.jsdelivr.net/gh/anon6968/hajime-no-ippo-color-pages@dfcbf0decfcc3d4f4f0be233845e728e017a9afe/pages",
+            "baki-dou": "https://cdn.jsdelivr.net/gh/anon6968/baki-dou-colored-color-pages@eacc7847b18846d648ebf92a9591168f748f0879/pages",
         }
         actual_entries = {
             row["slug"]: row for row in json.loads((WEB / "data/auto-series.json").read_text())
@@ -647,14 +651,12 @@ class CatalogIntegrityTests(unittest.TestCase):
             self.assertRegex(entry["imageBase"], SHA_BASE)
             self.assertEqual(f"/covers/{slug}.jpg", entry["poster"], slug)
 
-        # The reader parser and static route inventory intentionally admit a
-        # real chapter 0; To Love-Ru Darkness must not silently lose its prologue.
-        unit_page = (WEB / "lib/unit-page.tsx").read_text()
-        self.assertIn("v >= 0", unit_page)
-        self.assertIn(
-            "https://colorizedmangas.com/to-love-ru-darkness/chapter/0",
-            candidate_urls(self.rows),
-        )
+        rejected = {
+            "undead-unluck", "made-in-abyss", "highschool-of-the-dead",
+            "miss-kobayashis-dragon-maid", "tomo-chan-is-a-girl", "sand-land",
+            "thus-spoke-rohan-kishibe", "to-love-ru-darkness", "dragon-ball-sd",
+        }
+        self.assertTrue(rejected.isdisjoint(self.live))
 
         before = {
             line.strip().rstrip("/")
@@ -662,9 +664,9 @@ class CatalogIntegrityTests(unittest.TestCase):
             if line.strip()
         }
         after = {url.rstrip("/") for url in candidate_urls(self.rows)}
-        # Ten new series add 404 URLs; the same release also admits four
-        # independently verified missing color chapters below.
-        self.assertEqual(408, len(after - before))
+        # The corrected release keeps DBS + four repairs and replaces the other
+        # nine one-day additions with 109 fame-first routes.
+        self.assertEqual(220, len(after - before))
 
     def test_2026_08_08_verified_existing_series_gaps_are_filled(self):
         expected = {
@@ -723,15 +725,16 @@ class CatalogIntegrityTests(unittest.TestCase):
         }
         expected_current_release = {
             "dragon-ball-super": set(range(1, 105)),
-            "undead-unluck": set(range(1, 71)),
-            "made-in-abyss": {*range(1, 10), *range(47, 53)},
-            "highschool-of-the-dead": set(range(1, 8)),
-            "miss-kobayashis-dragon-maid": {2, 30, 31, 33, 43, 46, 54, 55, 62, 63, 81, 91},
-            "tomo-chan-is-a-girl": set(range(1, 23)),
-            "sand-land": set(range(1, 11)),
-            "thus-spoke-rohan-kishibe": set(range(1, 13)),
-            "to-love-ru-darkness": set(range(0, 78)),
-            "dragon-ball-sd": set(range(1, 45)),
+            "quintessential-quintuplets": {37, 44, 52, 53, 56, 58, 60, 61, 65, 66, 67, 69, 70, 71, 72, 74, 75, 83, 84, 86, 87, 88, 89, 90, 92, 114},
+            "that-time-i-got-reincarnated-as-a-slime": set(range(87, 91)),
+            "danmachi": set(range(83, 87)),
+            "beastars": {*range(1, 8), 174},
+            "teasing-master-takagi-san": set(range(1, 5)),
+            "kuroko-no-basket": set(range(1, 13)),
+            "tsuredure-children": set(range(1, 5)),
+            "way-of-the-househusband": set(range(1, 11)),
+            "hajime-no-ippo": set(range(1, 7)),
+            "baki-dou": {1},
             "sakamoto-days": set(range(1, 8)),
             "tokyo-revengers": set(range(1, 15)),
             "yu-yu-hakusho": set(range(1, 52)),

@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "@/components/StaticLink";
+import { usePathname } from "next/navigation";
 import { useCallback } from "react";
 
 const HOME_ICON = (
@@ -32,7 +32,6 @@ const LIBRARY_ICON = (
  */
 export default function MobileNav() {
   const pathname = usePathname();
-  const router = useRouter();
   const onHome = pathname === "/";
 
   // Tapping Color/B&W always sets the view (the <label> toggles the radio
@@ -43,9 +42,9 @@ export default function MobileNav() {
     if (onHome) {
       document.getElementById("library")?.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
-      router.push("/#library");
+      window.location.assign("/#library");
     }
-  }, [onHome, router]);
+  }, [onHome]);
 
   return (
     <nav

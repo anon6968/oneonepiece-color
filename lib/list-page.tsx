@@ -3,7 +3,7 @@
 //   /[manga]/volumes   (unit = "volume")
 
 import type { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/StaticLink";
 import { notFound } from "next/navigation";
 import { getManga, getMangaSlugs, isLive, type MangaUnit } from "@/lib/manga";
 import { getIndex, stats } from "@/lib/data";

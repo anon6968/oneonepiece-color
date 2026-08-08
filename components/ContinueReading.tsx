@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/StaticLink";
 import { useEffect, useState } from "react";
 import { loadProgress } from "@/components/reader/prefs";
 

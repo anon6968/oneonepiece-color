@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/StaticLink";
 import LogoConcepts from "@/components/LogoConcepts";
 
 export const metadata: Metadata = {

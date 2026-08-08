@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/StaticLink";
 import { notFound } from "next/navigation";
 import { getManga, getMangaSlugs, isLive, liveMangas, type Manga } from "@/lib/manga";
 import { getIndex, stats, type MangaStats } from "@/lib/data";

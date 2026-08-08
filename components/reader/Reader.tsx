@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import Link from "@/components/StaticLink";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { listPath, pageUrl, readPath, unitAbbrev, unitLabel } from "@/lib/site";
 import type { PagedFit, ReaderMode, ReaderProps } from "./types";
@@ -28,8 +27,6 @@ function barBtn(disabled?: boolean) {
 export default function Reader(props: ReaderProps) {
   const { manga, chapter, arc, saga, unitTitle, type, pages, prev, next, total, totalUnits } =
     props;
-  const router = useRouter();
-
   const [mode, setMode] = useState<ReaderMode>("strip");
   const [wIdx, setWIdx] = useState(4);
   const [fit, setFit] = useState<PagedFit>("height");
@@ -148,12 +145,12 @@ export default function Reader(props: ReaderProps) {
   const prevPage = useCallback(() => jumpToPage(pageRef.current - 1), [jumpToPage]);
 
   const goPrevUnit = useCallback(
-    () => prev && router.push(readPath(manga, prev)),
-    [prev, router, manga],
+    () => prev && window.location.assign(readPath(manga, prev)),
+    [prev, manga],
   );
   const goNextUnit = useCallback(
-    () => next && router.push(readPath(manga, next)),
-    [next, router, manga],
+    () => next && window.location.assign(readPath(manga, next)),
+    [next, manga],
   );
 
   const zoomIn = useCallback(() => setWIdx((v) => Math.min(WIDTHS.length - 1, v + 1)), []);
