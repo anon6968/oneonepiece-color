@@ -15,7 +15,10 @@ import ChapterBrowser from "@/components/ChapterBrowser";
 import MangaCard from "@/components/MangaCard";
 import MangaInfoPanel from "@/components/MangaInfoPanel";
 import ShareButton from "@/components/ShareButton";
-import { seriesMetadataPresentation } from "@/lib/unit-presentation";
+import {
+  isFanColoredNote,
+  seriesMetadataPresentation,
+} from "@/lib/unit-presentation";
 
 export const dynamicParams = false;
 
@@ -242,7 +245,7 @@ function seriesFaqs(m: Manga, s: MangaStats, firstCh: number) {
   const label = unitLabel(m);
   const lower = unitLabelLower(m);
   const plural = unitLabelPlural(m);
-  const fan = !!m.colorNote?.toLowerCase().includes("fan");
+  const fan = isFanColoredNote(m.colorNote);
   const bw = m.color === "none";
   const firstColored = getIndex(m.slug).find((unit) => unit.type === "color")?.chapter ?? firstCh;
   const coverage = [

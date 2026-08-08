@@ -9,6 +9,12 @@ interface UnitPresentationInput {
   saga?: string;
 }
 
+/** Distinguish fan-colored artwork from official color art whose English text
+ * happens to be fan-translated. */
+export function isFanColoredNote(note?: string) {
+  return /\bfan[- ]colou?r(?:ed|ized|ised)?\b/i.test(note ?? "");
+}
+
 /** All reader-page claims derive from the manifest unit type. */
 export function unitPresentation(input: UnitPresentationInput) {
   const { mangaTitle, unitLabel, unitNumber, pageCount, type, chapterTitle, arc, saga } = input;

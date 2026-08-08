@@ -96,7 +96,7 @@ const YU_GI_OH_IMAGE_BASE =
 const GOLDEN_KAMUY_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/golden-kamuy-color-pages@b81c5602f678638c1811504277d52c460d7e87e8/pages";
 const HOSHIN_ENGI_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/hoshin-engi-color-pages@902761c9550208afb1de1743e8f91546d163ebd0/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/hoshin-engi-color-pages@1a960b92df020b3b56effcc19f13559271539054/pages";
 const DEMON_SLAYER_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/demon-slayer-color-pages@734bd93a91dd6b5cd8322632b8e6fe2a24495ee2/pages";
 const DEATH_NOTE_IMAGE_BASE =
@@ -129,7 +129,7 @@ const DANDADAN_IMAGE_BASE =
 const TOKYO_GHOUL_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/tokyo-ghoul-color-pages@757c6b882385b52e02e9c154fdbf0f3fa9e6c067/pages";
 const TOKYO_REVENGERS_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/tokyo-revengers-color-pages@c4eddf52c09ad7e6cc8d0be0cbdd54dbfeba8435/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/tokyo-revengers-color-pages@de6d4b59eef25e07a824769b04d7ee3c9f72c3ed/pages";
 const FIRE_FORCE_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/fire-force-color-pages@030a1faad9402701f27e8b7bebdbaa3585627427/pages";
 const VINLAND_SAGA_IMAGE_BASE =
@@ -139,7 +139,7 @@ const THE_PROMISED_NEVERLAND_IMAGE_BASE =
 const FAIRY_TAIL_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/fairy-tail-color-pages@3a64b6a62e80d3d7956459dc6d272fad93d980a3/pages";
 const YU_YU_HAKUSHO_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/yu-yu-hakusho-color-pages@b94b9a48b5989ccb81d8e2a1a3cdd7751fbad5a0/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/yu-yu-hakusho-color-pages@f889b87234e5719f18bcea607e2712cf50a9bf22/pages";
 const BLUE_EXORCIST_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/blue-exorcist-color-pages@3297345d746cbcda9abb9ee5e3c90b913a98531c/pages";
 const FOOD_WARS_IMAGE_BASE =
@@ -175,7 +175,7 @@ const VAGABOND_IMAGE_BASE =
 const SLAM_DUNK_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/slam-dunk-color-pages@ac6a1e2653f7821717891516db079b2d9f80f405/pages";
 const SAKAMOTO_DAYS_IMAGE_BASE =
-  "https://cdn.jsdelivr.net/gh/anon6968/sakamoto-days-color-pages@889883565be752774059cfb218f83c20f096ed69/pages";
+  "https://cdn.jsdelivr.net/gh/anon6968/sakamoto-days-color-pages@009b33b5e546bdd83926bd97d5f0c3b610a58271/pages";
 const KOMI_CANT_COMMUNICATE_IMAGE_BASE =
   "https://cdn.jsdelivr.net/gh/anon6968/komi-cant-communicate-color-pages@4bc0fb37e1ed738457d0c5cea382c7ad6f873547/pages";
 const ASSASSINATION_CLASSROOM_IMAGE_BASE =
@@ -418,6 +418,7 @@ const HAND_MANGAS: Manga[] = [
       "fma full manga",
       "fullmetal alchemist brotherhood manga",
     ],
+    poster: "/covers/fullmetal-alchemist.jpg",
     accent: "#d9c14a",
     mark: "⚗️",
     totalChapters: 108,
@@ -455,6 +456,7 @@ const HAND_MANGAS: Manga[] = [
       "attack on titan manga online free",
       "attack on titan colored chapters",
     ],
+    poster: "/covers/attack-on-titan.jpg",
     accent: "#6b8f71",
     mark: "🧱",
     totalChapters: 139,
@@ -492,6 +494,7 @@ const HAND_MANGAS: Manga[] = [
       "hxh manga online free",
       "hunter x hunter colored chapters",
     ],
+    poster: "/covers/hunter-x-hunter.jpg",
     accent: "#3fae7a",
     mark: "🎯",
     totalChapters: 390,
@@ -528,7 +531,7 @@ const HAND_MANGAS: Manga[] = [
       "dragon ball manga online free",
       "dragon ball colored chapters",
     ],
-    poster: "/covers/dragon-ball.png",
+    poster: "/covers/dragon-ball.jpg",
     posterPosition: "center",
     accent: "#f0872b",
     mark: "🐉",
@@ -564,6 +567,7 @@ const HAND_MANGAS: Manga[] = [
       "kaguya sama love is war full color",
       "kaguya sama manga online free",
     ],
+    poster: "/covers/kaguya-sama.jpg",
     accent: "#c2274e",
     mark: "💘",
     totalChapters: 44,
@@ -594,6 +598,7 @@ const HAND_MANGAS: Manga[] = [
       "akira full color edition",
       "akira manga online free",
     ],
+    poster: "/covers/akira.jpg",
     accent: "#d02a2a",
     mark: "🏍️",
     totalChapters: 38,
@@ -624,6 +629,7 @@ const HAND_MANGAS: Manga[] = [
       "yugioh full color",
       "yu gi oh manga online free",
     ],
+    poster: "/covers/yu-gi-oh.jpg",
     accent: "#7a3fb8",
     mark: "🎴",
     totalChapters: 42,
@@ -659,7 +665,7 @@ const HAND_MANGAS: Manga[] = [
       "golden kamuy manga online free",
       "golden kamuy colored chapters",
     ],
-    poster: "/covers/golden-kamuy.png",
+    poster: "/covers/golden-kamuy.jpg",
     posterPosition: "center",
     accent: "#c8a24a",
     mark: "🐻",
@@ -697,9 +703,10 @@ const HAND_MANGAS: Manga[] = [
       "soul hunter manga online free",
       "hoshin engi colored chapters",
     ],
+    poster: "/covers/hoshin-engi.jpg",
     accent: "#b5642e",
     mark: "🏯",
-    totalChapters: 46,
+    totalChapters: 49,
   },
   {
     slug: "chainsaw-man",
@@ -761,6 +768,7 @@ const HAND_MANGAS: Manga[] = [
       "black clover full manga",
       "asta black clover manga",
     ],
+    poster: "/covers/black-clover.jpg",
     accent: "#3dbb6b",
     mark: "🍀",
     totalChapters: 392,
@@ -791,7 +799,7 @@ const HAND_MANGAS: Manga[] = [
       "read rurouni kenshin in color",
       "rurouni kenshin full color",
     ],
-    poster: "/covers/rurouni-kenshin.png",
+    poster: "/covers/rurouni-kenshin.jpg",
     posterPosition: "center",
     accent: "#c0392b",
     mark: "🗡️",
@@ -847,7 +855,7 @@ const HAND_MANGAS: Manga[] = [
     synopsis:
       "Read the colorized Jujutsu Kaisen manga online for free — Yuji Itadori and the Tokyo Jujutsu High sorcerers against cursed spirits and Sukuna, in a complete fan-colorization instead of black and white. The whole run digitally colored in high definition, no signup, a fast mobile-friendly reader with zoom on every page.",
     keywords: ["colorized jujutsu kaisen manga", "jujutsu kaisen colored", "jjk colored manga", "jujutsu kaisen color", "read jujutsu kaisen in color", "jjk full color"],
-    poster: "/covers/jujutsu-kaisen-shrine.png",
+    poster: "/covers/jujutsu-kaisen.jpg",
     posterPosition: "center",
     accent: "#8e44ad",
     mark: "👊",
@@ -879,6 +887,7 @@ const HAND_MANGAS: Manga[] = [
       "berserk full manga",
       "berserk guts manga",
     ],
+    poster: "/covers/berserk.jpg",
     accent: "#8b0000",
     mark: "⚔️",
     totalChapters: 384,
@@ -909,6 +918,7 @@ const HAND_MANGAS: Manga[] = [
       "dr stone full manga",
       "senku dr stone manga",
     ],
+    poster: "/covers/dr-stone.jpg",
     accent: "#27ae60",
     mark: "🧪",
     totalChapters: 229,
@@ -939,6 +949,7 @@ const HAND_MANGAS: Manga[] = [
       "mob psycho full manga",
       "mob psycho 100 manga ONE",
     ],
+    poster: "/covers/mob-psycho-100.jpg",
     accent: "#3867d6",
     mark: "💯",
     totalChapters: 101,
@@ -969,6 +980,7 @@ const HAND_MANGAS: Manga[] = [
       "blue lock full manga",
       "blue lock isagi manga",
     ],
+    poster: "/covers/blue-lock.jpg",
     accent: "#2d6cdf",
     mark: "⚽",
     totalChapters: 204,
@@ -999,6 +1011,7 @@ const HAND_MANGAS: Manga[] = [
       "monster 8 manga",
       "kaiju no 8 full manga",
     ],
+    poster: "/covers/kaiju-no-8.jpg",
     accent: "#8e44ad",
     mark: "👹",
     totalChapters: 129,
@@ -1029,6 +1042,7 @@ const HAND_MANGAS: Manga[] = [
       "hells paradise full manga",
       "gabimaru hells paradise manga",
     ],
+    poster: "/covers/hells-paradise.jpg",
     accent: "#b03a5b",
     mark: "🗡️",
     totalChapters: 127,
@@ -1059,6 +1073,7 @@ const HAND_MANGAS: Manga[] = [
       "dandadan full manga",
       "dan da dan manga",
     ],
+    poster: "/covers/dandadan.jpg",
     accent: "#7d5fff",
     mark: "👽",
     totalChapters: 198,
@@ -1093,7 +1108,7 @@ const HAND_MANGAS: Manga[] = [
       "jojo bizarre adventure colored",
       "jojo manga online free",
     ],
-    poster: "/covers/jojos-bizarre-adventure.png",
+    poster: "/covers/jojos-bizarre-adventure.jpg",
     posterPosition: "50% 18%",
     accent: "#b06be0",
     mark: "⭐",
@@ -1137,8 +1152,8 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "tokyo-revengers",
     popularity: 36,
-    color: "none",
-    colorNote: "Complete series in black & white — colorized version coming soon",
+    color: "partial",
+    colorNote: "Official-color chapters 1–14; chapters 15–278 remain HD black & white",
     title: "Tokyo Revengers",
     nativeTitle: "東京卍リベンジャーズ",
     altTitles: ["Tokyo Manji Revengers", "Tokyo Revengers Manga"],
@@ -1150,10 +1165,10 @@ const HAND_MANGAS: Manga[] = [
     year: 2017,
     imageBase: TOKYO_REVENGERS_IMAGE_BASE,
     tagline:
-      "Ken Wakui's Tokyo Revengers — the complete manga in HD black & white, free.",
+      "Ken Wakui's Tokyo Revengers with official-color chapters 1–14 in HD.",
     synopsis:
-      "Read Tokyo Revengers online free — the complete manga in high-quality black & white. Failure Takemichi Hanagaki discovers he can travel twelve years into the past and sets out to rewrite the future of the gang war that killed the only girl who ever loved him, in Ken Wakui's time-leaping delinquent saga. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
-    keywords: ["tokyo revengers manga online free", "read tokyo revengers manga", "tokyo revengers manga black and white", "tokyo revengers full manga", "tokyo revengers manga free"],
+      "Read Tokyo Revengers online free, including verified official-color chapters 1–14 while chapters 15–278 remain honestly labeled HD black & white. Takemichi Hanagaki discovers he can travel twelve years into the past and sets out to rewrite the gang-war future that killed the only girl he ever loved, in Ken Wakui's time-leaping delinquent saga. No signup, no paywall, with a fast mobile reader and pinch-to-zoom.",
+    keywords: ["tokyo revengers colored manga", "tokyo revengers official color", "read tokyo revengers manga", "tokyo revengers manga online free", "tokyo revengers full manga"],
     poster: "/covers/tokyo-revengers.jpg",
     accent: "#123a63",
     mark: "🕰️",
@@ -1262,8 +1277,8 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "yu-yu-hakusho",
     popularity: 28,
-    color: "none",
-    colorNote: "Complete series in black & white — colorized version coming soon",
+    color: "partial",
+    colorNote: "Official-color chapters 1–51; chapters 52–175 remain HD black & white",
     title: "Yu Yu Hakusho",
     nativeTitle: "幽☆遊☆白書",
     altTitles: ["Yuyu Hakusho", "Ghost Files", "Yu Yu Hakusho Manga"],
@@ -1275,10 +1290,10 @@ const HAND_MANGAS: Manga[] = [
     year: 1990,
     imageBase: YU_YU_HAKUSHO_IMAGE_BASE,
     tagline:
-      "Yoshihiro Togashi's Yu Yu Hakusho — the complete manga in HD black & white, free.",
+      "Yoshihiro Togashi's Yu Yu Hakusho with official-color chapters 1–51 in HD.",
     synopsis:
-      "Read Yu Yu Hakusho online free — the complete manga in high-quality black & white. Teenage delinquent Yusuke Urameshi dies saving a child, earns a second chance as a Spirit Detective, and battles demons in brutal tournaments, in Yoshihiro Togashi's genre-defining supernatural shonen. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
-    keywords: ["yu yu hakusho manga online free", "read yu yu hakusho manga", "yu yu hakusho manga black and white", "yu yu hakusho full manga", "yu yu hakusho manga free"],
+      "Read Yu Yu Hakusho online free, including verified official-color chapters 1–51 while chapters 52–175 remain honestly labeled HD black & white. Teenage delinquent Yusuke Urameshi dies saving a child, earns a second chance as a Spirit Detective, and battles demons in brutal tournaments in Yoshihiro Togashi's genre-defining supernatural shonen. No signup, no paywall, with a fast mobile reader and pinch-to-zoom.",
+    keywords: ["yu yu hakusho colored manga", "yu yu hakusho official color", "read yu yu hakusho manga", "yu yu hakusho manga online free", "yu yu hakusho full manga"],
     poster: "/covers/yu-yu-hakusho.jpg",
     accent: "#2e5e8c",
     mark: "👻",
@@ -1724,8 +1739,8 @@ const HAND_MANGAS: Manga[] = [
   {
     slug: "sakamoto-days",
     popularity: 52,
-    color: "none",
-    colorNote: "Complete series in black & white — colorized version coming soon",
+    color: "partial",
+    colorNote: "Official-color chapters 1–7; chapters 8–270 remain HD black & white",
     title: "Sakamoto Days",
     nativeTitle: "サカモトデイズ",
     altTitles: ["Sakamoto Days Manga"],
@@ -1737,10 +1752,10 @@ const HAND_MANGAS: Manga[] = [
     year: 2020,
     imageBase: SAKAMOTO_DAYS_IMAGE_BASE,
     tagline:
-      "Yuto Suzuki's Sakamoto Days — the complete manga in HD black & white, free.",
+      "Yuto Suzuki's Sakamoto Days with official-color chapters 1–7 in HD.",
     synopsis:
-      "Read Sakamoto Days online free — the complete manga in high-quality black & white. Legendary hitman Taro Sakamoto retired for love, got fat, and runs a corner store — until the underworld comes calling, in Yuto Suzuki's inventive action hit. No official full-color edition exists yet, so every chapter is hosted here in black & white, clearly labeled, with a fast mobile reader and pinch-to-zoom on every page. The colorized version is coming soon. No signup, no paywall.",
-    keywords: ["sakamoto days manga online free", "read sakamoto days manga", "sakamoto days manga black and white", "sakamoto days full manga", "sakamoto days manga free"],
+      "Read Sakamoto Days online free, including verified official-color chapters 1–7 while chapters 8–270 remain honestly labeled HD black & white. Legendary hitman Taro Sakamoto retired for love and runs a corner store until the underworld comes calling, in Yuto Suzuki's inventive action hit. No signup, no paywall, with a fast mobile reader and pinch-to-zoom.",
+    keywords: ["sakamoto days colored manga", "sakamoto days official color", "read sakamoto days manga", "sakamoto days manga online free", "sakamoto days full manga"],
     poster: "/covers/sakamoto-days.jpg",
     accent: "#d97b29",
     mark: "🏪",

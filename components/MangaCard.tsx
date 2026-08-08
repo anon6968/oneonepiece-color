@@ -54,9 +54,7 @@ export default function MangaCard({ manga, priority = false }: { manga: Manga; p
             loading={priority ? "eager" : "lazy"}
             decoding="async"
             style={{ objectPosition: manga.posterPosition ?? "top" }}
-            className={`h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04] ${
-              manga.color === "none" ? "grayscale" : ""
-            }`}
+            className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
           />
         ) : (
           <div

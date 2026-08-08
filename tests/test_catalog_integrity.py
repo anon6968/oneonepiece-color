@@ -20,6 +20,15 @@ SHA_BASE = re.compile(
     r"^https://cdn\.jsdelivr\.net/gh/anon6968/[a-z0-9.-]+@([0-9a-f]{40})/pages$"
 )
 
+# These archives contain only colored units, but are intentionally partial at
+# series level because their exact metadata discloses unhosted source chapters.
+COLOR_ONLY_PARTIAL_SLUGS = {
+    "undead-unluck",
+    "made-in-abyss",
+    "miss-kobayashis-dragon-maid",
+    "dragon-ball-sd",
+}
+
 
 def _hand_entries():
     start = REGISTRY.index("const HAND_MANGAS: Manga[] = [")
@@ -393,6 +402,17 @@ class CatalogIntegrityTests(unittest.TestCase):
         landing = (WEB / "app/[manga]/page.tsx").read_text()
         self.assertIn("seriesMetadataPresentation({", landing)
 
+    def test_fan_translation_is_not_mislabeled_as_fan_coloring(self):
+        actual = run_typescript(
+            "lib/unit-presentation.ts",
+            "({fanColor: subject.isFanColoredNote('Fan-colored selection only'), fanTranslation: subject.isFanColoredNote('Official full-color art with fan English translation')})",
+        )
+        self.assertTrue(actual["fanColor"])
+        self.assertFalse(actual["fanTranslation"])
+        landing = (WEB / "app/[manga]/page.tsx").read_text()
+        self.assertIn("isFanColoredNote(m.colorNote)", landing)
+        self.assertNotIn('includes("fan")', landing)
+
     def test_one_piece_copy_and_black_clover_total_match_baked_coverage(self):
         one_piece = next(row for row in _hand_entries() if row["slug"] == "one-piece")
         black_clover = next(row for row in _hand_entries() if row["slug"] == "black-clover")
@@ -496,11 +516,18 @@ class CatalogIntegrityTests(unittest.TestCase):
             if row["parts"]:
                 continue
             types = {ch["type"] for ch in manifest(slug)["chapters"]}
-            expected = "full" if types == {"color"} else "partial" if "color" in types else "none"
+            # A sparse color-only archive can still be `partial` at series
+            # level when unhosted source chapters are explicitly disclosed.
+            if types == {"color"}:
+                expected = (
+                    {"partial"} if slug in COLOR_ONLY_PARTIAL_SLUGS else {"full"}
+                )
+            else:
+                expected = {"partial"} if "color" in types else {"none"}
             problems = []
-            if row["color"] != expected:
+            if row["color"] not in expected:
                 problems.append((row["color"], expected, sorted(types)))
-            if expected == "partial" and not row["colorNote"]:
+            if row["color"] == "partial" and not row["colorNote"]:
                 problems.append("partial coverage requires an exact note")
             if problems:
                 mismatches[slug] = problems
@@ -575,8 +602,112 @@ class CatalogIntegrityTests(unittest.TestCase):
         self.assertEqual(155, len(golden["chapters"]))
         self.assertIn(36, {c["chapter"] for c in golden["chapters"]})
 
-    def test_changed_chapter_files_are_exactly_the_approved_delta(self):
+    def test_ten_famous_2026_08_08_additions_are_exact(self):
         expected = {
+            "dragon-ball-super": (set(range(1, 105)), "chapter", "full"),
+            "undead-unluck": (set(range(1, 71)), "chapter", "partial"),
+            "made-in-abyss": ({*range(1, 10), *range(47, 53)}, "chapter", "partial"),
+            "highschool-of-the-dead": (set(range(1, 8)), "volume", "full"),
+            "miss-kobayashis-dragon-maid": (
+                {2, 30, 31, 33, 43, 46, 54, 55, 62, 63, 81, 91},
+                "chapter",
+                "partial",
+            ),
+            "tomo-chan-is-a-girl": (set(range(1, 23)), "chapter", "full"),
+            "sand-land": (set(range(1, 11)), "chapter", "full"),
+            "thus-spoke-rohan-kishibe": (set(range(1, 13)), "chapter", "full"),
+            "to-love-ru-darkness": (set(range(0, 78)), "chapter", "full"),
+            "dragon-ball-sd": (set(range(1, 45)), "chapter", "partial"),
+        }
+        expected_image_bases = {
+            "dragon-ball-super": "https://cdn.jsdelivr.net/gh/anon6968/dragon-ball-super-official-color-archive-color-pages@1764c88f609eadfb50c1ef4a997df1ab62defaaa/pages",
+            "undead-unluck": "https://cdn.jsdelivr.net/gh/anon6968/undead-unluck-official-color-archive-color-pages@77aeaa15a2129102915454b43e75904c826fa8f0/pages",
+            "made-in-abyss": "https://cdn.jsdelivr.net/gh/anon6968/made-in-abyss-color-pages@3269e2b2eca011c810801dc522e306e589ab571a/pages",
+            "highschool-of-the-dead": "https://cdn.jsdelivr.net/gh/anon6968/high-school-of-the-dead-full-color-archive-color-pages@39fe3e674ab043c4663be8e49cc41005d022ed08/pages",
+            "miss-kobayashis-dragon-maid": "https://cdn.jsdelivr.net/gh/anon6968/miss-kobayashis-dragon-maid-color-archive-color-pages@8a7db94b795cda39c813c6a0eef434e9c0a86e3c/pages",
+            "tomo-chan-is-a-girl": "https://cdn.jsdelivr.net/gh/anon6968/tomo-chan-is-a-girl-color-pages@9dc2d14ac73cc1f0b206185d9933d471da904db9/pages",
+            "sand-land": "https://cdn.jsdelivr.net/gh/anon6968/sand-land-official-color-archive-color-pages@472a40e2991a91b6491029a6bffa3cd536cbfa9b/pages",
+            "thus-spoke-rohan-kishibe": "https://cdn.jsdelivr.net/gh/anon6968/thus-spoke-rohan-kishibe-color-pages@5d205a2b50a61d1e7764460d456d56f3373c242e/pages",
+            "to-love-ru-darkness": "https://cdn.jsdelivr.net/gh/anon6968/to-love-ru-darkness-color-pages@85d4761d91e590ca93590f57a784ad4e1d56e76b/pages",
+            "dragon-ball-sd": "https://cdn.jsdelivr.net/gh/anon6968/dragon-ball-sd-color-pages@3ebe0bbd45005ac510ea63264e678e1524ad8869/pages",
+        }
+        actual_entries = {
+            row["slug"]: row for row in json.loads((WEB / "data/auto-series.json").read_text())
+        }
+        for slug, (available, unit, color) in expected.items():
+            self.assertIn(slug, self.live)
+            self.assertIn(slug, actual_entries)
+            entry = actual_entries[slug]
+            self.assertEqual("live", entry["status"], slug)
+            self.assertEqual(color, entry["color"], slug)
+            self.assertEqual(unit, entry["unit"], slug)
+            self.assertEqual(available, {c["chapter"] for c in manifest(slug)["chapters"]}, slug)
+            self.assertEqual({"color"}, {c["type"] for c in manifest(slug)["chapters"]}, slug)
+            self.assertEqual(expected_image_bases[slug], entry["imageBase"], slug)
+            self.assertRegex(entry["imageBase"], SHA_BASE)
+            self.assertEqual(f"/covers/{slug}.jpg", entry["poster"], slug)
+
+        # The reader parser and static route inventory intentionally admit a
+        # real chapter 0; To Love-Ru Darkness must not silently lose its prologue.
+        unit_page = (WEB / "lib/unit-page.tsx").read_text()
+        self.assertIn("v >= 0", unit_page)
+        self.assertIn(
+            "https://colorizedmangas.com/to-love-ru-darkness/chapter/0",
+            candidate_urls(self.rows),
+        )
+
+        before = {
+            line.strip().rstrip("/")
+            for line in CURRENT_BASELINE_URLS.read_text().splitlines()
+            if line.strip()
+        }
+        after = {url.rstrip("/") for url in candidate_urls(self.rows)}
+        # Ten new series add 404 URLs; the same release also admits four
+        # independently verified missing color chapters below.
+        self.assertEqual(408, len(after - before))
+
+    def test_2026_08_08_verified_existing_series_gaps_are_filled(self):
+        expected = {
+            "hoshin-engi": (
+                set(range(1, 50)),
+                "https://cdn.jsdelivr.net/gh/anon6968/hoshin-engi-color-pages@1a960b92df020b3b56effcc19f13559271539054/pages",
+            ),
+            "shadows-house": (
+                set(range(1, 239)),
+                "https://cdn.jsdelivr.net/gh/anon6968/shadows-house-color-pages@f7efc4fb53461753133157651636199c79ef4f90/pages",
+            ),
+        }
+        for slug, (available, image_base) in expected.items():
+            self.assertEqual(available, {c["chapter"] for c in manifest(slug)["chapters"]}, slug)
+            self.assertEqual({"color"}, {c["type"] for c in manifest(slug)["chapters"]}, slug)
+            self.assertEqual(image_base, self.live[slug]["imageBase"], slug)
+
+    def test_route_neutral_2026_08_08_color_overlays_are_exact(self):
+        expected = {
+            "sakamoto-days": (
+                set(range(1, 8)),
+                "https://cdn.jsdelivr.net/gh/anon6968/sakamoto-days-color-pages@009b33b5e546bdd83926bd97d5f0c3b610a58271/pages",
+            ),
+            "tokyo-revengers": (
+                set(range(1, 15)),
+                "https://cdn.jsdelivr.net/gh/anon6968/tokyo-revengers-color-pages@de6d4b59eef25e07a824769b04d7ee3c9f72c3ed/pages",
+            ),
+            "yu-yu-hakusho": (
+                set(range(1, 52)),
+                "https://cdn.jsdelivr.net/gh/anon6968/yu-yu-hakusho-color-pages@f889b87234e5719f18bcea607e2712cf50a9bf22/pages",
+            ),
+        }
+        for slug, (colored_units, image_base) in expected.items():
+            self.assertEqual("partial", self.live[slug]["color"], slug)
+            self.assertEqual(image_base, self.live[slug]["imageBase"], slug)
+            self.assertEqual(
+                colored_units,
+                {c["chapter"] for c in manifest(slug)["chapters"] if c["type"] == "color"},
+                slug,
+            )
+
+    def test_changed_chapter_files_are_exactly_the_approved_delta(self):
+        expected_previous_release = {
             "attack-on-titan": {93},
             "haikyu": set(range(1, 403)),
             "seven-deadly-sins": {324},
@@ -590,6 +721,24 @@ class CatalogIntegrityTests(unittest.TestCase):
             "jojo-no-kimyou-na-bouken-part-5-ougon-no": {36},
             "jojo-s-bizarre-adventure-part-9-the-jojo": {30},
         }
+        expected_current_release = {
+            "dragon-ball-super": set(range(1, 105)),
+            "undead-unluck": set(range(1, 71)),
+            "made-in-abyss": {*range(1, 10), *range(47, 53)},
+            "highschool-of-the-dead": set(range(1, 8)),
+            "miss-kobayashis-dragon-maid": {2, 30, 31, 33, 43, 46, 54, 55, 62, 63, 81, 91},
+            "tomo-chan-is-a-girl": set(range(1, 23)),
+            "sand-land": set(range(1, 11)),
+            "thus-spoke-rohan-kishibe": set(range(1, 13)),
+            "to-love-ru-darkness": set(range(0, 78)),
+            "dragon-ball-sd": set(range(1, 45)),
+            "sakamoto-days": set(range(1, 8)),
+            "tokyo-revengers": set(range(1, 15)),
+            "yu-yu-hakusho": set(range(1, 52)),
+            "hoshin-engi": {47, 48, 49},
+            "shadows-house": {238},
+        }
+        expected = {**expected_previous_release, **expected_current_release}
         expected_paths = {
             f"data/manga/{slug}/chapters/{number}.json"
             for slug, numbers in expected.items()
